@@ -1,3 +1,5 @@
 Learning Github
 
---second commit to test ammend
+- second commit to test amend
+
+- another line
