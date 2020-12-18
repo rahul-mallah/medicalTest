@@ -5,6 +5,8 @@ import {Link} from 'react-router-dom';
 function ViewAllAccountUI()
 {
     return (
-        
+        <div>
+            
+        </div>
     )
 }
