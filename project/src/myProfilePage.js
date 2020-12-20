@@ -1,9 +1,11 @@
 import React from 'react'
 import {Form, Button, Card, Container} from 'react-bootstrap'
-import {Link} from 'react-router-dom';
+import NavBar from "./components/navbarUI";
 
-function RegisterUI() {
+function myProfile() {
     return (
+       <div>
+          <NavBar/>
             <Container className="d-flex align-items-center justify-content-center"
       style={{ minHeight: "100vh"}}>
           <div className="w-100" style={{maxWidth: "500px"}}>
@@ -45,8 +47,9 @@ function RegisterUI() {
             </Card>
             </div>
             </Container>
+            </div>
     )
 }
 
-export default RegisterUI
+export default myProfile
 
