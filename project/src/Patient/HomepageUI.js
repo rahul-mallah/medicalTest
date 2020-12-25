@@ -1,5 +1,5 @@
 import React from 'react';
-import NavBar from './components/navbarUI';
+import NavBar from '../components/navbarUI';
 function HomepageUI() {
     return (
         <div>

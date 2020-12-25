@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'
 import {Form, Button, Card, Container, Alert} from 'react-bootstrap'
 import { Link, useHistory} from 'react-router-dom';
-import { auth, firestore } from './firebase';
+import { auth, firestore } from '../firebase';
 
 function RegisterUI() {
 

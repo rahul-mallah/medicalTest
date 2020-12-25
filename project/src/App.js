@@ -1,10 +1,10 @@
 import './App.css';
-import LoginUI from './LoginUI';
-import RegisterUI  from './RegisterUI';
+import LoginUI from './User/LoginUI';
+import RegisterUI  from './Patient/RegisterUI';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import ResetPasswordUI from './ResetPasswordUI';
+import ResetPasswordUI from './User/ResetPasswordUI';
 import myProfile from "./myProfilePage";
-import HomepageUI from './HomepageUI';
+import HomepageUI from './Patient/HomepageUI';
 import { AuthProvider } from './util/Auth';
 import PrivateRoute from "./util/AuthRoute";
 function App() {
@@ -14,9 +14,13 @@ function App() {
       <AuthProvider>
         <Switch>
           <PrivateRoute exact path="/" component={HomepageUI}/>
+          // User view / edit profile page
           <PrivateRoute path="/myProfile" component={myProfile}/>
+          // Patient Create New Account Page
           <Route path="/register" component={RegisterUI}/>
+          // User Reset Password PAge
           <Route path="/resetPassword" component={ResetPasswordUI}/>
+          // User Login Page
           <Route path="/login" component={LoginUI}/>
         </Switch>
         </AuthProvider>
