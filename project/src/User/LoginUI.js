@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {Form, Button, Card, Container, Alert} from 'react-bootstrap'
-import { auth } from './firebase';
+import { auth } from '../firebase';
 import { Link, useHistory } from 'react-router-dom';
 function LoginUI() {
     //useStates
