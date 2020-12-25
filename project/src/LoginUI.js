@@ -1,7 +1,31 @@
-import React from 'react'
-import {Form, Button, Card, Container} from 'react-bootstrap'
-import {Link} from 'react-router-dom';
+import React, {useState} from 'react'
+import {Form, Button, Card, Container, Alert} from 'react-bootstrap'
+import { auth } from './firebase';
+import { Link, useHistory } from 'react-router-dom';
 function LoginUI() {
+    //useStates
+    const [Email, setEmail] = useState("");
+    const [Password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
+    const history = useHistory();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            setError("");
+            setLoading(true);
+            await auth.signInWithEmailAndPassword(Email, Password);
+            history.push("/");
+        }catch(error) {
+            return setError(error.message);
+        }
+        setEmail("");
+        setPassword("");
+        setLoading(false);
+    };
+
     return (
         <div style={{backgroundImage: `url("https://i.ibb.co/yRDqQHh/pexels-karolina-grabowska-4021769.jpg")`,
         backgroundRepeat: 'no-repeat',
@@ -16,14 +40,21 @@ function LoginUI() {
                      fontSize: '2em'
                  }}>MyAppointment</h1>
                  <h2 className= "text-center mb-4"> Login</h2>
-                 <Form>
+                 {error && <Alert variant="danger">{error}</Alert>}
+                 <Form onSubmit={handleSubmit}>
                      <Form.Group id = "email">
                         <Form.Label>Email</Form.Label>
-                        <Form.Control type="email" required/>
+                        <Form.Control 
+                        value={Email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        type="email" required/>
                      </Form.Group>
                      <Form.Group id = "password">
                         <Form.Label>Passsword</Form.Label>
-                        <Form.Control type="password" required/>
+                        <Form.Control 
+                        value={Password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        type="password" required/>
                      </Form.Group>
                      <Button className="w-100" type="submit">Login</Button>
                  </Form>

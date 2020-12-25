@@ -1,12 +1,13 @@
 import React from 'react';
 import {Navbar, Nav} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import { auth } from '../firebase';
 
 const NavBar = () => {
     return(
     <div>
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-    <Navbar.Brand href="#home">MyAppointment</Navbar.Brand>
+    <Navbar.Brand><Link to="/">MyAppointment</Link></Navbar.Brand>
     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
     <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
@@ -14,7 +15,7 @@ const NavBar = () => {
         <Nav>
             <Nav.Link href="">Back</Nav.Link>
             <Nav.Link eventKey={2} href="#memes">Change Password</Nav.Link>
-            <Nav.Link href="">Logout</Nav.Link>
+            <Nav.Link onClick={() => auth.signOut()}>Logout</Nav.Link>
         </Nav>
     </Navbar.Collapse>
     </Navbar>
