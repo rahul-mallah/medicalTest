@@ -26,7 +26,7 @@ function App() {
           // User Login Page
           <Route path="/login" component={LoginUI}/>
           // Sys admin view all account page
-          <PrivateRoute path="/viewAllAccount" component={ViewAllAccountUI}/>
+          <Route path="/viewAllAccount" component={ViewAllAccountUI}/>
           // Sys admin create account page
           <PrivateRoute path="/createAccount" component={CreateAccountUI}/>
         </Switch>
