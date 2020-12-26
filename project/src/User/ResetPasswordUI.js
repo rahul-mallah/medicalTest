@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react"
-import { Form, Button, Card, Alert } from "react-bootstrap"
+import { Form, Button, Card, Alert, Container } from "react-bootstrap"
 import { useAuth } from '../util/Auth';
 import { Link } from "react-router-dom"
 
@@ -28,9 +28,17 @@ export default function ResetPasswordUI() {
   
     return (
       <>
+      <div style={{backgroundImage: `url("https://i.imgur.com/DHwLvgC.jpg")`,
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+        backgroundSize: 'center'}}>
+      <Container className="d-flex align-items-center justify-content-center"
+      style={{ minHeight: "100vh"}}>
+          <div className="w-100" style={{maxWidth: "400px"}}>
         <Card>
           <Card.Body>
-            <h2 className="w-100 text-center mt-2">Reset Password</h2>
+            <h2 className="text-center mb-4" style={{
+                     fontSize: '2em'}}>Reset Password</h2>
             {error && <Alert variant="danger">{error}</Alert>}
             {message && <Alert variant="success">{message}</Alert>}
             <Form onSubmit={handleSubmit}>
@@ -48,7 +56,10 @@ export default function ResetPasswordUI() {
           </Card.Body>
         </Card>
         <div className="w-100 text-center mt-2">
-          Need an account? <Link to="/signup">Sign Up Now!</Link>
+          Need an account? <Link to="/register">Sign Up Now!</Link>
+        </div>
+        </div>
+        </Container>
         </div>
       </>
     )
