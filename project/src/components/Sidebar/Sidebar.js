@@ -8,7 +8,7 @@ const Sidebar = props => {
 
     // State
     const [selected, setSelectedMenuItem] = useState(menuItems[0].name);
-    const [isSidebarOpen, setSidebarState] = useState(true);
+    const [isSidebarClose, setSidebarState] = useState(true);
 
     // Change color for font and border for selected items
     const handleMenuItemClick = name => {
@@ -26,12 +26,12 @@ const Sidebar = props => {
                 key = {index}
                 selected = {isItemSelected}
                 onClick={() => handleMenuItemClick(item.name)}
-                isSidebarOpen={isSidebarOpen}
+                isSidebarClose={isSidebarClose}
             >
-                <s.Icon isSidebarOpen={isSidebarOpen} src={item.icon}/>
-                <s.Text isSidebarOpen={isSidebarOpen}>{item.name}</s.Text>
+                <s.Icon isSidebarClose={isSidebarClose} src={item.icon}/>
+                <s.Text isSidebarClose={isSidebarClose}>{item.name}</s.Text>
                 {hasSubMenu && (
-                    <s.DropdownIcon isSidebarOpen={isSidebarOpen}/>
+                    <s.DropdownIcon isSidebarClose={isSidebarClose}/>
                 )}
             </s.MenuItem>
         )
@@ -40,8 +40,8 @@ const Sidebar = props => {
 
 
     return ( 
-        <s.SidebarContainer isSidebarOpen={isSidebarOpen}> 
-            <s.TogglerContainer onClick={() => setSidebarState(!isSidebarOpen)}>
+        <s.SidebarContainer isSidebarClose={isSidebarClose}> 
+            <s.TogglerContainer onClick={() => setSidebarState(!isSidebarClose)}>
                 <s.Toggler />
             </s.TogglerContainer>
             <s.MenuItemContainer>{menuItemsJSX}</s.MenuItemContainer>

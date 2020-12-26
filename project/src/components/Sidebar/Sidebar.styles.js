@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const SidebarContainer = styled.div`
-    width: ${p => p.isSidebarOpen ? '100%' : '5%'};
+    width: ${p => p.isSidebarClose ? '5%' : '100%'};
     min-width: 50px;
     color: #98AFC7;
     background-image: linear-gradient(
@@ -24,7 +24,7 @@ export const ItemContainer = styled.div``;
 
 // Menu Item --------------------------------------------
 export const MenuItem = styled.div`
-    ${p => !p.isSidebarOpen && `
+    ${p => p.isSidebarClose && `
         text-align: center;
         ${p.selected && 'background-color: rgba(0,0,0,0.6)'};
     `};
@@ -61,11 +61,11 @@ export const MenuItem = styled.div`
 `;
 
 export const Text = styled.p`
-    display: ${p => p.isSidebarOpen ? 'inline' : 'none'};
+    display: ${p => p.isSidebarClose ? 'none' : 'inline'};
 `;
 
 export const Icon = styled.img`
-    ${p => p.isSidebarOpen && `
+    ${p => !p.isSidebarClose && `
         padding-right: 15px;
         transition: .2s ease-in padding;
     `};
@@ -83,7 +83,7 @@ export const DropdownIcon = styled.span`
     top: 12px;
     right: 24px;
     border: solid ${p => p.selected ? '#E3E4FA' : '#98AFC7'};
-    border-width: ${p => p.isSidebarOpen ? '0 1px 1px 0' : '0 0 0 0'};
+    border-width: ${p => p.isSidebarClose ? '0 0 0 0' : '0 1px 1px 0'};
     padding: 3px;
     transform: rotate(45deg);
 `;
