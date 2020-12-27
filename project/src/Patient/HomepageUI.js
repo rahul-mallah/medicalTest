@@ -17,8 +17,8 @@ function HomepageUI() {
                                 className="card-img-top" alt="..." height="240px"/>
                                 <div className="card-body">
                                     <h5 className="card-title">Medical Profile</h5>
-                                    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                    <a href="" className="btn btn-primary">Click Here</a>
+                                    <p className="card-text">View your past medical visits, medical reports, bill receipts, medical prescriptions, Medical certificates and more!</p>
+                                    <a href="" className="btn btn-primary">View Medical Profiles</a>
                                 </div>
                         </div>
                     </div>
@@ -28,8 +28,8 @@ function HomepageUI() {
                             className="card-img-top" alt="..." height="240px"/>
                             <div className="card-body">
                                 <h5 className="card-title">Appointment</h5>
-                                <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="" className="btn btn-primary">Click Here</a>
+                                <p className="card-text">View all our appointment records here! You can Book a new appointment, Reschedule or Cancel any existing appointments here.</p>
+                                <a href="" className="btn btn-primary">View/Amend Appointments</a>
                             </div>
                         </div>
                     </div>
@@ -39,8 +39,8 @@ function HomepageUI() {
                             className="card-img-top" alt="..." height="240px"/>
                             <div className="card-body">
                                 <h5 className="card-title">My Profile</h5>
-                                <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="" className="btn btn-primary">Click Here</a>
+                                <p className="card-text">You can see all your profile details here. You may choose to edit your address and telephone number</p>
+                                <a href="" className="btn btn-primary">View/Edit profile</a>
                             </div>
                         </div>
                     </div>
@@ -54,7 +54,7 @@ function HomepageUI() {
                                 className="card-img-top" alt="..." height="200px"/>
                                 <div className="card-body">
                                     <h5 className="card-title">Educational</h5>
-                                    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    <p className="card-text">Get your hands on the latest health educational materials and health promotions</p>
                                     <a href="" className="btn btn-primary">Click Here</a>
                                 </div>
                         </div>
@@ -65,8 +65,8 @@ function HomepageUI() {
                             className="card-img-top" alt="..." height="200px"/>
                             <div className="card-body">
                                 <h5 className="card-title">Doctor Profile</h5>
-                                <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="" className="btn btn-primary">Click Here</a>
+                                <p className="card-text">Search from a list of our healthcare doctors to learn more about them to help plan for your next appointments!</p>
+                                <a href="" className="btn btn-primary">Search Doctors</a>
                             </div>
                         </div>
                     </div>
