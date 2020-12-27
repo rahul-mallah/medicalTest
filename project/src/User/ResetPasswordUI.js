@@ -31,7 +31,7 @@ export default function ResetPasswordUI() {
       <div style={{backgroundImage: `url("https://i.ibb.co/yRDqQHh/pexels-karolina-grabowska-4021769.jpg")`,
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
-        backgroundSize: 'center'}}>
+        backgroundSize: 'cover'}}>
       <Container className="d-flex align-items-center justify-content-center"
       style={{ minHeight: "100vh"}}>
           <div className="w-100" style={{maxWidth: "400px"}}>
