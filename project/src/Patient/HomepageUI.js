@@ -1,5 +1,7 @@
 import React from 'react';
 import NavBar from '../components/navbarUI';
+import { Link } from "react-router-dom"
+
 function HomepageUI() {
     return (
         <div>
@@ -18,7 +20,9 @@ function HomepageUI() {
                                 <div className="card-body">
                                     <h5 className="card-title">Medical Profile</h5>
                                     <p className="card-text">View your past medical visits, medical reports, bill receipts, medical prescriptions, Medical certificates and more!</p>
+                                    <Link to="/medicalProfilePatientView">
                                     <a href="" className="btn btn-primary">View Medical Profiles</a>
+                                    </Link>
                                 </div>
                         </div>
                     </div>
@@ -29,7 +33,9 @@ function HomepageUI() {
                             <div className="card-body">
                                 <h5 className="card-title">Appointment</h5>
                                 <p className="card-text">View all our appointment records here! You can Book a new appointment, Reschedule or Cancel any existing appointments here.</p>
+                                <Link to="/userAppointment">
                                 <a href="" className="btn btn-primary">View/Amend Appointments</a>
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -39,8 +45,10 @@ function HomepageUI() {
                             className="card-img-top" alt="..." height="240px"/>
                             <div className="card-body">
                                 <h5 className="card-title">My Profile</h5>
-                                <p className="card-text">You can see all your profile details here. You may choose to edit your address and telephone number</p>
-                                <a href="" className="btn btn-primary">View/Edit profile</a>
+                                <p className="card-text">You can see all your profile details here. You may choose to edit your address and telephone number.</p>
+                                <Link to="/myProfile">
+                                    <a href="" className="btn btn-primary">View/Edit profile</a>
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -54,8 +62,10 @@ function HomepageUI() {
                                 className="card-img-top" alt="..." height="200px"/>
                                 <div className="card-body">
                                     <h5 className="card-title">Educational</h5>
-                                    <p className="card-text">Get your hands on the latest health educational materials and health promotions</p>
-                                    <a href="" className="btn btn-primary">Click Here</a>
+                                    <p className="card-text">Get your hands on the latest health educational materials and health promotions!</p>
+                                    <Link to="/healthMaterialViewOnly">
+                                        <a href="" className="btn btn-primary">Click Here</a>
+                                    </Link>
                                 </div>
                         </div>
                     </div>
@@ -66,7 +76,9 @@ function HomepageUI() {
                             <div className="card-body">
                                 <h5 className="card-title">Doctor Profile</h5>
                                 <p className="card-text">Search from a list of our healthcare doctors to learn more about them to help plan for your next appointments!</p>
+                                <Link to="/searchDoctor">
                                 <a href="" className="btn btn-primary">Search Doctors</a>
+                                </Link>
                             </div>
                         </div>
                     </div>
