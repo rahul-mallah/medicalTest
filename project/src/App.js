@@ -21,7 +21,7 @@ function App() {
           <PrivateRoute path="/myProfile" component={myProfileUI}/>
           // Patient Create New Account Page
           <Route path="/register" component={RegisterUI}/>
-          // User Reset Password PAge
+          // User Reset Password Page
           <Route path="/resetPassword" component={ResetPasswordUI}/>
           // User Login Page
           <Route path="/login" component={LoginUI}/>

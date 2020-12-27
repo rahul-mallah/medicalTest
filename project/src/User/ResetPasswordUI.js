@@ -18,7 +18,7 @@ export default function ResetPasswordUI() {
         setError("")
         setLoading(true)
         await resetPassword(emailRef.current.value)
-        setMessage("Successful! Check your inbox for further Instructions")
+        setMessage("Successful! Check your inbox for further Instructions on how to create a new password")
       } catch {
         setError("Request Fail. Please enter a registered email.")
       }
@@ -38,7 +38,7 @@ export default function ResetPasswordUI() {
         <Card>
           <Card.Body>
             <h2 className="text-center mb-4" style={{
-                     fontSize: '2em'}}>Reset Password</h2>
+                     fontSize: '2em'}}>Change or Reset your Password</h2>
             {error && <Alert variant="danger">{error}</Alert>}
             {message && <Alert variant="success">{message}</Alert>}
             <Form onSubmit={handleSubmit}>
@@ -47,7 +47,7 @@ export default function ResetPasswordUI() {
                 <Form.Control type="email" ref={emailRef} required />
               </Form.Group>
               <Button disabled={loading} className="w-100 text-center mt-2" type="submit">
-                Reset Password Now
+                Change or Reset Password Now
               </Button>
             </Form>
             <div className="w-100 text-center mt-2">
