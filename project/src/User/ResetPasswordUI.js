@@ -28,7 +28,7 @@ export default function ResetPasswordUI() {
   
     return (
       <>
-      <div style={{backgroundImage: `url("https://i.imgur.com/DHwLvgC.jpg")`,
+      <div style={{backgroundImage: `url("https://i.ibb.co/yRDqQHh/pexels-karolina-grabowska-4021769.jpg")`,
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
         backgroundSize: 'center'}}>
