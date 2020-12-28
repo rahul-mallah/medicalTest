@@ -31,7 +31,7 @@ export default function ResetPasswordUI() {
       <div style={{backgroundImage: `url("https://i.ibb.co/yRDqQHh/pexels-karolina-grabowska-4021769.jpg")`,
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
-        backgroundSize: 'center'}}>
+        backgroundSize: 'cover'}}>
       <Container className="d-flex align-items-center justify-content-center"
       style={{ minHeight: "100vh"}}>
           <div className="w-100" style={{maxWidth: "400px"}}>
@@ -53,11 +53,14 @@ export default function ResetPasswordUI() {
             <div className="w-100 text-center mt-2">
               <Link to="/login">Back to Login Screen</Link>
             </div>
+            <div className="w-100 text-center mt-2">
+              <Link to="/">Back to Homepage</Link>
+            </div>
+            <div className="w-100 text-center mt-2">
+          Need an account? <Link to="/register">Sign Up Now!</Link>
+            </div>
           </Card.Body>
         </Card>
-        <div className="w-100 text-center mt-2">
-          Need an account? <Link to="/register">Sign Up Now!</Link>
-        </div>
         </div>
         </Container>
         </div>
