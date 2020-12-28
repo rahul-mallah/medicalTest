@@ -36,12 +36,8 @@ function App() {
           <PrivateRoute exact path="/" component={HomepageUI}/>
 
           // User view / edit profile page
-<<<<<<< HEAD
           <PrivateRoute path="/myProfile" component={MyProfile}/>
-=======
-          <PrivateRoute path="/myProfile" component={myProfileUI}/>
 
->>>>>>> f7effcc39f3ba9e595d55527482b8a68a3a09d5e
           // Sys admin create account page
           <PrivateRoute path="/createAccount" component={CreateAccountUI}/>
 
