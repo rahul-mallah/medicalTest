@@ -2,12 +2,14 @@ import React, {useState} from 'react'
 import {Form, Button, Card, Container, Alert} from 'react-bootstrap'
 import { auth } from '../firebase';
 import { Link, useHistory } from 'react-router-dom';
+import { useAuth } from '../util/Auth';
 function LoginUI() {
     //useStates
     const [Email, setEmail] = useState("");
     const [Password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+    const {login} = useAuth();
     const history = useHistory();
 
     const handleSubmit = async (e) => {
@@ -16,7 +18,7 @@ function LoginUI() {
         try {
             setError("");
             setLoading(true);
-            await auth.signInWithEmailAndPassword(Email, Password);
+            await login(Email, Password);
             history.push("/");
         }catch(error) {
             return setError(error.message);

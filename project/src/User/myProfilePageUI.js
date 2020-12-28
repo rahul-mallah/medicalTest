@@ -1,11 +1,23 @@
-import React from 'react'
-import {Form, Button, Card, Container} from 'react-bootstrap'
-import NavBar from "../components/navbarUI";
+import React, { useRef, useState } from "react"
+import { Form, Button, Card, Alert, Container } from "react-bootstrap"
+import NavBar from "../components/navbarUI"
+import { useAuth } from '../util/Auth';
 
-function myProfile() {
-    return (
-       <div>
-          <NavBar/>
+function MyProfilePageUI() {
+   const [enableUpdate, setEnableUpdate] = useState(true); 
+   const [enableEdit, setEnableEdit] = useState(false); 
+   const [enableFields, setEnableFields] = useState(true);
+   const { currentUser } = useAuth();
+
+   function setEnabled(){
+      setEnableUpdate(false);
+      setEnableEdit(true);
+      setEnableFields(false);
+   }
+
+   return (
+      <div>
+         <NavBar/>
             <Container className="d-flex align-items-center justify-content-center"
       style={{ minHeight: "100vh"}}>
           <div className="w-100" style={{maxWidth: "500px"}}>
@@ -15,19 +27,19 @@ function myProfile() {
                  <Form>
                      <Form.Group id = "FirstName">
                         <Form.Label>First Name</Form.Label>
-                        <Form.Control type="text" required/>
+                        <Form.Control disabled = {enableFields} type="text" required/>
                      </Form.Group>
                      <Form.Group id = "LastName">
                         <Form.Label>Last Name</Form.Label>
-                        <Form.Control type="text" required/>
+                        <Form.Control disabled = {enableFields} type="text" required/>
                      </Form.Group>
                      <Form.Group id = "NRIC">
                         <Form.Label>NRIC</Form.Label>
-                        <Form.Control type="text" required/>
+                        <Form.Control disabled = {enableFields} type="text" required/>
                      </Form.Group>
                      <Form.Group id = "address">
                         <Form.Label>Address</Form.Label>
-                        <Form.Control type="text" required/>
+                        <Form.Control disabled = {enableFields} type="text" required/>
                      </Form.Group>
                      <Form.Group id = "DOB">
                         <Form.Label>Date Of Birth</Form.Label>
@@ -35,21 +47,21 @@ function myProfile() {
                      </Form.Group>
                      <Form.Group id = "email">
                         <Form.Label>Email Address</Form.Label>
-                        <Form.Control type="email" required/>
+                        <Form.Control value = {currentUser.email} disabled = {enableFields} type="email" required/>
                      </Form.Group>
                      <Form.Group id = "telephone">
                         <Form.Label>Telephone</Form.Label>
-                        <Form.Control type="invalid" required/>
+                        <Form.Control disabled = {enableFields} type="invalid" required/>
                      </Form.Group>
-                     <Button className="w-100" type="submit">Update</Button>
+                     <Button onClick={setEnabled} disabled = {enableUpdate} className="w-100" type="submit">Update</Button>
+                     <Button onClick={setEnabled} disabled = {enableEdit}className="w-100 my-2" type="submit">Edit</Button>
                  </Form>
              </Card.Body>
             </Card>
             </div>
             </Container>
-            </div>
-    )
+      </div>
+   )
 }
 
-export default myProfile
-
+export default MyProfilePageUI
