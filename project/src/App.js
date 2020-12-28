@@ -3,7 +3,7 @@ import LoginUI from './User/LoginUI';
 import RegisterUI  from './Patient/RegisterUI';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import ResetPasswordUI from './User/ResetPasswordUI';
-import MyProfile from "./User/MyProfilePageUI";
+import MyProfilePageUI from "./User/myProfilePageUI";
 import HomepageUI from './Patient/HomepageUI';
 import { AuthProvider } from './util/Auth';
 import PrivateRoute from "./util/AuthRoute";
@@ -36,7 +36,7 @@ function App() {
           <PrivateRoute exact path="/" component={HomepageUI}/>
 
           // User view / edit profile page
-          <PrivateRoute path="/myProfile" component={MyProfile}/>
+          <PrivateRoute path="/myProfile" component={MyProfilePageUI}/>
 
           // Sys admin create account page
           <PrivateRoute path="/createAccount" component={CreateAccountUI}/>
