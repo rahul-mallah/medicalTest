@@ -28,7 +28,7 @@ const Sidebar = props => {
         })
 
         setSubMenus(newSubmenus);
-    }, [menuItems, subMenuItemStates]);
+    }, [menuItems]);
 
     // Change color for font and border for selected items
     const handleMenuItemClick = (name, index) => {
@@ -49,6 +49,8 @@ const Sidebar = props => {
 
         const hasSubMenu = !!item.subMenuItems.length;
 
+        const isOpen = subMenuItemStates[index] ? subMenuItemStates[index].isOpen : null;
+
         const subMenusJSX = item.subMenuItems.map((subMenuItem, subMenuItemIndex) =>
         {
             return(
@@ -62,15 +64,18 @@ const Sidebar = props => {
                     selected = {isItemSelected}
                     onClick={() => handleMenuItemClick(item.name, index)}
                     isSidebarClose={isSidebarClose}
+                    isOpen={isOpen}
                 >
                     <s.Icon isSidebarClose={isSidebarClose} src={item.icon}/>
                     <s.Text isSidebarClose={isSidebarClose}>{item.name}</s.Text>
                     {hasSubMenu && (
-                        <s.DropdownIcon isSidebarClose={isSidebarClose}/>
+                        <s.DropdownIcon isSidebarClose={isSidebarClose} isOpen={isOpen}/>
                     )}
                 </s.MenuItem>
                 
-                <s.SubMenuItemContainer isSidebarClose={isSidebarClose}>{subMenusJSX}</s.SubMenuItemContainer>
+                {hasSubMenu && isOpen && (
+                    <s.SubMenuItemContainer isSidebarClose={isSidebarClose}>{subMenusJSX}</s.SubMenuItemContainer>
+                )}
 
             </s.ItemContainer>
         )

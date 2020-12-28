@@ -47,7 +47,7 @@ export const MenuItem = styled.div`
 
         // create border
         border: 1px solid ${p => p.selected ? '#E3E4FA' : '#463E3F'};
-        display: block;
+        display: ${p => !p.isSidebarClose && p.selected && p.isOpen ? 'none' : 'block'};
         margin: 8px 0 4px; /* top&bottom right left */
         transition: .2s ease-in all;
     }
@@ -78,7 +78,7 @@ export const Icon = styled.img`
 // Sub Menu Items ---------------------------------------
 export const SubMenuItemContainer = styled.div`
     font-size: 14px;
-    padding-left: 2%;
+    padding-left: 30px;
     ${p => p.isSidebarClose && 'display: none'};
 `;
 
@@ -94,12 +94,13 @@ export const SubMenuItemStyle = styled.p`
 // Dropdown Icon ----------------------------------------
 export const DropdownIcon = styled.span`
     position: absolute;
-    top: 12px;
+    top: ${p => p.isOpen ? '16px' : '12px'};
     right: 24px;
     border: solid ${p => p.selected ? '#E3E4FA' : '#98AFC7'};
     border-width: ${p => p.isSidebarClose ? '0 0 0 0' : '0 1px 1px 0'};
     padding: 3px;
-    transform: rotate(45deg);
+    transform: ${p => p.isOpen ? 'rotate(-135deg)' : 'rotate(45deg)'};
+    transition: .4s;
 `;
 
 // Toggler ----------------------------------------------
