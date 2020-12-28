@@ -14,7 +14,7 @@ export const SidebarContainer = styled.div`
 
 export const MenuItemContainer = styled.div`
     position: absolute;
-    top: 8%;
+    top: 80px;
     left: 0;
     right: 0;
     margin: 0 auto; \* top&bottom left&right*/
@@ -35,6 +35,7 @@ export const MenuItem = styled.div`
     color: ${p => p.selected ? '#E3E4FA' : '#98AFC7'};
     //white-space: nowrap;
     position: relative;
+    transition: .2s ease-in all;
 
     &:hover{
         color: #E5E4E2;
@@ -48,6 +49,7 @@ export const MenuItem = styled.div`
         border: 1px solid ${p => p.selected ? '#E3E4FA' : '#463E3F'};
         display: block;
         margin: 8px 0 4px; /* top&bottom right left */
+        transition: .2s ease-in all;
     }
 
     ${p => !p.selected &&`
@@ -74,8 +76,20 @@ export const Icon = styled.img`
 `;
 
 // Sub Menu Items ---------------------------------------
-export const SubMenuItemContainer = styled.div``;
-export const SubMenuItem = styled.p;
+export const SubMenuItemContainer = styled.div`
+    font-size: 14px;
+    padding-left: 2%;
+    ${p => p.isSidebarClose && 'display: none'};
+`;
+
+export const SubMenuItemStyle = styled.p`
+    color: #98AFC7;
+    cursor: pointer;
+
+    &:hover {
+        color: #E5E4E2
+    };
+`;
 
 // Dropdown Icon ----------------------------------------
 export const DropdownIcon = styled.span`

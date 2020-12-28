@@ -23,7 +23,7 @@ class CreateAccountUI extends React.Component
       ];
 
       return (
-         <div style={{backgroundColor: '#98AFC7'}}>
+         <s.FinalS>
             <NaviBar/>
             <s.AppS>
                <Sidebar
@@ -32,7 +32,7 @@ class CreateAccountUI extends React.Component
                <h2>My Profile</h2>
                <h2> test </h2>
             </s.AppS>
-         </div>
+         </s.FinalS>
       );
    }
 }

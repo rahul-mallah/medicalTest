@@ -6,38 +6,77 @@ const Sidebar = props => {
         menuItems = []
     } = props;
 
-    // State
+    // State ------------------------------------------
     const [selected, setSelectedMenuItem] = useState(menuItems[0].name);
     const [isSidebarClose, setSidebarState] = useState(true);
+    const [subMenuItemStates, setSubMenus] = useState({});
+
+    // Effects ------------------------------------------
+    // Adding index of menu items with submenus to state
+    useEffect(() => {
+        const newSubmenus = {};
+
+        menuItems.forEach((item, index) => {
+            const hasSubMenu = !!item.subMenuItems.length;
+
+            if (hasSubMenu)
+            {
+                newSubmenus[index] = {};
+                newSubmenus[index]['isOpen'] = false;
+                newSubmenus[index]['isSelected'] = null;
+            }
+        })
+
+        setSubMenus(newSubmenus);
+    }, [menuItems, subMenuItemStates]);
 
     // Change color for font and border for selected items
-    const handleMenuItemClick = name => {
+    const handleMenuItemClick = (name, index) => {
         setSelectedMenuItem(name)
+
+        const subMenusCopy = JSON.parse(JSON.stringify(subMenuItemStates));
+
+        if (subMenuItemStates.hasOwnProperty(index))
+        {
+            subMenusCopy[index]['isOpen'] = !subMenusCopy[index]['isOpen']
+            setSubMenus(subMenusCopy)
+        }
     }
 
-    // menu items
+    // menu items ---------------------------------------
     const menuItemsJSX = menuItems.map((item, index) => {
         const isItemSelected = selected === item.name;
 
         const hasSubMenu = !!item.subMenuItems.length;
 
+        const subMenusJSX = item.subMenuItems.map((subMenuItem, subMenuItemIndex) =>
+        {
+            return(
+                <s.SubMenuItemStyle key={subMenuItemIndex}>{subMenuItem.name}</s.SubMenuItemStyle>
+            )
+        });
+
         return(
-            <s.MenuItem 
-                key = {index}
-                selected = {isItemSelected}
-                onClick={() => handleMenuItemClick(item.name)}
-                isSidebarClose={isSidebarClose}
-            >
-                <s.Icon isSidebarClose={isSidebarClose} src={item.icon}/>
-                <s.Text isSidebarClose={isSidebarClose}>{item.name}</s.Text>
-                {hasSubMenu && (
-                    <s.DropdownIcon isSidebarClose={isSidebarClose}/>
-                )}
-            </s.MenuItem>
+            <s.ItemContainer key = {index}>
+                <s.MenuItem
+                    selected = {isItemSelected}
+                    onClick={() => handleMenuItemClick(item.name, index)}
+                    isSidebarClose={isSidebarClose}
+                >
+                    <s.Icon isSidebarClose={isSidebarClose} src={item.icon}/>
+                    <s.Text isSidebarClose={isSidebarClose}>{item.name}</s.Text>
+                    {hasSubMenu && (
+                        <s.DropdownIcon isSidebarClose={isSidebarClose}/>
+                    )}
+                </s.MenuItem>
+                
+                <s.SubMenuItemContainer isSidebarClose={isSidebarClose}>{subMenusJSX}</s.SubMenuItemContainer>
+
+            </s.ItemContainer>
         )
     });
 
-
+    console.log(subMenuItemStates);
 
     return ( 
         <s.SidebarContainer isSidebarClose={isSidebarClose}> 

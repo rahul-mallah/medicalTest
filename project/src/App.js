@@ -22,25 +22,41 @@ function App() {
         <Switch>
           // Patient Create New Account Page
           <Route path="/register" component={RegisterUI}/>
+
           // User Reset Password Page
           <Route path="/resetPassword" component={ResetPasswordUI}/>
+
           // User Login Page
           <Route path="/login" component={LoginUI}/>
+
           // Sys admin view all account page
           <Route path="/viewAllAccount" component={ViewAllAccountUI}/>
+
+          // Patient Homepage
           <PrivateRoute exact path="/" component={HomepageUI}/>
+
           // User view / edit profile page
+<<<<<<< HEAD
           <PrivateRoute path="/myProfile" component={MyProfile}/>
+=======
+          <PrivateRoute path="/myProfile" component={myProfileUI}/>
+
+>>>>>>> f7effcc39f3ba9e595d55527482b8a68a3a09d5e
           // Sys admin create account page
           <PrivateRoute path="/createAccount" component={CreateAccountUI}/>
+
           // Patient's appointment
           <PrivateRoute path="/userAppointment" component={userAppointmentUI}/>
+
           // Patient's medical profile not editable
           <PrivateRoute path="/medicalProfilePatientView" component={medicalProfilePatientViewUI}/>
+
           // Patient's health material not editable
           <Route path="/healthMaterialViewOnly" component={healthMaterialViewOnlyUI}/>
+
           // Patient search doctor
           <Route path="/searchDoctor" component={searchDoctorUI}/>
+          
         </Switch>
         </AuthProvider>
       </Router>
