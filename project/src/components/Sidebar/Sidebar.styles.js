@@ -47,7 +47,7 @@ export const MenuItem = styled.div`
 
         // create border
         border: 1px solid ${p => p.selected ? '#E3E4FA' : '#463E3F'};
-        display: ${p => !p.isSidebarClose && p.selected && p.isOpen ? 'none' : 'block'};
+        display: ${p => !p.isSidebarClose && p.isOpen ? 'none' : 'block'};
         margin: 8px 0 4px; /* top&bottom right left */
         transition: .2s ease-in all;
     }
