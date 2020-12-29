@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import * as s from './Sidebar.styles';
+import {Link} from 'react-router-dom';
 
 const Sidebar = props => {
     const {
@@ -60,18 +61,20 @@ const Sidebar = props => {
 
         return(
             <s.ItemContainer key = {index}>
-                <s.MenuItem
-                    selected = {isItemSelected}
-                    onClick={() => handleMenuItemClick(item.name, index)}
-                    isSidebarClose={isSidebarClose}
-                    isOpen={isOpen}
-                >
-                    <s.Icon isSidebarClose={isSidebarClose} src={item.icon}/>
-                    <s.Text isSidebarClose={isSidebarClose}>{item.name}</s.Text>
-                    {hasSubMenu && (
-                        <s.DropdownIcon isSidebarClose={isSidebarClose} isOpen={isOpen}/>
-                    )}
-                </s.MenuItem>
+
+                    <s.MenuItem
+                        selected = {isItemSelected}
+                        onClick={() => handleMenuItemClick(item.name, index)}
+                        isSidebarClose={isSidebarClose}
+                        isOpen={isOpen}
+                    >
+                        <s.Icon isSidebarClose={isSidebarClose} src={item.icon}/>
+                        <s.Text isSidebarClose={isSidebarClose}>{item.name}</s.Text>
+                        {hasSubMenu && (
+                            <s.DropdownIcon isSidebarClose={isSidebarClose} isOpen={isOpen}/>
+                        )}
+                    </s.MenuItem>
+
                 
                 {hasSubMenu && isOpen && (
                     <s.SubMenuItemContainer isSidebarClose={isSidebarClose}>{subMenusJSX}</s.SubMenuItemContainer>
