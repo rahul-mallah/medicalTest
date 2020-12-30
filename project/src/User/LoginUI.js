@@ -21,7 +21,7 @@ function LoginUI() {
             await login(Email, Password);
             history.push("/");
         }catch(error) {
-            return setError(error.message);
+            setError(error.message);
         }
         setEmail("");
         setPassword("");

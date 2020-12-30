@@ -2,64 +2,161 @@ import React, { useRef, useState } from "react"
 import { Form, Button, Card, Alert, Container } from "react-bootstrap"
 import NavBar from "../components/navbarUI"
 import { useAuth } from '../util/Auth';
+import { auth, firestore } from '../firebase';
 
 function MyProfilePageUI() {
-   const [enableUpdate, setEnableUpdate] = useState(true); 
-   const [enableEdit, setEnableEdit] = useState(false); 
-   const [enableFields, setEnableFields] = useState(true);
-   const { currentUser } = useAuth();
 
-   function setEnabled(){
-      setEnableUpdate(false);
-      setEnableEdit(true);
+   const [FirstName, setFirstName] = useState(""); 
+   const [LastName, setLastName] = useState(""); 
+   const [NRIC, setNRIC] = useState(""); 
+   const [Address, setAddress] = useState(""); 
+   const [DOB, setDOB] = useState(""); 
+   const [Email, setEmail] = useState(""); 
+   const [Telephone, setTelephone] = useState(""); 
+   const [error, setError] = useState("");
+
+   const [enableFields, setEnableFields] = useState(true);
+   const [editEnabled, setEditEnabled] = useState(false);
+   const[updateEnabled, setUpdateEnabled] = useState(true);
+   const { currentUser } = useAuth();
+   const { updateEmail } = useAuth();
+   const [Users, setUsers] = useState([]);
+
+   React.useEffect(()=>{
+      const fetchData = async () =>{
+         firestore.collection("Users")
+         .where("Email", "==", String(currentUser.email))
+         .get()
+         .then(function(data){
+            console.log(data)
+               setUsers(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
+         }); 
+      };
+      fetchData();
+   }, [])
+
+   function onEdit(){
+      setEditEnabled(true);
+      setUpdateEnabled(false);
       setEnableFields(false);
+      setFirstName(Users[0].FirstName);
+      setLastName(Users[0].LastName);
+      setNRIC(Users[0].NRIC);
+      setDOB(Users[0].DOB);
+      setAddress(Users[0].Address);
+      setEmail(Users[0].Email);
+      setTelephone(Users[0].Telephone);
+   }
+
+   //handle submit
+   const handleSubmit = async (e) => {
+      e.preventDefault();
+      
+      try{
+         setError("");
+         setUpdateEnabled(true);
+         if(currentUser.email !== Email)
+         {
+            await updateEmail(Email);
+         }
+         //update data in firestore collection
+         firestore.collection("Users").doc(Users[0].id)
+            .update({
+               FirstName: FirstName,
+               LastName: LastName,
+               NRIC: NRIC,
+               Address: Address,
+               DOB: DOB,
+               Email: Email.toLowerCase(),
+               Telephone: Telephone
+            })
+            .then(() => {
+               alert("Updated Successfully!");
+            })
+      }catch(error){
+         setError(error.message);
+      }
+      setEnableFields(true);
+      setUpdateEnabled(true);
+      setEditEnabled(false);
    }
 
    return (
       <div>
          <NavBar/>
+            {Users.map(user => 
             <Container className="d-flex align-items-center justify-content-center"
       style={{ minHeight: "100vh"}}>
           <div className="w-100" style={{maxWidth: "500px"}}>
             <Card>
              <Card.Body>
                  <h2 className= "text-center mb-4">My Profile</h2>
-                 <Form>
+                 {error && <Alert variant="danger">{error}</Alert>}
+                 <Form onSubmit={handleSubmit}>
                      <Form.Group id = "FirstName">
                         <Form.Label>First Name</Form.Label>
-                        <Form.Control disabled = {enableFields} type="text" required/>
+                        <Form.Control 
+                        defaultValue = {user.FirstName} 
+                        disabled = {enableFields} 
+                        onChange={(e) => setFirstName(e.target.value)}
+                        type="text" required/>
                      </Form.Group>
                      <Form.Group id = "LastName">
                         <Form.Label>Last Name</Form.Label>
-                        <Form.Control disabled = {enableFields} type="text" required/>
+                        <Form.Control 
+                        defaultValue = {user.LastName} 
+                        disabled = {enableFields} 
+                        onChange={(e) => setLastName(e.target.value)}
+                        type="text" required/>
                      </Form.Group>
                      <Form.Group id = "NRIC">
                         <Form.Label>NRIC</Form.Label>
-                        <Form.Control disabled = {enableFields} type="text" required/>
+                        <Form.Control 
+                        defaultValue = {user.NRIC} 
+                        disabled = {enableFields} 
+                        onChange={(e) => setNRIC(e.target.value)}
+                        type="text" required/>
                      </Form.Group>
-                     <Form.Group id = "address">
+                     <Form.Group id = "Address">
                         <Form.Label>Address</Form.Label>
-                        <Form.Control disabled = {enableFields} type="text" required/>
+                        <Form.Control 
+                        defaultValue = {user.Address} 
+                        disabled = {enableFields} 
+                        onChange={(e) => setAddress(e.target.value)}
+                        type="text" required/>
                      </Form.Group>
                      <Form.Group id = "DOB">
                         <Form.Label>Date Of Birth</Form.Label>
-                        <Form.Control type="date" required/>
+                        <Form.Control 
+                        defaultValue = {user.DOB} 
+                        disabled = {enableFields}
+                        onChange={(e) => setDOB(e.target.value)}
+                        type="date" required/>
                      </Form.Group>
-                     <Form.Group id = "email">
+                     <Form.Group id = "Email">
                         <Form.Label>Email Address</Form.Label>
-                        <Form.Control value = {currentUser.email} disabled = {enableFields} type="email" required/>
+                        <Form.Control 
+                        defaultValue = {user.Email} 
+                        disabled = {enableFields} 
+                        onChange={(e) => setEmail(e.target.value)}
+                        type="email" required/>
                      </Form.Group>
-                     <Form.Group id = "telephone">
+                     <Form.Group id = "Telephone">
                         <Form.Label>Telephone</Form.Label>
-                        <Form.Control disabled = {enableFields} type="invalid" required/>
+                        <Form.Control 
+                        defaultValue = {user.Telephone} 
+                        disabled = {enableFields} 
+                        onChange={(e) => setTelephone(e.target.value)}
+                        type="invalid" required/>
                      </Form.Group>
-                     <Button onClick={setEnabled} disabled = {enableUpdate} className="w-100" type="submit">Update</Button>
-                     <Button onClick={setEnabled} disabled = {enableEdit}className="w-100 my-2" type="submit">Edit</Button>
+                     <Button onClick={onEdit} disabled = {editEnabled} className="w-100 my-2">Edit</Button>
+                     <Button disabled = {updateEnabled} className="w-100 my-2" type="submit">Update</Button>
                  </Form>
              </Card.Body>
             </Card>
             </div>
             </Container>
+            )}
       </div>
    )
 }
