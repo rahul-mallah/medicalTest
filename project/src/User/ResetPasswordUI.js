@@ -57,7 +57,7 @@ export default function ResetPasswordUI() {
               <Link to="/">Back to Homepage</Link>
             </div>
             <div className="w-100 text-center mt-2">
-          Need an account? <Link to="/register">Sign Up Now!</Link>
+          Need an account? <Link to="/register">Join Now!</Link>
             </div>
           </Card.Body>
         </Card>
