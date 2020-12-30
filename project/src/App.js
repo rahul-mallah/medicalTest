@@ -1,18 +1,34 @@
 import './App.css';
-import LoginUI from './User/LoginUI';
-import RegisterUI  from './Patient/RegisterUI';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import ResetPasswordUI from './User/ResetPasswordUI';
-import MyProfile from "./User/MyProfilePageUI";
-import HomepageUI from './Patient/HomepageUI';
 import { AuthProvider } from './util/Auth';
 import PrivateRoute from "./util/AuthRoute";
-import ViewAllAccountUI from "./SystemAdmin/ViewAllAccountUI";
-import CreateAccountUI from "./SystemAdmin/CreateAccountUI";
+
+// User ------------------------------------------------------
+import LoginUI from './User/LoginUI';
+import RegisterUI  from './Patient/RegisterUI';
+import ResetPasswordUI from './User/ResetPasswordUI';
+
+// System Admin ----------------------------------------------
+import SAMainView from "./SystemAdmin/SAMainView";
+
+// Patient ---------------------------------------------------
+import PMainView from './Patient/PMainView';
+
+// Medical Staff ---------------------------------------------
+
+// Medical Doctor --------------------------------------------
+import MDMainView from './MedicalDoctor/MDMainView'
+
+// Medical Admin ---------------------------------------------
+import MAMainView from './MedicalAdmin/MAMainView'
+
+import MyProfilePageUI from "./User/myProfilePageUI";
+import HomepageUI from './Patient/HomepageUI';
 import userAppointmentUI from './Patient/userAppointmentUI';
-import medicalProfilePatientViewUI from './Patient/medicalProfilePatientViewUI';
-import healthMaterialViewOnlyUI from './Patient/healthMaterialViewOnlyUI';
+import ViewMedicalProfilePatientUI from './Patient/ViewMedicalProfilePatientUI';
+import ViewHealthArticleUI from './Patient/ViewHealthArticleUI';
 import searchDoctorUI from './Patient/searchDoctorUI';
+
 
 function App() {
   return (
@@ -20,35 +36,44 @@ function App() {
       <Router>
       <AuthProvider>
         <Switch>
+          // User Login Page
+          <Route path="/login" component={LoginUI}/>
+
           // Patient Create New Account Page
           <Route path="/register" component={RegisterUI}/>
 
           // User Reset Password Page
           <Route path="/resetPassword" component={ResetPasswordUI}/>
 
-          // User Login Page
-          <Route path="/login" component={LoginUI}/>
+          // System admin Main Page ----------------------------------------
+          <Route path="/SysAdminMainPage" component={SAMainView}/>
 
-          // Sys admin view all account page
-          <Route path="/viewAllAccount" component={ViewAllAccountUI}/>
+          // Patient Main Page ---------------------------------------------
+          <Route path="/PatientMainPage" component={PMainView}/>
+
+          // Medical Doctor Main Page --------------------------------------
+          <Route path="/MedicalDoctorMainPage" component={MDMainView}/>
+
+          // Medical Admin Main Page ---------------------------------------
+          <Route path="/MedicalAdminMainPage" component={MAMainView}/>
+
+
+
 
           // Patient Homepage
           <PrivateRoute exact path="/" component={HomepageUI}/>
 
           // User view / edit profile page
-          <PrivateRoute path="/myProfile" component={MyProfile}/>
-
-          // Sys admin create account page
-          <PrivateRoute path="/createAccount" component={CreateAccountUI}/>
+          <PrivateRoute path="/myProfile" component={MyProfilePageUI}/>
 
           // Patient's appointment
           <PrivateRoute path="/userAppointment" component={userAppointmentUI}/>
 
           // Patient's medical profile not editable
-          <PrivateRoute path="/medicalProfilePatientView" component={medicalProfilePatientViewUI}/>
+          <PrivateRoute path="/medicalProfilePatientView" component={ViewMedicalProfilePatientUI}/>
 
           // Patient's health material not editable
-          <Route path="/healthMaterialViewOnly" component={healthMaterialViewOnlyUI}/>
+          <Route path="/ViewHealthArticle" component={ViewHealthArticleUI}/>
 
           // Patient search doctor
           <Route path="/searchDoctor" component={searchDoctorUI}/>

@@ -1,14 +1,14 @@
 import React from 'react'
 import NavBar from '../components/navbarUI';
 
-function healthMaterialViewOnly() {
+function ViewMedicalProfilePatientUI() {
     return (
        <div>
          <NavBar/>
          <div>
-            THIS IS NORMAL USER VIEW ONLY HEALTH MATERIAL
+            THIS IS MEDICAL PROFILE PAGE FOR PATIENT
          </div>
       </div>
     )
 }
-export default healthMaterialViewOnly
+export default ViewMedicalProfilePatientUI
