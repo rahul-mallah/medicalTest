@@ -22,7 +22,7 @@ import MDMainView from './MedicalDoctor/MDMainView'
 // Medical Admin ---------------------------------------------
 import MAMainView from './MedicalAdmin/MAMainView'
 
-import MyProfilePageUI from "./User/myProfilePageUI";
+import MyProfilePageUI from "./User/MyProfilePageUI";
 import HomepageUI from './Patient/HomepageUI';
 import userAppointmentUI from './Patient/userAppointmentUI';
 import ViewMedicalProfilePatientUI from './Patient/ViewMedicalProfilePatientUI';
