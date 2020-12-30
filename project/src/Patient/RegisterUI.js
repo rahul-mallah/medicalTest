@@ -48,14 +48,14 @@ function RegisterUI() {
             NRIC: NRIC,
             Address: Address,
             DOB: DOB,
-            Email: Email,
+            Email: Email.toLowerCase(),
             Telephone: Telephone
          })
          .then(() => {
             alert("Account Registered Successfully!");
          })
       } catch(error){
-         return setError(error.message);
+         setError(error.message);
       }
       setFirstName("");
       setLastName("");

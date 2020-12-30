@@ -13,7 +13,20 @@ import SAMainView from "./SystemAdmin/SAMainView";
 
 // Patient ---------------------------------------------------
 import PMainView from './Patient/PMainView';
+<<<<<<< HEAD
 import RegisterUI  from './Patient/RegisterUI';
+=======
+
+// Medical Staff ---------------------------------------------
+
+// Medical Doctor --------------------------------------------
+import MDMainView from './MedicalDoctor/MDMainView'
+
+// Medical Admin ---------------------------------------------
+import MAMainView from './MedicalAdmin/MAMainView'
+
+import MyProfilePageUI from "./User/MyProfilePageUI";
+>>>>>>> 44d0e361cfffaf855bc9627caee8a8808d335d1f
 import HomepageUI from './Patient/HomepageUI';
 import userAppointmentUI from './Patient/userAppointmentUI';
 import ViewMedicalProfilePatientUI from './Patient/ViewMedicalProfilePatientUI';
