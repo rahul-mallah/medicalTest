@@ -4,6 +4,7 @@ import NavBarArticle from '../NavbarArticleUI'
 import {withRouter} from 'react-router-dom'
 import parse from 'html-react-parser'
 import {Container} from 'reactstrap'
+import {firestore} from '../../firebase'
 
 
 class ViewArticle extends Component {
@@ -33,6 +34,28 @@ class ViewArticle extends Component {
                 })
             }
         }
+        else {
+            this.getArticleByID(this.props.match.params.id)
+        }
+    }
+
+    getArticleByID = (aid) => {
+        firestore.collection('HealthArticles')
+                  .doc(aid)
+                  .get()
+                  .then(doc => {
+                      if(doc.exists){
+                          this.setState({
+                              article: doc.data()
+                          }, () => {
+                              this.setState({
+                                  isLoaded: true
+                              })
+                          })
+                      } else{
+                          this.props.history.push({pathname: '/'})
+                      }
+                  })
 
     }
 
