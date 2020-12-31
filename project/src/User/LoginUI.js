@@ -52,7 +52,7 @@ function LoginUI() {
                         type="email" required/>
                      </Form.Group>
                      <Form.Group id = "password">
-                        <Form.Label>Passsword</Form.Label>
+                        <Form.Label>Password</Form.Label>
                         <Form.Control 
                         value={Password}
                         onChange={(e) => setPassword(e.target.value)}
