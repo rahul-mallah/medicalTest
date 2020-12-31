@@ -1,9 +1,12 @@
 import React from 'react'
 
 export const menuItems = [
+   {name: 'Home', to: '/', icon: 'icons/homepage.svg', 
+       subMenuItems: []},
+       
    {name: 'My Profile', to: '/myProfile', icon: 'icons/myProfile.svg', 
       subMenuItems: [
-         {name: 'Change Password', to: '/myProfile'}
+         {name: 'Change Password', to: '/changePW'}
       ]},
 
    {name: 'Manage Account', to: '/viewAllAccount', icon: 'icons/manageAccount.svg', 

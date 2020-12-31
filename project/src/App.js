@@ -9,7 +9,7 @@ import RegisterUI  from './Patient/RegisterUI';
 import ResetPasswordUI from './User/ResetPasswordUI';
 
 // System Admin ----------------------------------------------
-import SAMainView from "./SystemAdmin/SAMainView";
+import SysAdm from "./SystemAdmin/SysAdm";
 
 // Patient ---------------------------------------------------
 import PMainView from './Patient/PMainView';
@@ -26,12 +26,9 @@ import MyProfilePageUI from "./User/myProfilePageUI";
 import HomepageUI from './Patient/HomepageUI';
 import userAppointmentUI from './Patient/userAppointmentUI';
 import ViewMedicalProfilePatientUI from './Patient/ViewMedicalProfilePatientUI';
-import ViewHealthArticleUI from './Patient/ViewHealthArticleUI';
+import ViewHealthArticleUI from './User/ViewHealthArticleUI';
 import ViewArticle from "./components/ViewArticle/ViewArticle";
 import NewArticle from "./components/NewArticle/NewArticle";
-
-
-
 import searchDoctorUI from './Patient/searchDoctorUI';
 
 
@@ -51,7 +48,7 @@ function App() {
           <Route path="/resetPassword" component={ResetPasswordUI}/>
 
           // System admin Main Page ----------------------------------------
-          <Route path="/SysAdminMainPage" component={SAMainView}/>
+          <PrivateRoute path="/SysAdm" component={SysAdm} />
 
           // Patient Main Page ---------------------------------------------
           <Route path="/PatientMainPage" component={PMainView}/>
@@ -61,8 +58,6 @@ function App() {
 
           // Medical Admin Main Page ---------------------------------------
           <Route path="/MedicalAdminMainPage" component={MAMainView}/>
-
-
 
 
           // Patient Homepage

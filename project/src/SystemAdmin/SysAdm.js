@@ -1,13 +1,18 @@
 import React from 'react'
-import {Link} from 'react-router-dom';
 import NaviBar from "../components/Navbar/NavigationbarSA";
 import Sidebar from '../components/Sidebar/Sidebar';
-import * as s from './App.styles';
+import * as s from '../App.styles';
 import {menuItems} from '../components/Sidebar/SASideBarData';
 import SARoute from '../Routes/SARoute'
 
-class SAMainView extends React.Component
+class SysAdm extends React.Component
 {
+   constructor(props){
+      super(props);
+      this.state = {
+         inputI: 'SysAdm'
+      }
+   }
    // display UI
    render()
    {
@@ -17,20 +22,10 @@ class SAMainView extends React.Component
             <s.AppS>
                <Sidebar
                menuItems={menuItems}
+               mainI={this.state.inputI}
                />
                <s.MainS>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
+                  <SARoute />
                </s.MainS>
             </s.AppS>
          </s.FinalS>
@@ -38,4 +33,4 @@ class SAMainView extends React.Component
    }
 }
 
-export default SAMainView
+export default SysAdm
