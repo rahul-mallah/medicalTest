@@ -18,7 +18,7 @@ const ArticleCard = (props) => {
             <CardImg
                top
                width="100%"
-               src="https://media.springernature.com/lw725/springer-cms/rest/v1/content/16269262/data/v1"
+               src={props.data.featureImage}
                alt="Card Image"
                className={classes.CardImage}
             /> 
