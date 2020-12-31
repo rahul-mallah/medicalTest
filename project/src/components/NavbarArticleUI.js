@@ -14,7 +14,7 @@ const NavBarArticle = () => {
         <Nav className="mr-auto">
         </Nav>
         <Nav>
-            <Nav.Link href="">Back</Nav.Link>
+            <Nav.Link href="/ViewHealthArticle">Back</Nav.Link>
             <Nav.Link eventKey={2} href="./resetPassword">Change Password</Nav.Link>
             <Nav.Link onClick={() => auth.signOut()}>Logout</Nav.Link>
         </Nav>
