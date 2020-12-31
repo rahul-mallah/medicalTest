@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import {Container} from 'reactstrap'
 import ArticleCard from "../components/ArticleCard/ArticleCard";
-import firebase from "../firebase"
 import {firestore} from '../firebase'
+import NavBarArticle from '../components/NavbarArticleUI';
 
 class ViewHealthArticleUI extends Component{
     constructor(props){
@@ -42,6 +42,7 @@ class ViewHealthArticleUI extends Component{
     render() {
         return(
             <div>
+                <NavBarArticle/>
                 <Container>
                     {this.state.isLoaded?
                         this.state.articles.map((article, index) => {
