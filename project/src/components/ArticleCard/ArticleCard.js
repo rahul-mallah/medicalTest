@@ -2,6 +2,10 @@ import React from 'react'
 import {Card, CardImg, CardTitle, CardSubtitle, CardBody, Badge} from 'reactstrap'
 import classes from './ArticleCard.module.css'
 
+export function timeStampToString(ts) {
+   const date = new Date(ts*1000)
+   return date.getFullYear() +'/'+ (date.getMonth()+1) + '/' + date.getDate() 
+}
 
 const ArticleCard = (props) => {
    return(
@@ -15,11 +19,14 @@ const ArticleCard = (props) => {
          /> 
          <CardBody className={classes.CardBody}> 
             <CardTitle className={classes.CardTitle}> 
-               Test Title
+               {props.data.title}
             </CardTitle> 
             <CardSubtitle className={classes.CarSubtitle}> 
                <Badge className={classes.ArticleLabel}> 
-                  Topic
+                  {props.data.categoryLabel}
+               </Badge>
+               <Badge className={classes.createDate}> 
+                  {timeStampToString(props.data.createDate.seconds)}
                </Badge>
             </CardSubtitle> 
          </CardBody>
