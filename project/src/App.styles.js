@@ -2,17 +2,19 @@ import styled from 'styled-components';
 
 export const FinalS = styled.div`
     height: 100vh;
-    overflow: hidden;
     background-Color: #98AFC7;
+    overflow-x: hidden;
 `;
 
 export const AppS = styled.div`
     /* separate side and main view */
     display: felx;
     background-Color: #98AFC7;
-    overflow: hidden;
+    overflow-x: scroll;
 `;
 
 export const MainS = styled.div`
-    width: 80%;
+    width: 95%;
+    heigth: 100%;
+    min-height: 800px;
 `;

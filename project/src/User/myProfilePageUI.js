@@ -83,7 +83,6 @@ function MyProfilePageUI() {
 
    return (
       <div>
-         <NavBar/>
             {Users.map(user => 
             <Container className="d-flex align-items-center justify-content-center"
       style={{ minHeight: "100vh"}}>

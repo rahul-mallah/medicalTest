@@ -4,7 +4,8 @@ import {Link} from 'react-router-dom';
 
 const Sidebar = props => {
     const {
-        menuItems = []
+        menuItems = [],
+        mainI = ""
     } = props;
 
     // State ------------------------------------------
@@ -44,6 +45,13 @@ const Sidebar = props => {
         }
     }
 
+    const handleSubMenuItemClick = (menuItemIdx, subMenuItemIdx) =>
+    {
+        const subMenusCopy = JSON.parse(JSON.stringify(subMenuItemStates));
+        subMenusCopy[menuItemIdx]['selected'] = subMenuItemIdx;
+        setSubMenus(subMenusCopy);
+    }
+
     // menu items ---------------------------------------
     const menuItemsJSX = menuItems.map((item, index) => {
         const isItemSelected = selected === item.name;
@@ -54,14 +62,23 @@ const Sidebar = props => {
 
         const subMenusJSX = item.subMenuItems.map((subMenuItem, subMenuItemIndex) =>
         {
+            const isSubmenuItemSelected = subMenuItemStates[index]?.selected === subMenuItemIndex;
             return(
-                <s.SubMenuItemStyle key={subMenuItemIndex}>{subMenuItem.name}</s.SubMenuItemStyle>
+                <Link to={`/${mainI}${item.to}${subMenuItem.to}`} style={{textDecoration: 'none'}}>
+                    <s.SubMenuItemStyle 
+                        key={subMenuItemIndex}
+                        onClick={() => handleSubMenuItemClick(index, subMenuItemIndex)}
+                        selected={isSubmenuItemSelected}
+                    >
+                        {subMenuItem.name}
+                    </s.SubMenuItemStyle>
+                </Link>
             )
         });
 
         return(
             <s.ItemContainer key = {index}>
-
+                <Link to={`/${mainI}${item.to}`} style={{textDecoration: 'none'}}>
                     <s.MenuItem
                         selected = {isItemSelected}
                         onClick={() => handleMenuItemClick(item.name, index)}
@@ -74,17 +91,14 @@ const Sidebar = props => {
                             <s.DropdownIcon isSidebarClose={isSidebarClose} isOpen={isOpen}/>
                         )}
                     </s.MenuItem>
-
+                </Link>
                 
                 {hasSubMenu && isOpen && (
                     <s.SubMenuItemContainer isSidebarClose={isSidebarClose}>{subMenusJSX}</s.SubMenuItemContainer>
                 )}
-
             </s.ItemContainer>
         )
     });
-
-    console.log(subMenuItemStates);
 
     return ( 
         <s.SidebarContainer isSidebarClose={isSidebarClose}> 

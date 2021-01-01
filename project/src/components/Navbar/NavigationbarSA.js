@@ -1,6 +1,7 @@
 import React from 'react';
 import {Navbar, Nav} from "react-bootstrap";
 import styled from 'styled-components';
+import { auth } from '../../firebase';
 
 const Styles = styled.div`
   .navbar { background-color: #2B3856; }
@@ -27,7 +28,7 @@ const NaviBar = () => {
             <Navbar.Brand>My Appointment</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav"/>
               <Nav className="ml-auto">
-                <Nav.Item><Nav.Link href="/">Logout</Nav.Link></Nav.Item>
+                <Nav.Item><Nav.Link onClick={() => auth.signOut()}>Logout</Nav.Link></Nav.Item>
               </Nav>
         </Navbar>
         </Styles>

@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react'
 import {Form, Button, Card, Container, Alert} from 'react-bootstrap'
 import { Link, useHistory} from 'react-router-dom';
 import { auth, firestore } from '../firebase';
+import moment from 'moment';
 
 function RegisterUI() {
 
@@ -124,6 +125,7 @@ function RegisterUI() {
                         <Form.Control 
                         ref={DOBRef}
                         value={DOB}
+                        max={moment().format("DD/MM/YYYY")}
                         onChange={(e) => setDOB(e.target.value)} 
                         type="date" required/>
                      </Form.Group>

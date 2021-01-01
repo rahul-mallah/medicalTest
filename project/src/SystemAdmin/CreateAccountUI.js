@@ -3,20 +3,16 @@ import {Form, Button, Card, Container} from 'react-bootstrap'
 import {Link} from 'react-router-dom';
 
 
-/*class CreateAccountUI extends React.Component
+class CreateAccountUI extends React.Component
 {
    // display UI
    render()
    {
       return (
-         <h1>My Profile</h1>
+         <h1>Create New Account Page</h1>
       );
    }
-}*/
-
-const CreateAccountUI = () => {
-   return <h1>About Page</h1>
- }
+}
  
 
 export default CreateAccountUI

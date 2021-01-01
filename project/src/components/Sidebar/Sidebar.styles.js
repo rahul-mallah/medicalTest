@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const SidebarContainer = styled.div`
-    width: ${p => p.isSidebarClose ? '5%' : '100%'};
+    width: ${p => p.isSidebarClose ? '5%' : '50%'};
     min-width: 50px;
     color: #98AFC7;
     background-image: linear-gradient(
@@ -83,7 +83,7 @@ export const SubMenuItemContainer = styled.div`
 `;
 
 export const SubMenuItemStyle = styled.p`
-    color: #98AFC7;
+    color: ${p => p.selected ? '#E3E4FA' : '#98AFC7'};
     cursor: pointer;
 
     &:hover {

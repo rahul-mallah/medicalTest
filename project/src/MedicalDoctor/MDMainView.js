@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom';
 import NaviBar from "../components/Navbar/NavigationbarSA";
 import Sidebar from '../components/Sidebar/Sidebar';
-import * as s from './App.styles';
+import * as s from '../App.styles';
 import {menuItems} from '../components/Sidebar/MDSideBarData';
 
 class MDMainView extends React.Component
