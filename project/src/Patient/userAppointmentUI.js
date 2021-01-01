@@ -3,13 +3,12 @@ import NavBar from '../components/navbarUI';
 
 
 
-function userAppointment() {
+function userAppointmentUI() {
     return (
        <div>
-         <NavBar/>
-         <div>
-            THIS IS USER APPOINTMENT PAGE~~~~~~~~~~~~~~~~~
-         </div>
+         <h1>
+            User Appointment Page
+         </h1>
       </div>
     )
 }
@@ -47,6 +46,6 @@ class FlavorForm extends React.Component {
 
 
 
-export default userAppointment
+export default userAppointmentUI
 
 

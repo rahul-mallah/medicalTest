@@ -2,10 +2,9 @@ import React from 'react';
 import NavBar from '../components/navbarUI';
 import { Link } from "react-router-dom"
 
-function HomepageUI() {
+function PHomepageUI() {
     return (
         <div>
-            <NavBar/>
             <div>
                 <React.Fragment>
                     <h1 className='text-center text-danger text text-capitalize my-5'
@@ -46,7 +45,7 @@ function HomepageUI() {
                             <div className="card-body">
                                 <h5 className="card-title">My Profile</h5>
                                 <p className="card-text">You can see all your profile details here. You may choose to edit your address and telephone number.</p>
-                                <Link to="/myProfile">
+                                <Link to="/Patient/myProfile">
                                     <a href="" className="btn btn-primary">View/Edit profile</a>
                                 </Link>
                             </div>
@@ -90,4 +89,4 @@ function HomepageUI() {
     )
 }
 
-export default HomepageUI
+export default PHomepageUI

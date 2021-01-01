@@ -11,7 +11,7 @@ import ResetPasswordUI from './User/ResetPasswordUI';
 import SysAdm from "./SystemAdmin/SysAdm";
 
 // Patient ---------------------------------------------------
-import PMainView from './Patient/PMainView';
+import Patient from './Patient/Patient';
 import RegisterUI  from './Patient/RegisterUI';
 
 // Medical Staff ---------------------------------------------
@@ -22,10 +22,8 @@ import MDMainView from './MedicalDoctor/MDMainView'
 // Medical Admin ---------------------------------------------
 import MAMainView from './MedicalAdmin/MAMainView'
 
-import MyProfilePageUI from "./User/myProfilePageUI";
-import HomepageUI from './Patient/HomepageUI';
+
 import userAppointmentUI from './Patient/userAppointmentUI';
-import ViewMedicalProfilePatientUI from './Patient/ViewMedicalProfilePatientUI';
 import ViewHealthArticleUI from './User/ViewHealthArticleUI';
 import ViewArticle from "./components/ViewArticle/ViewArticle";
 import NewArticle from "./components/NewArticle/NewArticle";
@@ -39,6 +37,7 @@ function App() {
       <AuthProvider>
         <Switch>
           // User Login Page
+          <Route exact path="/" component={LoginUI}/>
           <Route path="/login" component={LoginUI}/>
 
           // Patient Create New Account Page
@@ -51,7 +50,7 @@ function App() {
           <PrivateRoute path="/SysAdm" component={SysAdm} />
 
           // Patient Main Page ---------------------------------------------
-          <Route path="/PatientMainPage" component={PMainView}/>
+          <PrivateRoute path="/Patient" component={Patient}/>
 
           // Medical Doctor Main Page --------------------------------------
           <Route path="/MedicalDoctorMainPage" component={MDMainView}/>
@@ -60,17 +59,14 @@ function App() {
           <Route path="/MedicalAdminMainPage" component={MAMainView}/>
 
 
-          // Patient Homepage
-          <PrivateRoute exact path="/" component={HomepageUI}/>
 
-          // User view / edit profile page
-          <PrivateRoute path="/myProfile" component={MyProfilePageUI}/>
+
+
+
 
           // Patient's appointment
           <PrivateRoute path="/userAppointment" component={userAppointmentUI}/>
 
-          // Patient's medical profile not editable
-          <PrivateRoute path="/medicalProfilePatientView" component={ViewMedicalProfilePatientUI}/>
 
           // Patient's health material not editable
           <Route path="/ViewHealthArticle" component={ViewHealthArticleUI}/>
