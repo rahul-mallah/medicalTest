@@ -56,7 +56,7 @@ function RegisterUI() {
             alert("Account Registered Successfully!");
          })
       } catch(error){
-         setError(error.message);
+         return setError(error.message);
       }
       setFirstName("");
       setLastName("");
@@ -121,7 +121,7 @@ function RegisterUI() {
                         <Form.Control 
                         ref={DOBRef}
                         value={DOB}
-                        max={moment().format("DD/MM/YYYY")}
+                        max={moment().format("YYYY-MM-DD")}
                         onChange={(e) => setDOB(e.target.value)} 
                         type="date" required/>
                      </Form.Group>
