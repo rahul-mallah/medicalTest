@@ -7,7 +7,11 @@ import MyProfilePageUI from "../User/myProfilePageUI";
 import ChangePasswordUI from "../Patient/changePwUI";
 import ViewMyMPUI from "../Patient/ViewMyMPUI"
 import userAppointmentUI from '../Patient/userAppointmentUI';
+import BookAppointmentUI from '../Patient/BookAppointmentUI';
+import ResAppointmentUI from '../Patient/ResAppointmentUI';
+import CancelAppointmentUI from '../Patient/CancelAppointmentUI';
 import ViewHealthArticleUI from '../User/ViewHealthArticleUI';
+import searchDoctorUI from '../Patient/searchDoctorUI';
 
 const PRoute = () =>
 {
@@ -31,15 +35,19 @@ const PRoute = () =>
             <PrivateRoute exact path={`${path}/Appointment`} component={userAppointmentUI}/>
 
             // Make New Appointment
+            <PrivateRoute exact path={`${path}/Appointment/Book`} component={BookAppointmentUI}/>
 
             // Reschedule Appointment
+            <PrivateRoute exact path={`${path}/Appointment/Reschedule`} component={ResAppointmentUI}/>
 
             // Cancel Appointment
+            <PrivateRoute exact path={`${path}/Appointment/Cancel`} component={CancelAppointmentUI}/>
 
             // View Health Article
             <Route exact path={`${path}/ViewHealthArticle`} component={ViewHealthArticleUI}/>
 
             // Doctor Profile
+            <Route exact path={`${path}/searchDoctor`} component={searchDoctorUI}/>
 
             // Individual Doctor Profile
 

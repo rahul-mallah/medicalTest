@@ -4,10 +4,9 @@ import NavBar from '../components/navbarUI';
 function searchDoctor() {
     return (
        <div>
-         <NavBar/>
-         <div>
-            THIS IS SEARCH DOCTOR PAGE
-         </div>
+         <h1>
+            Search for Doctor Page
+         </h1>
       </div>
     )
 }
