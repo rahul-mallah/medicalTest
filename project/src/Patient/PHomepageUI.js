@@ -62,7 +62,7 @@ function PHomepageUI() {
                                 <div className="card-body">
                                     <h5 className="card-title">Educational</h5>
                                     <p className="card-text">Get your hands on the latest health educational materials and health promotions!</p>
-                                    <Link to="/Patient/ViewHealthArticle">
+                                    <Link to="/ViewHealthArticle">
                                         <a href="" className="btn btn-primary">Click Here</a>
                                     </Link>
                                 </div>
