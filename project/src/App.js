@@ -55,9 +55,7 @@ function App() {
           // Medical Admin Main Page ---------------------------------------
           <Route path="/MedicalAdminMainPage" component={MAMainView}/>
 
-
-
-
+          
 
           <Route path="/article/:id" component={ViewArticle}/>
           <Route path="/new-article" component={NewArticle}/>

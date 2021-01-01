@@ -96,7 +96,7 @@ function MyProfilePageUI() {
                         <Form.Label>First Name</Form.Label>
                         <Form.Control 
                         defaultValue = {user.FirstName} 
-                        disabled = {enableFields} 
+                        disabled = {true} 
                         onChange={(e) => setFirstName(e.target.value)}
                         pattern = "^[a-z A-Z]+$"
                         title = "Please enter character in the range a-z OR A-Z"
@@ -106,7 +106,7 @@ function MyProfilePageUI() {
                         <Form.Label>Last Name</Form.Label>
                         <Form.Control 
                         defaultValue = {user.LastName} 
-                        disabled = {enableFields} 
+                        disabled = {true} 
                         onChange={(e) => setLastName(e.target.value)}
                         pattern = "^[a-z A-Z]+$"
                         title = "Please enter character in the range a-z OR A-Z"
@@ -116,7 +116,7 @@ function MyProfilePageUI() {
                         <Form.Label>NRIC</Form.Label>
                         <Form.Control 
                         defaultValue = {user.NRIC} 
-                        disabled = {enableFields} 
+                        disabled = {true} 
                         onChange={(e) => setNRIC(e.target.value)}
                         pattern = "[s S | t T | f F | g G][0-9]{7}[a-z A-Z]"
                         title = "Please enter according to NRIC format"
@@ -134,7 +134,7 @@ function MyProfilePageUI() {
                         <Form.Label>Date Of Birth</Form.Label>
                         <Form.Control 
                         defaultValue = {user.DOB} 
-                        disabled = {enableFields}
+                        disabled = {true}
                         max={moment().format("YYYY-MM-DD")}
                         onChange={(e) => setDOB(e.target.value)}
                         type="date" required/>
@@ -159,6 +159,7 @@ function MyProfilePageUI() {
                      </Form.Group>
                      <Button onClick={onEdit} disabled = {editEnabled} className="w-100 my-2">Edit</Button>
                      <Button disabled = {updateEnabled} className="w-100 my-2" type="submit">Update</Button>
+                     <Button href = "/Patient/myProfile" disabled = {updateEnabled} className="w-100 my-2">Cancel</Button>
                  </Form>
              </Card.Body>
             </Card>
