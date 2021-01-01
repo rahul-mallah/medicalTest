@@ -6,7 +6,7 @@ export const menuItems = [
 
     {name: 'My Profile', to: '/myProfile', icon: 'icons/myProfile.svg', 
         subMenuItems: [
-            {name: 'Change Password', to: '/myProfile'}
+            {name: 'Change Password', to: '/changePwUI'}
         ]},
 
     {name: 'Medical Profile', to: '/medicalProfilePatientView', icon: 'icons/medicalProfile.svg', 

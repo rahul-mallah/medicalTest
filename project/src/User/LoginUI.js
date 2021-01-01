@@ -19,7 +19,7 @@ function LoginUI() {
             setError("");
             setLoading(true);
             await login(Email, Password);
-            history.push("/");
+            history.push("/Patient");
         }catch(error) {
             setError(error.message);
         }
