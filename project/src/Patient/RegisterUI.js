@@ -90,15 +90,11 @@ function RegisterUI() {
                         ref={FNameRef}
                         value={FirstName}
                         onChange={(e) => setFirstName(e.target.value)}
-                        pattern = "^[a-z A-Z]+$"
-                        title = "Please enter character in the range a-z OR A-Z"
                         type="text" required/>
                      </Form.Group>
                      <Form.Group id = "LastName">
                         <Form.Label>Last Name</Form.Label>
                         <Form.Control 
-                        pattern = "^[a-z A-Z]+$"
-                        title = "Please enter character in the range a-z OR A-Z"
                         ref={LNameRef}
                         value={LastName}
                         onChange={(e) => setLastName(e.target.value)}
@@ -125,7 +121,7 @@ function RegisterUI() {
                         <Form.Control 
                         ref={DOBRef}
                         value={DOB}
-                        max={moment().format("DD/MM/YYYY")}
+                        max={moment().format("YYYY-MM-DD")}
                         onChange={(e) => setDOB(e.target.value)} 
                         type="date" required/>
                      </Form.Group>
