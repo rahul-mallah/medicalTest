@@ -81,8 +81,10 @@ class NewArticle extends Component {
 
     onChangeArticleContent = (value) => {
         this.setState({
+            article: {
             ...this.state.article,
             content:value
+            } 
         })
     }
 
