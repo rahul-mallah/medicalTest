@@ -14,7 +14,7 @@ const NavBar = () => {
         </Nav>
         <Nav>
             <Nav.Link href="">Back</Nav.Link>
-            <Nav.Link eventKey={2} href="./resetPassword">Change Password</Nav.Link>
+            <Nav.Link eventKey={2} href="./resetPassword">Change Password llalala</Nav.Link>
             <Nav.Link onClick={() => auth.signOut()}>Logout</Nav.Link>
         </Nav>
     </Navbar.Collapse>
