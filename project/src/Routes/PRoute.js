@@ -5,6 +5,9 @@ import PrivateRoute from "../util/AuthRoute";
 import PHomePageUI from "../Patient/PHomepageUI";
 import MyProfilePageUI from "../User/myProfilePageUI";
 import ChangePasswordUI from "../Patient/changePwUI";
+import ViewMyMPUI from "../Patient/ViewMyMPUI"
+import userAppointmentUI from '../Patient/userAppointmentUI';
+import ViewHealthArticleUI from '../User/ViewHealthArticleUI';
 
 const PRoute = () =>
 {
@@ -22,8 +25,10 @@ const PRoute = () =>
             <PrivateRoute exact path={`${path}/myProfile/changePW`} component={ChangePasswordUI}/>
 
             // Medical Profile
+            <PrivateRoute exact path={`${path}/MedicalProfile`} component={ViewMyMPUI}/>
 
             // Appointment
+            <PrivateRoute exact path={`${path}/Appointment`} component={userAppointmentUI}/>
 
             // Make New Appointment
 
@@ -32,6 +37,7 @@ const PRoute = () =>
             // Cancel Appointment
 
             // View Health Article
+            <Route exact path={`${path}/ViewHealthArticle`} component={ViewHealthArticleUI}/>
 
             // Doctor Profile
 
