@@ -5,6 +5,7 @@ import NavBarArticle from '../NavbarArticleUI';
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import { Form } from 'react-bootstrap';
+import { firestore } from '../../firebase';
 
 
 class NewArticle extends Component {
@@ -88,6 +89,17 @@ class NewArticle extends Component {
         })
     }
 
+    submitArticle = () => {
+        const article = this.state.article
+        //article.createUserID = this.props.auth.uid
+        firestore.collection("HealthArticles")
+                 .add(article)
+                 .then(res=>{
+                     console.log(res)
+                 })
+                 .catch(err => console.log(err))
+    }
+
     render(){
         return (
             <div>
@@ -133,7 +145,7 @@ class NewArticle extends Component {
                                     </FormGroup>
                                     <FormGroup>
                                         <Button color='danger'
-                                            onClick={(e) => console.log(this.state.article)}
+                                            onClick={(e) => this.submitArticle()}
                                         >
                                             Submit
 
