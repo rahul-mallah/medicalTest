@@ -60,9 +60,7 @@ function App() {
           // Medical Admin Main Page ---------------------------------------
           <Route path="/MedicalAdminMainPage" component={MAMainView}/>
 
-
-
-
+          
 
 
           // User view / edit profile page
