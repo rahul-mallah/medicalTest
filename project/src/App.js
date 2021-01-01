@@ -23,11 +23,8 @@ import MDMainView from './MedicalDoctor/MDMainView'
 import MAMainView from './MedicalAdmin/MAMainView'
 
 
-import userAppointmentUI from './Patient/userAppointmentUI';
-import ViewHealthArticleUI from './User/ViewHealthArticleUI';
 import ViewArticle from "./components/ViewArticle/ViewArticle";
 import NewArticle from "./components/NewArticle/NewArticle";
-import searchDoctorUI from './Patient/searchDoctorUI';
 
 
 function App() {
@@ -62,19 +59,8 @@ function App() {
 
 
 
-
-
-          // Patient's appointment
-          <PrivateRoute path="/userAppointment" component={userAppointmentUI}/>
-
-
-          // Patient's health material not editable
-          <Route path="/ViewHealthArticle" component={ViewHealthArticleUI}/>
           <Route path="/article/:id" component={ViewArticle}/>
           <Route path="/new-article" component={NewArticle}/>
-
-          // Patient search doctor
-          <Route path="/searchDoctor" component={searchDoctorUI}/>
           
         </Switch>
         </AuthProvider>
