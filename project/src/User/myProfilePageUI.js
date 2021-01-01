@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react"
 import { Form, Button, Card, Alert, Container } from "react-bootstrap"
-import NavBar from "../components/navbarUI"
 import { useAuth } from '../util/Auth';
 import { auth, firestore } from '../firebase';
 import moment from 'moment';
@@ -87,7 +86,7 @@ function MyProfilePageUI() {
             {Users.map(user => 
             <Container className="d-flex align-items-center justify-content-center"
       style={{ minHeight: "100vh"}}>
-          <div className="w-100" style={{maxWidth: "500px"}}>
+          <div className="w-100" style={{Width: "60%"}}>
             <Card>
              <Card.Body>
                  <h2 className= "text-center mb-4">My Profile</h2>

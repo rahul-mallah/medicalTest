@@ -84,6 +84,8 @@ export const SubMenuItemContainer = styled.div`
 
 export const SubMenuItemStyle = styled.p`
     color: ${p => p.selected ? '#E3E4FA' : '#98AFC7'};
+    ${p => p.selected && 'font-weight: bold;'};
+    transition: .2s;
     cursor: pointer;
 
     &:hover {

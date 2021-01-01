@@ -5,7 +5,6 @@ import PrivateRoute from "./util/AuthRoute";
 
 // User ------------------------------------------------------
 import LoginUI from './User/LoginUI';
-import RegisterUI  from './Patient/RegisterUI';
 import ResetPasswordUI from './User/ResetPasswordUI';
 
 // System Admin ----------------------------------------------
@@ -13,6 +12,7 @@ import SysAdm from "./SystemAdmin/SysAdm";
 
 // Patient ---------------------------------------------------
 import PMainView from './Patient/PMainView';
+import RegisterUI  from './Patient/RegisterUI';
 
 // Medical Staff ---------------------------------------------
 

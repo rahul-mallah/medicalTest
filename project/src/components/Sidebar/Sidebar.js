@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useLayoutEffect} from 'react';
 import * as s from './Sidebar.styles';
 import {Link} from 'react-router-dom';
 
@@ -14,6 +14,19 @@ const Sidebar = props => {
     const [subMenuItemStates, setSubMenus] = useState({});
 
     // Effects ------------------------------------------
+    // Set selected menu item based on URL pathname
+    useLayoutEffect(() => {
+        const path = window.location.pathname;
+        const parts = path.split('/');
+    
+        if (parts[2] !== '') {
+            var a = "/" + parts[2];
+            var currentSelected = menuItems.findIndex(obj => obj.to === a);
+            const selectedItem = menuItems[currentSelected]?.name;
+            setSelectedMenuItem(selectedItem)
+        }
+      }, [menuItems])
+
     // Adding index of menu items with submenus to state
     useEffect(() => {
         const newSubmenus = {};
@@ -29,8 +42,23 @@ const Sidebar = props => {
             }
         })
 
-        setSubMenus(newSubmenus);
-    }, [menuItems]);
+        // set selected submenu based on URL
+        const path = window.location.pathname;
+        const parts = path.split('/');
+
+        if (parts.length === 4)
+        {
+            var a = "/" + parts[2];
+            var b = "/" + parts[3];
+            var currentSelected = menuItems.findIndex(obj => obj.to === a);
+            var currentSubSelected = menuItems[currentSelected]?.subMenuItems.findIndex(subItem => subItem.to === b);
+
+            if (currentSelected !== -1) newSubmenus[currentSelected]['isOpen'] = true;
+            if (currentSelected !== -1 && currentSubSelected !== -1) newSubmenus[currentSelected]['selected'] = currentSubSelected;
+        }
+
+        Object.keys(subMenuItemStates).length === 0 && setSubMenus(newSubmenus);
+    }, [menuItems, subMenuItemStates]);
 
     // Change color for font and border for selected items
     const handleMenuItemClick = (name, index) => {
@@ -38,11 +66,18 @@ const Sidebar = props => {
 
         const subMenusCopy = JSON.parse(JSON.stringify(subMenuItemStates));
 
+        for (let item in subMenuItemStates)
+            {
+                subMenusCopy[item]['isOpen'] = false;
+                subMenusCopy[item]['selected'] = null;
+            }
+
         if (subMenuItemStates.hasOwnProperty(index))
         {
             subMenusCopy[index]['isOpen'] = !subMenusCopy[index]['isOpen']
-            setSubMenus(subMenusCopy)
         }
+
+        setSubMenus(subMenusCopy);
     }
 
     const handleSubMenuItemClick = (menuItemIdx, subMenuItemIdx) =>
@@ -64,9 +99,8 @@ const Sidebar = props => {
         {
             const isSubmenuItemSelected = subMenuItemStates[index]?.selected === subMenuItemIndex;
             return(
-                <Link to={`/${mainI}${item.to}${subMenuItem.to}`} style={{textDecoration: 'none'}}>
+                <Link to={`/${mainI}${item.to}${subMenuItem.to}`} style={{textDecoration: 'none'}} key={subMenuItemIndex}>
                     <s.SubMenuItemStyle 
-                        key={subMenuItemIndex}
                         onClick={() => handleSubMenuItemClick(index, subMenuItemIndex)}
                         selected={isSubmenuItemSelected}
                     >

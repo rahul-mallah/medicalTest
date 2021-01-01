@@ -16,5 +16,5 @@ export const AppS = styled.div`
 export const MainS = styled.div`
     width: 95%;
     heigth: 100%;
-    min-height: 800px;
+    min-height: 1200px;
 `;
