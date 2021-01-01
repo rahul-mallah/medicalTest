@@ -1,13 +1,13 @@
 import React from 'react'
 import NavBar from '../components/navbarUI';
 
-function searchDoctor() {
+function ViewMyMPUI() {
     return (
        <div>
          <h1>
-            Search for Doctor Page
+            Medical Profile Page for Patient
          </h1>
       </div>
     )
 }
-export default searchDoctor
+export default ViewMyMPUI
