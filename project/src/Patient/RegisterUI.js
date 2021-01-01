@@ -90,6 +90,8 @@ function RegisterUI() {
                         ref={FNameRef}
                         value={FirstName}
                         onChange={(e) => setFirstName(e.target.value)}
+                        pattern = "^[a-z A-Z]+$"
+                        title = "Please enter character in the range a-z OR A-Z"
                         type="text" required/>
                      </Form.Group>
                      <Form.Group id = "LastName">
@@ -98,6 +100,8 @@ function RegisterUI() {
                         ref={LNameRef}
                         value={LastName}
                         onChange={(e) => setLastName(e.target.value)}
+                        pattern = "^[a-z A-Z]+$"
+                        title = "Please enter character in the range a-z OR A-Z"
                         type="text" required/>
                      </Form.Group>
                      <Form.Group id = "NRIC">
@@ -106,6 +110,8 @@ function RegisterUI() {
                         ref={NRICRef}
                         value={NRIC}
                         onChange={(e) => setNRIC(e.target.value)} 
+                        pattern = "[s S| t T | f F | g G][0-9]{7}[a-z A-Z]"
+                        title = "Please enter according to NRIC format"
                         type="text" required/>
                      </Form.Group>
                      <Form.Group id = "Address">
@@ -138,7 +144,9 @@ function RegisterUI() {
                         <Form.Control 
                         ref={TelephoneRef}
                         value={Telephone}
-                        onChange={(e) => setTelephone(e.target.value)} 
+                        onChange={(e) => setTelephone(e.target.value)}
+                        pattern = "[0-9]{8}"
+                        title = "Please enter 8 digits"
                         type="invalid" required/>
                      </Form.Group>
                      <hr  style={{

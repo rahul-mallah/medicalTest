@@ -1,12 +1,18 @@
 import React from 'react'
-import {Link} from 'react-router-dom';
 import NaviBar from "../components/Navbar/NavigationbarSA";
 import Sidebar from '../components/Sidebar/Sidebar';
 import * as s from '../App.styles';
 import {menuItems} from '../components/Sidebar/PSideBarData';
+import PRoute from '../Routes/PRoute.js'
 
-class PMainView extends React.Component
+class Patient extends React.Component
 {
+   constructor(props){
+      super(props);
+      this.state = {
+         inputI: 'Patient'
+      }
+   }
    // display UI
    render()
    {
@@ -16,20 +22,10 @@ class PMainView extends React.Component
             <s.AppS>
                <Sidebar
                menuItems={menuItems}
+               mainI={this.state.inputI}
                />
                <s.MainS>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
+                  <PRoute />
                </s.MainS>
             </s.AppS>
          </s.FinalS>
@@ -37,4 +33,4 @@ class PMainView extends React.Component
    }
 }
 
-export default PMainView
+export default Patient

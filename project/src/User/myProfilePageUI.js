@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react"
 import { Form, Button, Card, Alert, Container } from "react-bootstrap"
-import NavBar from "../components/navbarUI"
 import { useAuth } from '../util/Auth';
 import { auth, firestore } from '../firebase';
+import moment from 'moment';
 
 function MyProfilePageUI() {
 
@@ -86,7 +86,7 @@ function MyProfilePageUI() {
             {Users.map(user => 
             <Container className="d-flex align-items-center justify-content-center"
       style={{ minHeight: "100vh"}}>
-          <div className="w-100" style={{maxWidth: "500px"}}>
+          <div className="w-100" style={{Width: "60%"}}>
             <Card>
              <Card.Body>
                  <h2 className= "text-center mb-4">My Profile</h2>
@@ -98,6 +98,8 @@ function MyProfilePageUI() {
                         defaultValue = {user.FirstName} 
                         disabled = {enableFields} 
                         onChange={(e) => setFirstName(e.target.value)}
+                        pattern = "^[a-z A-Z]+$"
+                        title = "Please enter character in the range a-z OR A-Z"
                         type="text" required/>
                      </Form.Group>
                      <Form.Group id = "LastName">
@@ -106,6 +108,8 @@ function MyProfilePageUI() {
                         defaultValue = {user.LastName} 
                         disabled = {enableFields} 
                         onChange={(e) => setLastName(e.target.value)}
+                        pattern = "^[a-z A-Z]+$"
+                        title = "Please enter character in the range a-z OR A-Z"
                         type="text" required/>
                      </Form.Group>
                      <Form.Group id = "NRIC">
@@ -114,6 +118,8 @@ function MyProfilePageUI() {
                         defaultValue = {user.NRIC} 
                         disabled = {enableFields} 
                         onChange={(e) => setNRIC(e.target.value)}
+                        pattern = "[s S | t T | f F | g G][0-9]{7}[a-z A-Z]"
+                        title = "Please enter according to NRIC format"
                         type="text" required/>
                      </Form.Group>
                      <Form.Group id = "Address">
@@ -129,6 +135,7 @@ function MyProfilePageUI() {
                         <Form.Control 
                         defaultValue = {user.DOB} 
                         disabled = {enableFields}
+                        max={moment().format("YYYY-MM-DD")}
                         onChange={(e) => setDOB(e.target.value)}
                         type="date" required/>
                      </Form.Group>
@@ -146,6 +153,8 @@ function MyProfilePageUI() {
                         defaultValue = {user.Telephone} 
                         disabled = {enableFields} 
                         onChange={(e) => setTelephone(e.target.value)}
+                        pattern = "[0-9]{8}"
+                        title = "Please enter 8 digits"
                         type="invalid" required/>
                      </Form.Group>
                      <Button onClick={onEdit} disabled = {editEnabled} className="w-100 my-2">Edit</Button>

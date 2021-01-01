@@ -5,14 +5,14 @@ import PrivateRoute from "./util/AuthRoute";
 
 // User ------------------------------------------------------
 import LoginUI from './User/LoginUI';
-import RegisterUI  from './Patient/RegisterUI';
 import ResetPasswordUI from './User/ResetPasswordUI';
 
 // System Admin ----------------------------------------------
 import SysAdm from "./SystemAdmin/SysAdm";
 
 // Patient ---------------------------------------------------
-import PMainView from './Patient/PMainView';
+import Patient from './Patient/Patient';
+import RegisterUI  from './Patient/RegisterUI';
 
 // Medical Staff ---------------------------------------------
 
@@ -23,7 +23,7 @@ import MDMainView from './MedicalDoctor/MDMainView'
 import MAMainView from './MedicalAdmin/MAMainView'
 
 import MyProfilePageUI from "./User/myProfilePageUI";
-import HomepageUI from './Patient/HomepageUI';
+import HomepageUI from './Patient/PHomepageUI';
 import userAppointmentUI from './Patient/userAppointmentUI';
 import ViewMedicalProfilePatientUI from './Patient/ViewMedicalProfilePatientUI';
 import ViewHealthArticleUI from './User/ViewHealthArticleUI';
@@ -39,6 +39,7 @@ function App() {
       <AuthProvider>
         <Switch>
           // User Login Page
+          <Route exact path="/" component={LoginUI}/>
           <Route path="/login" component={LoginUI}/>
 
           // Patient Create New Account Page
@@ -51,7 +52,7 @@ function App() {
           <PrivateRoute path="/SysAdm" component={SysAdm} />
 
           // Patient Main Page ---------------------------------------------
-          <Route path="/PatientMainPage" component={PMainView}/>
+          <PrivateRoute path="/Patient" component={Patient}/>
 
           // Medical Doctor Main Page --------------------------------------
           <Route path="/MedicalDoctorMainPage" component={MDMainView}/>
@@ -60,8 +61,9 @@ function App() {
           <Route path="/MedicalAdminMainPage" component={MAMainView}/>
 
 
-          // Patient Homepage
-          <PrivateRoute exact path="/" component={HomepageUI}/>
+
+
+
 
           // User view / edit profile page
           <PrivateRoute path="/myProfile" component={MyProfilePageUI}/>
