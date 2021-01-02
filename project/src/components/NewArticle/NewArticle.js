@@ -5,7 +5,8 @@ import NavBarArticle from '../NavbarArticleUI';
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import { Form } from 'react-bootstrap';
-import { firestore } from '../../firebase';
+import { firestore, storageRef } from '../../firebase';
+import {v4 as uuidv4} from 'uuid'
 
 
 class NewArticle extends Component {
@@ -78,8 +79,6 @@ class NewArticle extends Component {
         })
     }
 
-
-
     onChangeArticleContent = (value) => {
         this.setState({
             article: {
@@ -99,6 +98,24 @@ class NewArticle extends Component {
                  })
                  .catch(err => console.log(err))
     }
+
+    uploadImageCallBack = (e) => {
+        return new Promise(async (resolve, reject) => {
+            const file = e.target.files[0] //receive files
+            const fileName = uuidv4()
+            storageRef.child("HealthArticles/" + fileName).put(file) //uuidv4 is our file names
+                      .then(async snapshot => { //contain uploaded image, size of image, path of image
+                        
+                        const downloadURL = await storageRef.child("HealthArticles/" + fileName).getDownloadURL()
+                        console.log(downloadURL)
+                        resolve({
+                            success: true,
+                            data: {link: downloadURL}
+                        })
+                      })
+        })
+    }
+
 
     render(){
         return (
@@ -143,6 +160,29 @@ class NewArticle extends Component {
                                             <option>True</option>
                                         </Input>
                                     </FormGroup>
+                                    <FormGroup>
+                                    <Label className={classes.Label}>Feature Image</Label>
+                                    <Input type="file" accept="image/*" className={classes.ImageUploader}
+                                    onChange={async (e) => {
+                                        const uploadState = await this.uploadImageCallBack(e)
+                                        if (uploadState.success){
+                                            this.setState({
+                                                hasFeatureImage: true,
+                                                article: {
+                                                    ...this.state.article,
+                                                    featureImage: uploadState.data.link
+                                                }
+                                            })
+                                        }
+                                    }}>
+                                    </Input>
+
+                                    {
+                                        this.state.hasFeatureImage? //If True
+                                            <img src={this.state.article.featureImage} className ={classes.FeatureImg} /> :''
+                                    }
+                                    </FormGroup>
+
                                     <FormGroup>
                                         <Button color='danger'
                                             onClick={(e) => this.submitArticle()}

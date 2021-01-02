@@ -60,4 +60,5 @@ class ViewHealthArticleUI extends Component{
         )
     }
 }
+
 export default ViewHealthArticleUI
