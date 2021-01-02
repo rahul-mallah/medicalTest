@@ -8,7 +8,28 @@ import 'react-quill/dist/quill.snow.css'
 import { Form } from 'react-bootstrap';
 import { firestore, storageRef } from '../../firebase';
 import {v4 as uuidv4} from 'uuid'
+import AudioWorker from './AudioWorker/AudioWorker'
 
+
+const Quill = ReactQuill.Quill
+const BlockEmbed = Quill.import('blots/block/embed')
+
+class AudioBlot extends BlockEmbed {
+    static create(url){
+        let node = super.create()
+        node.setAttribute('src', url)
+        node.setAttribute('controls', '')
+        return node
+    }
+
+    static value(node){
+        return node.getAttribute('src')
+    }
+}
+
+AudioBlot.blotName = 'audio'
+AudioBlot.tagName = 'audio'
+Quill.register(AudioBlot)
 
 class NewArticle extends Component {
     constructor(props){
@@ -61,7 +82,7 @@ class NewArticle extends Component {
         'link',
         'image',
         'video',
-        'code-block',
+        'code-block','audio'
     ]
 
     onChangeArticleTitle = (value) => {
@@ -98,7 +119,7 @@ class NewArticle extends Component {
         firestore.collection("HealthArticles")
                  .add(article)
                  .then(res=>{
-                     console.log(res)
+                     alert("Article has been created successfully")
                  })
                  .catch(err => console.log(err))
     }
@@ -167,6 +188,14 @@ class NewArticle extends Component {
         })
     }
 
+    //function to receive sound URL
+    insertTTSAudio = (soundURL) => {
+        let quill = this.quill.getEditor()
+        const range = quill.getSelection(true)
+        let position = range ? range.index : 0
+        quill.insertEmbed(position, 'audio', soundURL, 'user')
+    }
+
     render(){
         return (
             <div>
@@ -183,6 +212,7 @@ class NewArticle extends Component {
                             </FormGroup>
 
                             <FormGroup>
+                                <AudioWorker insertTTSAudio={this.insertTTSAudio}/>
                                 <ReactQuill
                                     ref={(el) => this.quill = el}
                                     value={this.state.article.content}
@@ -237,7 +267,6 @@ class NewArticle extends Component {
                                             onClick={(e) => this.submitArticle()}
                                         >
                                             Submit
-
                                         </Button>
                                     </FormGroup>
                                 </CardBody>
