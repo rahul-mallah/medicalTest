@@ -120,7 +120,6 @@ class NewArticle extends Component {
     render(){
         return (
             <div>
-                <NavBarArticle/>
                 <Container>
                     <Row>
                         <Col xl={9} lg={9} md={8} sm={12} xs={12}>
