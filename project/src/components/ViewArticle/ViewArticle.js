@@ -69,7 +69,6 @@ class ViewArticle extends Component {
         if(this.state.isLoaded){
             return (
                 <div>
-                    <NavBarArticle/>
                     <Container>
                         <div className={classes.Article}>
                             <div className={classes.ImageContainer}>
