@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Container, Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button} from 'reactstrap'
 import classes from './NewArticle.module.css'
+import Compressor from 'compressorjs'
 import NavBarArticle from '../NavbarArticleUI';
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
@@ -36,6 +37,9 @@ class NewArticle extends Component {
                 ['link', 'image'],
                 ['clean'], ['code-block']
             ],
+            handlers: {
+                'image': () => this.quillImageCallBack()
+            }
         },
         clipboard: {
             matchVisual: false,
@@ -99,13 +103,60 @@ class NewArticle extends Component {
                  .catch(err => console.log(err))
     }
 
+    fileCompress = (file) => {
+        return new Promise((resolve, reject) => {
+            new Compressor(file, {
+                file: 'File',
+                quality: 0.5,
+                maxWidth: 640,
+                maxHeight: 640,
+                success(file){
+                    return resolve({ //return promise by using resolve
+                        success: true,
+                        file: file
+                    })
+                },
+                error(err){
+                    return resolve({
+                        success: false,
+                        message: err
+                    })
+                }
+            })
+        })
+    }
+
+    quillImageCallBack =() => {
+        const input = document.createElement('input')
+        input.setAttribute('type', 'file') //Upload image file only
+        input.setAttribute('accept', 'image/*') //User can upload image only
+        input.click() //Input will click automatically so that we don't need to handle further progress
+        input.onChange = async () => { //When user select the image, this method will be called
+            const file = input.files[0] //receive input files after onChange method is called
+            const compressState = await this.fileCompress(file) //receive results from file compress function
+            if(compressState.success){
+                console.log(compressState)
+                const fileName = uuidv4()
+                //compress state to upload to firebase storage
+                storageRef.child("HealthArticles/" + fileName).put(compressState.file) 
+                          .then(async snapshot => { //contain uploaded image, size of image, path of image
+                            //Receive download link
+                            const downloadURL = await storageRef.child("HealthArticles/" + fileName).getDownloadURL()
+                            let quill = this.quill.getEditor()
+                            const range = quill.getSelection(true) //store all the elements in quill object
+                            quill.insertEmbed(range.index, 'image', downloadURL)
+                          })
+            }
+        }
+    }
+
     uploadImageCallBack = (e) => {
         return new Promise(async (resolve, reject) => {
             const file = e.target.files[0] //receive files
             const fileName = uuidv4()
             storageRef.child("HealthArticles/" + fileName).put(file) //uuidv4 is our file names
                       .then(async snapshot => { //contain uploaded image, size of image, path of image
-                        
+                        //Receive download link
                         const downloadURL = await storageRef.child("HealthArticles/" + fileName).getDownloadURL()
                         console.log(downloadURL)
                         resolve({
@@ -115,7 +166,6 @@ class NewArticle extends Component {
                       })
         })
     }
-
 
     render(){
         return (
