@@ -20,9 +20,7 @@ function SAHomePageUI() {
                                     <div className="card-body">
                                         <h5 className="card-title">Manage Account</h5>
                                         <p className="card-text">You can view, delete, disable, enable, and edit account details</p>
-                                        <Link to="/SysAdm/viewAllAccount">
-                                            <a href="" className="btn btn-primary">Manage Account</a>
-                                        </Link>
+                                        <a onClick={() => {window.location.href="/SysAdm/viewAllAccount"}} className="btn btn-primary">Manage Account</a>
                                     </div>
                                 </div>
                             </div>
@@ -33,9 +31,7 @@ function SAHomePageUI() {
                                     <div className="card-body">
                                         <h5 className="card-title">My Profile</h5>
                                         <p className="card-text">You can see all your profile details here. You may choose to edit your address and telephone number.</p>
-                                        <Link to="/SysAdm/myProfile">
-                                            <a href="" className="btn btn-primary">View / Edit Profile</a>
-                                        </Link>
+                                        <a onClick={() => {window.location.href="/SysAdm/myProfile"}} className="btn btn-primary">View / Edit Profile</a>
                                     </div>
                                 </div>
                             </div>
@@ -46,9 +42,7 @@ function SAHomePageUI() {
                                         <div className="card-body">
                                             <h5 className="card-title">Educational</h5>
                                             <p className="card-text">Get your hands on the latest health educational materials and health promotions!</p>
-                                            <Link to="/ViewHealthArticle">
-                                                <a href="" className="btn btn-primary">Click Here</a>
-                                            </Link>
+                                            <a onClick={() => {window.location.href="/SysAdm/ViewHealthArticle"}} className="btn btn-primary">View Post</a>
                                         </div>
                                 </div>
                             </div>

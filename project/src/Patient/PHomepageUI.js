@@ -19,9 +19,7 @@ function PHomepageUI() {
                                 <div className="card-body">
                                     <h5 className="card-title">Medical Profile</h5>
                                     <p className="card-text">View your past medical visits, medical reports, bill receipts, medical prescriptions, Medical certificates and more!</p>
-                                    <Link to="/Patient/MedicalProfile">
-                                    <a href="" className="btn btn-primary">View Medical Profiles</a>
-                                    </Link>
+                                    <a onClick={() => {window.location.href="/Patient/MedicalProfile"}} className="btn btn-primary">View Medical Profiles</a>
                                 </div>
                         </div>
                     </div>
@@ -32,9 +30,7 @@ function PHomepageUI() {
                             <div className="card-body">
                                 <h5 className="card-title">Appointment</h5>
                                 <p className="card-text">View all our appointment records here! You can Book a new appointment, Reschedule or Cancel any existing appointments here.</p>
-                                <Link to="/Patient/Appointment">
-                                <a href="" className="btn btn-primary">View/Amend Appointments</a>
-                                </Link>
+                                <a onClick={() => {window.location.href="/Patient/Appointment"}} className="btn btn-primary">View / Amend Appointments</a>
                             </div>
                         </div>
                     </div>
@@ -45,9 +41,7 @@ function PHomepageUI() {
                             <div className="card-body">
                                 <h5 className="card-title">My Profile</h5>
                                 <p className="card-text">You can see all your profile details here. You may choose to edit your address and telephone number.</p>
-                                <Link to="/Patient/myProfile">
-                                    <a href="" className="btn btn-primary">View/Edit profile</a>
-                                </Link>
+                                <a onClick={() => {window.location.href="/Patient/myProfile"}} className="btn btn-primary">View / Edit profile</a>
                             </div>
                         </div>
                     </div>
@@ -62,9 +56,7 @@ function PHomepageUI() {
                                 <div className="card-body">
                                     <h5 className="card-title">Educational</h5>
                                     <p className="card-text">Get your hands on the latest health educational materials and health promotions!</p>
-                                    <Link to="/ViewHealthArticle">
-                                        <a href="" className="btn btn-primary">Click Here</a>
-                                    </Link>
+                                    <a onClick={() => {window.location.href="/Patient/ViewHealthArticle"}} className="btn btn-primary">View Post</a>
                                 </div>
                         </div>
                     </div>
@@ -75,9 +67,7 @@ function PHomepageUI() {
                             <div className="card-body">
                                 <h5 className="card-title">Doctor Profile</h5>
                                 <p className="card-text">Search from a list of our healthcare doctors to learn more about them to help plan for your next appointments!</p>
-                                <Link to="/Patient/searchDoctor">
-                                <a href="" className="btn btn-primary">Search Doctors</a>
-                                </Link>
+                                <a onClick={() => {window.location.href="/Patient/searchDoctor"}} className="btn btn-primary">Search Doctors</a>
                             </div>
                         </div>
                     </div>

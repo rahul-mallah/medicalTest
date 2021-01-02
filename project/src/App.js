@@ -23,6 +23,7 @@ import MDMainView from './MedicalDoctor/MDMainView'
 import MAMainView from './MedicalAdmin/MAMainView'
 
 
+
 import ViewArticle from "./components/ViewArticle/ViewArticle";
 import NewArticle from "./components/NewArticle/NewArticle";
 import ViewHealthArticleUI from './User/ViewHealthArticleUI';
@@ -56,7 +57,9 @@ function App() {
           // Medical Admin Main Page ---------------------------------------
           <Route path="/MedicalAdminMainPage" component={MAMainView}/>
 
-          
+
+
+
           <Route path="/ViewHealthArticle" component={ViewHealthArticleUI}/>
           <Route path="/article/:id" component={ViewArticle}/>
           <Route path="/new-article" component={NewArticle}/>

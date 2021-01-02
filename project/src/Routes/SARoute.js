@@ -9,6 +9,11 @@ import ViewHealthArticleUI from '../User/ViewHealthArticleUI';
 import ChangePasswordUI from "../SystemAdmin/changePwUI";
 import CreateAccountUI from "../SystemAdmin/CreateAccountUI";
 import ViewIndividualAccountUI from "../SystemAdmin/ViewIndividualAccountUI";
+import ViewArticle from "../components/ViewArticle/ViewArticle";
+
+
+
+import NewArticle from "../components/NewArticle/NewArticle";
 
 const SARoute = () =>
 {
@@ -36,6 +41,12 @@ const SARoute = () =>
 
             // View Health Article
             <Route exact path={`${path}/ViewHealthArticle`} component={ViewHealthArticleUI}/>
+
+            // View Individual Article
+            <Route path={`${path}/article/:id`} component={ViewArticle}/>
+
+            // Create New Article
+            <Route path={`${path}/ViewHealthArticle/new-article`} component={NewArticle}/>
 
         </Switch>
     )}

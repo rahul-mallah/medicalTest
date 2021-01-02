@@ -1,11 +1,35 @@
 import React, {Component} from 'react'
 import {Container, Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button} from 'reactstrap'
 import classes from './NewArticle.module.css'
+import Compressor from 'compressorjs'
 import NavBarArticle from '../NavbarArticleUI';
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import { Form } from 'react-bootstrap';
+import { firestore, storageRef } from '../../firebase';
+import {v4 as uuidv4} from 'uuid'
+import AudioWorker from './AudioWorker/AudioWorker'
 
+
+const Quill = ReactQuill.Quill
+const BlockEmbed = Quill.import('blots/block/embed')
+
+class AudioBlot extends BlockEmbed {
+    static create(url){
+        let node = super.create()
+        node.setAttribute('src', url)
+        node.setAttribute('controls', '')
+        return node
+    }
+
+    static value(node){
+        return node.getAttribute('src')
+    }
+}
+
+AudioBlot.blotName = 'audio'
+AudioBlot.tagName = 'audio'
+Quill.register(AudioBlot)
 
 class NewArticle extends Component {
     constructor(props){
@@ -34,6 +58,9 @@ class NewArticle extends Component {
                 ['link', 'image'],
                 ['clean'], ['code-block']
             ],
+            handlers: {
+                'image': () => this.quillImageCallBack()
+            }
         },
         clipboard: {
             matchVisual: false,
@@ -55,7 +82,7 @@ class NewArticle extends Component {
         'link',
         'image',
         'video',
-        'code-block',
+        'code-block','audio'
     ]
 
     onChangeArticleTitle = (value) => {
@@ -77,8 +104,6 @@ class NewArticle extends Component {
         })
     }
 
-
-
     onChangeArticleContent = (value) => {
         this.setState({
             article: {
@@ -88,10 +113,92 @@ class NewArticle extends Component {
         })
     }
 
+    submitArticle = () => {
+        const article = this.state.article
+        //article.createUserID = this.props.auth.uid
+        firestore.collection("HealthArticles")
+                 .add(article)
+                 .then(res=>{
+                     alert("Article has been created successfully")
+                 })
+                 .catch(err => console.log(err))
+    }
+
+    fileCompress = (file) => {
+        return new Promise((resolve, reject) => {
+            new Compressor(file, {
+                file: 'File',
+                quality: 0.5,
+                maxWidth: 640,
+                maxHeight: 640,
+                success(file){
+                    return resolve({ //return promise by using resolve
+                        success: true,
+                        file: file
+                    })
+                },
+                error(err){
+                    return resolve({
+                        success: false,
+                        message: err
+                    })
+                }
+            })
+        })
+    }
+
+    quillImageCallBack =() => {
+        const input = document.createElement('input')
+        input.setAttribute('type', 'file') //Upload image file only
+        input.setAttribute('accept', 'image/*') //User can upload image only
+        input.click() //Input will click automatically so that we don't need to handle further progress
+        input.onChange = async () => { //When user select the image, this method will be called
+            const file = input.files[0] //receive input files after onChange method is called
+            const compressState = await this.fileCompress(file) //receive results from file compress function
+            if(compressState.success){
+                console.log(compressState)
+                const fileName = uuidv4()
+                //compress state to upload to firebase storage
+                storageRef.child("HealthArticles/" + fileName).put(compressState.file) 
+                          .then(async snapshot => { //contain uploaded image, size of image, path of image
+                            //Receive download link
+                            const downloadURL = await storageRef.child("HealthArticles/" + fileName).getDownloadURL()
+                            let quill = this.quill.getEditor()
+                            const range = quill.getSelection(true) //store all the elements in quill object
+                            quill.insertEmbed(range.index, 'image', downloadURL)
+                          })
+            }
+        }
+    }
+
+    uploadImageCallBack = (e) => {
+        return new Promise(async (resolve, reject) => {
+            const file = e.target.files[0] //receive files
+            const fileName = uuidv4()
+            storageRef.child("HealthArticles/" + fileName).put(file) //uuidv4 is our file names
+                      .then(async snapshot => { //contain uploaded image, size of image, path of image
+                        //Receive download link
+                        const downloadURL = await storageRef.child("HealthArticles/" + fileName).getDownloadURL()
+                        console.log(downloadURL)
+                        resolve({
+                            success: true,
+                            data: {link: downloadURL}
+                        })
+                      })
+        })
+    }
+
+    //function to receive sound URL
+    insertTTSAudio = (soundURL) => {
+        let quill = this.quill.getEditor()
+        const range = quill.getSelection(true)
+        let position = range ? range.index : 0
+        quill.insertEmbed(position, 'audio', soundURL, 'user')
+    }
+
     render(){
         return (
             <div>
-                <NavBarArticle/>
                 <Container>
                     <Row>
                         <Col xl={9} lg={9} md={8} sm={12} xs={12}>
@@ -105,6 +212,7 @@ class NewArticle extends Component {
                             </FormGroup>
 
                             <FormGroup>
+                                <AudioWorker insertTTSAudio={this.insertTTSAudio}/>
                                 <ReactQuill
                                     ref={(el) => this.quill = el}
                                     value={this.state.article.content}
@@ -132,11 +240,33 @@ class NewArticle extends Component {
                                         </Input>
                                     </FormGroup>
                                     <FormGroup>
+                                    <Label className={classes.Label}>Feature Image</Label>
+                                    <Input type="file" accept="image/*" className={classes.ImageUploader}
+                                    onChange={async (e) => {
+                                        const uploadState = await this.uploadImageCallBack(e)
+                                        if (uploadState.success){
+                                            this.setState({
+                                                hasFeatureImage: true,
+                                                article: {
+                                                    ...this.state.article,
+                                                    featureImage: uploadState.data.link
+                                                }
+                                            })
+                                        }
+                                    }}>
+                                    </Input>
+
+                                    {
+                                        this.state.hasFeatureImage? //If True
+                                            <img src={this.state.article.featureImage} className ={classes.FeatureImg} /> :''
+                                    }
+                                    </FormGroup>
+
+                                    <FormGroup>
                                         <Button color='danger'
-                                            onClick={(e) => console.log(this.state.article)}
+                                            onClick={(e) => this.submitArticle()}
                                         >
                                             Submit
-
                                         </Button>
                                     </FormGroup>
                                 </CardBody>

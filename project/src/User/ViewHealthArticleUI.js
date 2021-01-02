@@ -42,7 +42,6 @@ class ViewHealthArticleUI extends Component{
     render() {
         return(
             <div>
-                <NavBarArticle/>
                 <Container>
                     {this.state.isLoaded?
                         this.state.articles.map((article, index) => {
@@ -60,4 +59,5 @@ class ViewHealthArticleUI extends Component{
         )
     }
 }
+
 export default ViewHealthArticleUI
