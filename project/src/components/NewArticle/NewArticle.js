@@ -119,9 +119,9 @@ class NewArticle extends Component {
         firestore.collection("HealthArticles")
                  .add(article)
                  .then(res=>{
-                     alert("Article has been created successfully")
+                     alert("Article has been created successfully!")
                  })
-                 .catch(err => console.log(err))
+                 .catch(err => alert(err))
     }
 
     fileCompress = (file) => {
