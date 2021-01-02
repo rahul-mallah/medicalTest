@@ -17,4 +17,5 @@ export const MainS = styled.div`
     width: 95%;
     heigth: 100%;
     min-height: 1200px;
+    padding: 30px;
 `;

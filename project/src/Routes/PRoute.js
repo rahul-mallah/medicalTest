@@ -12,6 +12,7 @@ import ResAppointmentUI from '../Patient/ResAppointmentUI';
 import CancelAppointmentUI from '../Patient/CancelAppointmentUI';
 import ViewHealthArticleUI from '../User/ViewHealthArticleUI';
 import searchDoctorUI from '../Patient/searchDoctorUI';
+import ViewArticle from "../components/ViewArticle/ViewArticle";
 
 const PRoute = () =>
 {
@@ -45,6 +46,9 @@ const PRoute = () =>
 
             // View Health Article
             <Route exact path={`${path}/ViewHealthArticle`} component={ViewHealthArticleUI}/>
+
+            // View Individual Article
+            <Route path={`${path}/article/:id`} component={ViewArticle}/>
 
             // Doctor Profile
             <Route exact path={`${path}/searchDoctor`} component={searchDoctorUI}/>
