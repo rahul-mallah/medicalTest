@@ -5,7 +5,11 @@ import {withRouter} from 'react-router-dom'
 import parse from 'html-react-parser'
 import {Container} from 'reactstrap'
 import {firestore} from '../../firebase'
+import { Link } from 'react-router-dom'
+// import { CrossIcon } from 'react-select/src/components/indicators'
+// 
 
+let cross = document.createElement('div');
 
 class ViewArticle extends Component {
     constructor(props){
@@ -58,7 +62,14 @@ class ViewArticle extends Component {
                   })
 
     }
-
+    deleteArticle(aid){
+        firestore.collection('HealthArticles').doc(aid).delete().then(()=>{
+            this.props.history.push({pathname: '/sysadm'})
+        }).catch((error)=>{
+            console.error("Error is", error)
+        })
+    }
+        
     timeStampToString = (ts) => {
         const date = new Date(ts*1000)
         return date.getFullYear() +'/'+ (date.getMonth()+1) + '/' + date.getDate() 
@@ -79,21 +90,18 @@ class ViewArticle extends Component {
                                 <div className={classes.ArticleInfo}>
                                     <h1 className={classes.Title}>
                                         {this.state.article.title}
-
                                     </h1>
                                     <div className={classes.Date}>
                                         {this.timeStampToString(this.state.article.lastModified.seconds)}
-
                                     </div>
                                 </div>
                             </div>
-                            
                             <div className={classes.ArticleMain}>
                                 {parse(this.state.article.content)}
                             </div>
-
+                            <Link to = {`/edit/${this.state.article}`} class = "btn btn-success">Edit</Link>
+                            <button onClick = {this.deleteArticle.bind(this, this.state.article.id)}class = "btn btn-danger">Delete</button>
                         </div>
-
                     </Container>
                 </div>
             )

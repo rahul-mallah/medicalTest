@@ -124,6 +124,8 @@ class NewArticle extends Component {
                  .catch(err => alert(err))
     }
 
+
+
     fileCompress = (file) => {
         return new Promise((resolve, reject) => {
             new Compressor(file, {
@@ -205,9 +207,9 @@ class NewArticle extends Component {
                             <h2 className={classes.SectionTitle}>New Article</h2>
                             <FormGroup>
                                 <Label ClassName={classes.Label}>Title</Label>
-                                <Input type = 'text' name='articleTitle' id='articleTitle' 
-                                        placeholder='' onChange={(e) => this.onChangeArticleTitle(e.target.value)}
-                                        value={this.state.article.title}    
+                                <Input required type = 'text' name='articleTitle' id='articleTitle'
+                                        placeholder= '' required onChange={(e) => this.onChangeArticleTitle(e.target.value)}
+                                        value={this.state.article.title}
                                 />
                             </FormGroup>
 
@@ -268,6 +270,7 @@ class NewArticle extends Component {
                                         >
                                             Submit
                                         </Button>
+                                        
                                     </FormGroup>
                                 </CardBody>
                             </Card>
