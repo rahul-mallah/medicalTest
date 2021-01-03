@@ -6,8 +6,7 @@ import parse from 'html-react-parser'
 import {Container} from 'reactstrap'
 import {firestore} from '../../firebase'
 import { Link } from 'react-router-dom'
-// import { CrossIcon } from 'react-select/src/components/indicators'
-// 
+
 
 let cross = document.createElement('div');
 
@@ -62,9 +61,10 @@ class ViewArticle extends Component {
                   })
 
     }
+
     deleteArticle(aid){
         firestore.collection('HealthArticles').doc(aid).delete().then(()=>{
-            this.props.history.push({pathname: '/sysadm'})
+            this.props.history.push({pathname: '/SysAdm/ViewHealthArticle'})
         }).catch((error)=>{
             console.error("Error is", error)
         })
@@ -75,7 +75,6 @@ class ViewArticle extends Component {
         return date.getFullYear() +'/'+ (date.getMonth()+1) + '/' + date.getDate() 
      }
      
-
     render(){
         if(this.state.isLoaded){
             return (
