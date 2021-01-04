@@ -14,23 +14,6 @@ import AudioWorker from './AudioWorker/AudioWorker'
 const Quill = ReactQuill.Quill
 const BlockEmbed = Quill.import('blots/block/embed')
 
-class AudioBlot extends BlockEmbed {
-    static create(url){
-        let node = super.create()
-        node.setAttribute('src', url)
-        node.setAttribute('controls', '')
-        return node
-    }
-
-    static value(node){
-        return node.getAttribute('src')
-    }
-}
-
-AudioBlot.blotName = 'audio'
-AudioBlot.tagName = 'audio'
-Quill.register(AudioBlot)
-
 class NewArticle extends Component {
     constructor(props){
         super(props);
@@ -40,7 +23,6 @@ class NewArticle extends Component {
                 content:'',
                 createDate: new Date(), //current date of this moment
                 featureImage: '', //Upload feature Image for the article later on
-                isPublish: false,
                 lastModified: new Date(),
                 createUserID: '' //Check whether the user has the permisson to edit the article
             }
@@ -58,9 +40,6 @@ class NewArticle extends Component {
                 ['link', 'image'],
                 ['clean'], ['code-block']
             ],
-            handlers: {
-                'image': () => this.quillImageCallBack()
-            }
         },
         clipboard: {
             matchVisual: false,
@@ -94,16 +73,6 @@ class NewArticle extends Component {
         })
     }
 
-    //The option(True, False) will parse into this function
-    onChangePublish = (val) => {
-        this.setState({
-            article: {
-                ...this.state.article, //operator to change the title
-                isPublish:val === 'True' 
-            }
-        })
-    }
-
     onChangeArticleContent = (value) => {
         this.setState({
             article: {
@@ -119,10 +88,12 @@ class NewArticle extends Component {
         firestore.collection("HealthArticles")
                  .add(article)
                  .then(res=>{
-                     alert("Article has been created successfully")
+                     alert("Article has been created successfully!")
                  })
-                 .catch(err => console.log(err))
+                 .catch(err => alert(err))
     }
+
+
 
     fileCompress = (file) => {
         return new Promise((resolve, reject) => {
@@ -147,30 +118,6 @@ class NewArticle extends Component {
         })
     }
 
-    quillImageCallBack =() => {
-        const input = document.createElement('input')
-        input.setAttribute('type', 'file') //Upload image file only
-        input.setAttribute('accept', 'image/*') //User can upload image only
-        input.click() //Input will click automatically so that we don't need to handle further progress
-        input.onChange = async () => { //When user select the image, this method will be called
-            const file = input.files[0] //receive input files after onChange method is called
-            const compressState = await this.fileCompress(file) //receive results from file compress function
-            if(compressState.success){
-                console.log(compressState)
-                const fileName = uuidv4()
-                //compress state to upload to firebase storage
-                storageRef.child("HealthArticles/" + fileName).put(compressState.file) 
-                          .then(async snapshot => { //contain uploaded image, size of image, path of image
-                            //Receive download link
-                            const downloadURL = await storageRef.child("HealthArticles/" + fileName).getDownloadURL()
-                            let quill = this.quill.getEditor()
-                            const range = quill.getSelection(true) //store all the elements in quill object
-                            quill.insertEmbed(range.index, 'image', downloadURL)
-                          })
-            }
-        }
-    }
-
     uploadImageCallBack = (e) => {
         return new Promise(async (resolve, reject) => {
             const file = e.target.files[0] //receive files
@@ -188,14 +135,6 @@ class NewArticle extends Component {
         })
     }
 
-    //function to receive sound URL
-    insertTTSAudio = (soundURL) => {
-        let quill = this.quill.getEditor()
-        const range = quill.getSelection(true)
-        let position = range ? range.index : 0
-        quill.insertEmbed(position, 'audio', soundURL, 'user')
-    }
-
     render(){
         return (
             <div>
@@ -205,14 +144,13 @@ class NewArticle extends Component {
                             <h2 className={classes.SectionTitle}>New Article</h2>
                             <FormGroup>
                                 <Label ClassName={classes.Label}>Title</Label>
-                                <Input type = 'text' name='articleTitle' id='articleTitle' 
-                                        placeholder='' onChange={(e) => this.onChangeArticleTitle(e.target.value)}
-                                        value={this.state.article.title}    
+                                <Input type = 'text' name='articleTitle' id='articleTitle'
+                                        placeholder= '' required onChange={(e) => this.onChangeArticleTitle(e.target.value)}
+                                        value={this.state.article.title}
+                                        required
                                 />
                             </FormGroup>
-
                             <FormGroup>
-                                <AudioWorker insertTTSAudio={this.insertTTSAudio}/>
                                 <ReactQuill
                                     ref={(el) => this.quill = el}
                                     value={this.state.article.content}
@@ -229,16 +167,7 @@ class NewArticle extends Component {
                                 <CardHeader>
                                     Article Setting
                                 </CardHeader>
-                                <CardBody>
-                                    <FormGroup>
-                                        <Label className={classes.Label}>Publish</Label>
-                                        <Input type='select' name='publish' id='publish'
-                                            onChange={(e) => this.onChangePublish(e.target.value)}                 
-                                        >
-                                            <option>False</option> 
-                                            <option>True</option>
-                                        </Input>
-                                    </FormGroup>
+                                <CardBody>           
                                     <FormGroup>
                                     <Label className={classes.Label}>Feature Image</Label>
                                     <Input type="file" accept="image/*" className={classes.ImageUploader}
@@ -255,7 +184,6 @@ class NewArticle extends Component {
                                         }
                                     }}>
                                     </Input>
-
                                     {
                                         this.state.hasFeatureImage? //If True
                                             <img src={this.state.article.featureImage} className ={classes.FeatureImg} /> :''
@@ -268,6 +196,7 @@ class NewArticle extends Component {
                                         >
                                             Submit
                                         </Button>
+                                        
                                     </FormGroup>
                                 </CardBody>
                             </Card>
