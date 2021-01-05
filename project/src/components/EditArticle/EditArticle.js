@@ -11,7 +11,7 @@ import {v4 as uuidv4} from 'uuid'
 const Quill = ReactQuill.Quill
 const BlockEmbed = Quill.import('blots/block/embed')
 
-class NewArticle extends Component {
+class EditArticle extends Component {
     constructor(props){
         super(props);
         this.state={
@@ -24,6 +24,25 @@ class NewArticle extends Component {
                 createUserID: '' //Check whether the user has the permisson to edit the article
             }
         }
+    }
+
+    componentDidMount(){
+        const ref = firetore.collection('HealthArticles').doc(this.props.match.params.id)
+
+        ref.get().then((doc) => {
+            if(doc.exists){
+                const document = doc.data();
+                this.setState({
+                    title: document.id,
+                    content: document.id,
+                    createDate: document.id,
+                    lastModified: document.id,
+                    createUserID: document.id
+                })
+            }else{
+                console.log("No such document is here!")
+            }
+        })
     }
 
     modules = {
@@ -64,7 +83,7 @@ class NewArticle extends Component {
     onChangeArticleTitle = (value) => {
         this.setState({
             article: {
-                ...this.state.article, //operator to change the title
+                ...this.state.document.article, //operator to change the title
                 title:value
             }
         })
@@ -73,7 +92,7 @@ class NewArticle extends Component {
     onChangeArticleContent = (value) => {
         this.setState({
             article: {
-            ...this.state.article,
+            ...this.state.document.article,
             content:value
             } 
         })
@@ -81,9 +100,10 @@ class NewArticle extends Component {
 
     submitArticle = () => {
         const article = this.state.article
+        
         //article.createUserID = this.props.auth.uid
         firestore.collection("HealthArticles")
-                 .add(article)
+                 .update(article)
                  .then(res=>{
                      alert("Article has been created successfully!")
                  })
@@ -115,7 +135,7 @@ class NewArticle extends Component {
         })
     }
 
-    uploadImageCallBack = (e, file) => {
+    uploadImageCallBack = (e) => {
         return new Promise(async (resolve, reject) => {
             const file = e.target.files[0] //receive files
             const fileName = uuidv4()
@@ -123,13 +143,18 @@ class NewArticle extends Component {
                       .then(async snapshot => { //contain uploaded image, size of image, path of image
                         //Receive download link
                         const downloadURL = await storageRef.child("HealthArticles/" + fileName).getDownloadURL()
+                        console.log(downloadURL)
                         resolve({
                             success: true,
                             data: {link: downloadURL}
                         })
                       })
         })
+
+
     }
+
+    
 
     render(){
         return (
@@ -192,8 +217,28 @@ class NewArticle extends Component {
                                         >
                                             Submit
                                         </Button>
-                                        
                                     </FormGroup>
+                                    <Container>
+                                    <div className={classes.Article}>
+                                        <div className={classes.ImageContainer}>
+                                            <img className={classes.Image}
+                                                src={this.state.article.featureImage}
+                                                alt={this.state.article.title}
+                                            />
+                                            <div className={classes.ArticleInfo}>
+                                                <h1 className={classes.Title}>
+                                                    {this.state.article.title}
+                                                </h1>
+                                                <div className={classes.Date}>
+                                                    {this.timeStampToString(this.state.article.lastModified.seconds)}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className={classes.ArticleMain}>
+                                            {parse(this.state.article.content)}
+                                        </div>
+                                    </div>
+                                    </Container>
                                 </CardBody>
                             </Card>
 
@@ -206,4 +251,4 @@ class NewArticle extends Component {
     }
 }
 
-export default NewArticle
+export default EditArticle

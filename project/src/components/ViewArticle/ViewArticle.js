@@ -4,8 +4,10 @@ import NavBarArticle from '../NavbarArticleUI'
 import {withRouter} from 'react-router-dom'
 import parse from 'html-react-parser'
 import {Container} from 'reactstrap'
-import {firestore} from '../../firebase'
+import {firestore, storageRef, removeImageFromStorage} from '../../firebase'
 import { Link } from 'react-router-dom'
+import {v4 as uuidv4} from 'uuid'
+//import EditArticle from '../EditArticle/EditArticle'
 
 
 let cross = document.createElement('div');
@@ -63,10 +65,15 @@ class ViewArticle extends Component {
     }
 
     deleteArticle(aid){
+        var desertRef = removeImageFromStorage.refFromURL(this.state.article.featureImage)
         firestore.collection('HealthArticles').doc(aid).delete().then(()=>{
             this.props.history.push({pathname: '/SysAdm/ViewHealthArticle'})
-        }).catch((error)=>{
-            console.error("Error is", error)
+            alert("Article has been deleted successfully!")
+        }).catch(err => alert(err))
+        desertRef.delete().then(function(){
+            console.log('file deleted')
+        }).catch(function(error){
+            console.log('error')
         })
     }
         
@@ -98,7 +105,7 @@ class ViewArticle extends Component {
                             <div className={classes.ArticleMain}>
                                 {parse(this.state.article.content)}
                             </div>
-                            <Link to = {`/edit/${this.state.article}`} class = "btn btn-success">Edit</Link>
+                            <Link to = {`/EditArticle/${this.state.article}`} class = "btn btn-success">Edit</Link>
                             <button onClick = {this.deleteArticle.bind(this, this.state.article.id)}class = "btn btn-danger">Delete</button>
                         </div>
                     </Container>
