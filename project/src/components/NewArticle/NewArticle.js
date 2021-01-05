@@ -86,6 +86,7 @@ class NewArticle extends Component {
                  .add(article)
                  .then(res=>{
                      alert("Article has been created successfully!")
+                     this.props.history.push({pathname: '/SysAdm/ViewHealthArticle'})
                  })
                  .catch(err => alert(err))
     }
@@ -191,8 +192,7 @@ class NewArticle extends Component {
                                             onClick={(e) => this.submitArticle()}
                                         >
                                             Submit
-                                        </Button>
-                                        
+                                        </Button>               
                                     </FormGroup>
                                 </CardBody>
                             </Card>

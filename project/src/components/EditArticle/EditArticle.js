@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Container, Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button} from 'reactstrap'
-import classes from './NewArticle.module.css'
+import classes from './EditArticle.module.css'
 import Compressor from 'compressorjs'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
@@ -24,25 +24,6 @@ class EditArticle extends Component {
                 createUserID: '' //Check whether the user has the permisson to edit the article
             }
         }
-    }
-
-    componentDidMount(){
-        const ref = firetore.collection('HealthArticles').doc(this.props.match.params.id)
-
-        ref.get().then((doc) => {
-            if(doc.exists){
-                const document = doc.data();
-                this.setState({
-                    title: document.id,
-                    content: document.id,
-                    createDate: document.id,
-                    lastModified: document.id,
-                    createUserID: document.id
-                })
-            }else{
-                console.log("No such document is here!")
-            }
-        })
     }
 
     modules = {
@@ -83,7 +64,7 @@ class EditArticle extends Component {
     onChangeArticleTitle = (value) => {
         this.setState({
             article: {
-                ...this.state.document.article, //operator to change the title
+                ...this.state.article, //operator to change the title
                 title:value
             }
         })
@@ -92,7 +73,7 @@ class EditArticle extends Component {
     onChangeArticleContent = (value) => {
         this.setState({
             article: {
-            ...this.state.document.article,
+            ...this.state.article,
             content:value
             } 
         })
@@ -100,12 +81,12 @@ class EditArticle extends Component {
 
     submitArticle = () => {
         const article = this.state.article
-        
         //article.createUserID = this.props.auth.uid
         firestore.collection("HealthArticles")
-                 .update(article)
+                 .add(article)
                  .then(res=>{
                      alert("Article has been created successfully!")
+                     this.props.history.push({pathname: '/SysAdm/ViewHealthArticle'})
                  })
                  .catch(err => alert(err))
     }
@@ -135,7 +116,7 @@ class EditArticle extends Component {
         })
     }
 
-    uploadImageCallBack = (e) => {
+    uploadImageCallBack = (e, file) => {
         return new Promise(async (resolve, reject) => {
             const file = e.target.files[0] //receive files
             const fileName = uuidv4()
@@ -143,18 +124,13 @@ class EditArticle extends Component {
                       .then(async snapshot => { //contain uploaded image, size of image, path of image
                         //Receive download link
                         const downloadURL = await storageRef.child("HealthArticles/" + fileName).getDownloadURL()
-                        console.log(downloadURL)
                         resolve({
                             success: true,
                             data: {link: downloadURL}
                         })
                       })
         })
-
-
     }
-
-    
 
     render(){
         return (
@@ -162,7 +138,7 @@ class EditArticle extends Component {
                 <Container>
                     <Row>
                         <Col xl={9} lg={9} md={8} sm={12} xs={12}>
-                            <h2 className={classes.SectionTitle}>New Article</h2>
+                            <h2 className={classes.SectionTitle}>Edit Article</h2>
                             <FormGroup>
                                 <Label ClassName={classes.Label}>Title</Label>
                                 <Input type = 'text' name='articleTitle' id='articleTitle'
@@ -216,29 +192,8 @@ class EditArticle extends Component {
                                             onClick={(e) => this.submitArticle()}
                                         >
                                             Submit
-                                        </Button>
+                                        </Button>               
                                     </FormGroup>
-                                    <Container>
-                                    <div className={classes.Article}>
-                                        <div className={classes.ImageContainer}>
-                                            <img className={classes.Image}
-                                                src={this.state.article.featureImage}
-                                                alt={this.state.article.title}
-                                            />
-                                            <div className={classes.ArticleInfo}>
-                                                <h1 className={classes.Title}>
-                                                    {this.state.article.title}
-                                                </h1>
-                                                <div className={classes.Date}>
-                                                    {this.timeStampToString(this.state.article.lastModified.seconds)}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className={classes.ArticleMain}>
-                                            {parse(this.state.article.content)}
-                                        </div>
-                                    </div>
-                                    </Container>
                                 </CardBody>
                             </Card>
 
