@@ -4,7 +4,7 @@ export const menuItems = [
    {name: 'Home', to: '/', icon: '/icons/homepage.svg', 
        subMenuItems: []},
        
-   {name: 'My Profile', to: '/myProfile', icon: '/icons/myProfile.svg', 
+   {name: 'My Profiles', to: '/myProfile', icon: '/icons/myProfile.svg', 
       subMenuItems: [
          {name: 'Change Password', to: '/changePW'}
       ]},

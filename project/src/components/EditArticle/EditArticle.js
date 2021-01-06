@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Container, Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button} from 'reactstrap'
-import classes from './NewArticle.module.css'
+import classes from './EditArticle.module.css'
 import Compressor from 'compressorjs'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
@@ -11,7 +11,7 @@ import {v4 as uuidv4} from 'uuid'
 const Quill = ReactQuill.Quill
 const BlockEmbed = Quill.import('blots/block/embed')
 
-class NewArticle extends Component {
+class EditArticle extends Component {
     constructor(props){
         super(props);
         this.state={
@@ -138,7 +138,7 @@ class NewArticle extends Component {
                 <Container>
                     <Row>
                         <Col xl={9} lg={9} md={8} sm={12} xs={12}>
-                            <h2 className={classes.SectionTitle}>New Article</h2>
+                            <h2 className={classes.SectionTitle}>Edit Article</h2>
                             <FormGroup>
                                 <Label ClassName={classes.Label}>Title</Label>
                                 <Input type = 'text' name='articleTitle' id='articleTitle'
@@ -206,4 +206,4 @@ class NewArticle extends Component {
     }
 }
 
-export default NewArticle
+export default EditArticle

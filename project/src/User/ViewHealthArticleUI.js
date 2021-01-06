@@ -53,8 +53,7 @@ class ViewHealthArticleUI extends Component{
                             )
                         }) : ''
                     }
-                </Container>
-                
+                </Container>         
             </div>
         )
     }

@@ -10,7 +10,7 @@ import ChangePasswordUI from "../SystemAdmin/changePwUI";
 import CreateAccountUI from "../SystemAdmin/CreateAccountUI";
 import ViewIndividualAccountUI from "../SystemAdmin/ViewIndividualAccountUI";
 import ViewArticle from "../components/ViewArticle/ViewArticle";
-
+import EditArticle from "../components/EditArticle/EditArticle";
 
 
 import NewArticle from "../components/NewArticle/NewArticle";
@@ -24,7 +24,7 @@ const SARoute = () =>
             // Sys Adm Homepage
             <PrivateRoute exact path= {`${path}`} component={SAHomePageUI} />
 
-            // My Profile
+            // My Profils
             <PrivateRoute exact path={`${path}/myProfile`} component={MyProfilePageUI}/>
 
             // Change Password
@@ -48,6 +48,8 @@ const SARoute = () =>
             // Create New Article
             <Route path={`${path}/ViewHealthArticle/new-article`} component={NewArticle}/>
 
+            // Edit Article
+            <Route path={`${path}/edit-article`} component={EditArticle}/>
         </Switch>
     )}
 
