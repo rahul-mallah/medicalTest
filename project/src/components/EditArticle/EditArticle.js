@@ -127,8 +127,6 @@ class EditArticle extends Component {
                  .catch(err => alert(err))
     }
 
-
-
     fileCompress = (file) => {
         return new Promise((resolve, reject) => {
             new Compressor(file, {
