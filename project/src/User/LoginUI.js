@@ -64,6 +64,9 @@ function LoginUI() {
                 <Link to="/resetPassword">Forgot Password?</Link>
             </div>
             <div className="w-100 text-center mt-2">
+                <Link to="/MALogin">Login as Medical Admin</Link>
+            </div>
+            <div className="w-100 text-center mt-2">
                 Don't have an account? <Link to="/register"><u>Join Now!</u></Link>
             </div>
              </Card.Body>

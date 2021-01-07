@@ -21,6 +21,7 @@ import MDMainView from './MedicalDoctor/MDMainView'
 
 // Medical Admin ---------------------------------------------
 import MAMainView from './MedicalAdmin/MAMainView'
+import MALoginUI from './MedicalAdmin/MALoginUI'
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
 
           // Medical Admin Main Page ---------------------------------------
           <Route path="/MedicalAdminMainPage" component={MAMainView}/>
+          <Route path="/MALogin" component={MALoginUI}/>
           
         </Switch>
         </AuthProvider>
