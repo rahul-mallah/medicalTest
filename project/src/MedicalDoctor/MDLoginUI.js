@@ -4,7 +4,7 @@ import { auth } from '../firebase';
 import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../util/Auth';
 
-function MALoginUI() {
+function MDLoginUI() {
     //useStates
     const [Email, setEmail] = useState("");
     const [Password, setPassword] = useState("");
@@ -20,7 +20,7 @@ function MALoginUI() {
             setError("");
             setLoading(true);
             await login(Email, Password);
-            history.push("/MedicalAdminMainPage");
+            history.push("/MedicalDoctorMainPage");
         }catch(error) {
             return setError(error.message);
         }
@@ -44,7 +44,7 @@ function MALoginUI() {
                  }}>MyAppointment</h1>
                  <h2 className= "text-center mb-4" style={{
                      fontSize: '20px'
-                 }}> You are logging in as Medical Admin</h2>
+                 }}> You are logging in as Medical Doctor</h2>
                  {error && <Alert variant="danger">{error}</Alert>}
                  <Form onSubmit={handleSubmit}>
                      <Form.Group id = "email">
@@ -65,11 +65,11 @@ function MALoginUI() {
                  </Form>
                  <div className="w-100 text-center mt-2">
                 <Link to="/resetPassword">Forgot Password?</Link>
-            </div>
-            <div className="w-100 text-left mt-1">
+                <div className="w-100 text-left mt-1">
                 <br></br>Login As
-                <Link to="/MDLogin"> Medical Doctor</Link> or
-                <Link to="/login"> Patient</Link>
+                <Link to="/login"> Patient </Link> or
+                <Link to="/MALogin"> Medical Admin</Link>
+            </div>
             </div>
              </Card.Body>
             </Card>
@@ -79,4 +79,4 @@ function MALoginUI() {
     )
 }
 
-export default MALoginUI
+export default MDLoginUI
