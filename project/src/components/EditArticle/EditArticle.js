@@ -25,6 +25,42 @@ class EditArticle extends Component {
             }
         }
     }
+    componentDidMount(){
+        if(typeof this.props.location.state !== 'undefined'){
+            if(this.props.location.state.hasOwnProperty('article')){
+                this.setState({
+                    article: this.props.location.state.article
+                }, () => {
+                    this.setState({
+                        isLoaded: true //Check if our article is loaded
+                    })
+                })
+            }
+        }
+        else {
+            this.getArticleByID(this.props.match.params.id)
+        }
+    }
+
+    getArticleByID = (aid) => {
+        firestore.collection('HealthArticles')
+                  .doc(aid)
+                  .get()
+                  .then(doc => {
+                      if(doc.exists){
+                          this.setState({
+                              article: doc.data()
+                          }, () => {
+                              this.setState({
+                                  isLoaded: true
+                              })
+                          })
+                      } else{
+                          this.props.history.push({pathname: ''})
+                      }
+                  })
+
+    }
 
     modules = {
         toolbar: {
@@ -82,16 +118,14 @@ class EditArticle extends Component {
     submitArticle = () => {
         const article = this.state.article
         //article.createUserID = this.props.auth.uid
-        firestore.collection("HealthArticles")
-                 .add(article)
+        firestore.collection("HealthArticles").doc(this.state.article.id)
+                 .set(article)
                  .then(res=>{
                      alert("Article has been created successfully!")
                      this.props.history.push({pathname: '/SysAdm/ViewHealthArticle'})
                  })
                  .catch(err => alert(err))
     }
-
-
 
     fileCompress = (file) => {
         return new Promise((resolve, reject) => {

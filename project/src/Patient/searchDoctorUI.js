@@ -5,9 +5,7 @@ import Searchable from 'react-searchable-dropdown';
 import {firestore} from '../firebase';
 import SearchBar from './searchBar';
 
-
 function SearchDoctor() {
-
    const [doctorData, setDoctorData] = useState([]);
    const [openMenu, setOpenMenu] = useState(false);
    const [searchValue, setSearchValue] = useState("");
