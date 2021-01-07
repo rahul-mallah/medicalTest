@@ -3,9 +3,7 @@ import NavBar from '../components/navbarUI';
 import Searchable from 'react-searchable-dropdown';
 import {firestore} from '../firebase';
 
-
 function SearchDoctor() {
-
    const [doctorData, setDoctorData] = useState([]);
    const [openMenu, setOpenMenu] = useState(false);
 
