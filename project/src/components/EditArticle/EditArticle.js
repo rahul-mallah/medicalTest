@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Container, Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button} from 'reactstrap'
-import classes from './NewArticle.module.css'
+import classes from './EditArticle.module.css'
 import Compressor from 'compressorjs'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
@@ -11,7 +11,7 @@ import {v4 as uuidv4} from 'uuid'
 const Quill = ReactQuill.Quill
 const BlockEmbed = Quill.import('blots/block/embed')
 
-class NewArticle extends Component {
+class EditArticle extends Component {
     constructor(props){
         super(props);
         this.state={
@@ -24,6 +24,42 @@ class NewArticle extends Component {
                 createUserID: '' //Check whether the user has the permisson to edit the article
             }
         }
+    }
+    componentDidMount(){
+        if(typeof this.props.location.state !== 'undefined'){
+            if(this.props.location.state.hasOwnProperty('article')){
+                this.setState({
+                    article: this.props.location.state.article
+                }, () => {
+                    this.setState({
+                        isLoaded: true //Check if our article is loaded
+                    })
+                })
+            }
+        }
+        else {
+            this.getArticleByID(this.props.match.params.id)
+        }
+    }
+
+    getArticleByID = (aid) => {
+        firestore.collection('HealthArticles')
+                  .doc(aid)
+                  .get()
+                  .then(doc => {
+                      if(doc.exists){
+                          this.setState({
+                              article: doc.data()
+                          }, () => {
+                              this.setState({
+                                  isLoaded: true
+                              })
+                          })
+                      } else{
+                          this.props.history.push({pathname: ''})
+                      }
+                  })
+
     }
 
     modules = {
@@ -82,16 +118,14 @@ class NewArticle extends Component {
     submitArticle = () => {
         const article = this.state.article
         //article.createUserID = this.props.auth.uid
-        firestore.collection("HealthArticles")
-                 .add(article)
+        firestore.collection("HealthArticles").doc(this.state.article.id)
+                 .set(article)
                  .then(res=>{
                      alert("Article has been created successfully!")
                      this.props.history.push({pathname: '/SysAdm/ViewHealthArticle'})
                  })
                  .catch(err => alert(err))
     }
-
-
 
     fileCompress = (file) => {
         return new Promise((resolve, reject) => {
@@ -138,7 +172,7 @@ class NewArticle extends Component {
                 <Container>
                     <Row>
                         <Col xl={9} lg={9} md={8} sm={12} xs={12}>
-                            <h2 className={classes.SectionTitle}>New Article</h2>
+                            <h2 className={classes.SectionTitle}>Edit Article</h2>
                             <FormGroup>
                                 <Label ClassName={classes.Label}>Title</Label>
                                 <Input type = 'text' name='articleTitle' id='articleTitle'
@@ -206,4 +240,4 @@ class NewArticle extends Component {
     }
 }
 
-export default NewArticle
+export default EditArticle

@@ -18,9 +18,11 @@ import RegisterUI  from './Patient/RegisterUI';
 
 // Medical Doctor --------------------------------------------
 import MDMainView from './MedicalDoctor/MDMainView'
+import MDLoginUI from './MedicalDoctor/MDLoginUI'
 
 // Medical Admin ---------------------------------------------
 import MAMainView from './MedicalAdmin/MAMainView'
+import MALoginUI from './MedicalAdmin/MALoginUI'
 
 function App() {
   return (
@@ -46,9 +48,11 @@ function App() {
 
           // Medical Doctor Main Page --------------------------------------
           <Route path="/MedicalDoctorMainPage" component={MDMainView}/>
+          <Route path="/MDLogin" component={MDLoginUI}/>
 
           // Medical Admin Main Page ---------------------------------------
           <Route path="/MedicalAdminMainPage" component={MAMainView}/>
+          <Route path="/MALogin" component={MALoginUI}/>
           
         </Switch>
         </AuthProvider>
