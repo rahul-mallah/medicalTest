@@ -3,6 +3,7 @@ import { Form, Button, Card, Alert, Container } from "react-bootstrap"
 import { useAuth } from '../util/Auth';
 import { auth, firestore } from '../firebase';
 import moment from 'moment';
+import {useRouteMatch} from 'react-router-dom';
 
 function MyProfilePageUI() {
 
@@ -21,6 +22,8 @@ function MyProfilePageUI() {
    const { currentUser } = useAuth();
    const { updateEmail } = useAuth();
    const [Users, setUsers] = useState([]);
+
+   const {path} = useRouteMatch();
 
    React.useEffect(()=>{
       const fetchData = async () =>{
@@ -159,7 +162,7 @@ function MyProfilePageUI() {
                      </Form.Group>
                      <Button onClick={onEdit} disabled = {editEnabled} className="w-100 my-2">Edit</Button>
                      <Button disabled = {updateEnabled} className="w-100 my-2" type="submit">Update</Button>
-                     <Button href = "/Patient/myProfile" disabled = {updateEnabled} className="w-100 my-2">Cancel</Button>
+                     <Button href = {`${path}`} disabled = {updateEnabled} className="w-100 my-2">Cancel</Button>
                  </Form>
              </Card.Body>
             </Card>

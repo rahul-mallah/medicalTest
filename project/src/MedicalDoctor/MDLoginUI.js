@@ -20,7 +20,7 @@ function MDLoginUI() {
             setError("");
             setLoading(true);
             await login(Email, Password);
-            history.push("/MedicalDoctorMainPage");
+            history.push("/MedDoc");
         }catch(error) {
             return setError(error.message);
         }

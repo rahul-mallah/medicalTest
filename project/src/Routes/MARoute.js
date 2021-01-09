@@ -2,6 +2,10 @@ import React from 'react'
 import {useRouteMatch, Switch, Route} from 'react-router-dom';
 import PrivateRoute from "../util/AuthRoute";
 
+import MAHomepageUI from "../MedicalAdmin/MAHomepageUI";
+import MyProfilePageUI from "../User/myProfilePageUI";
+import ChangePasswordUI from "../MedicalAdmin/changePwUI";
+
 const MARoute = () =>
 {
     const {path} = useRouteMatch();
@@ -9,10 +13,13 @@ const MARoute = () =>
     return(
         <Switch>
             // Medical Admin Homepage
+            <PrivateRoute exact path= {`${path}`} component={MAHomepageUI} />
 
             // View My Profile
+            <PrivateRoute exact path={`${path}/myProfile`} component={MyProfilePageUI}/>
 
             // Change Password
+            <PrivateRoute exact path={`${path}/myProfile/changePW`} component={ChangePasswordUI}/>
 
             // View Patient Profile
 
