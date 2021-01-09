@@ -1,12 +1,18 @@
 import React from 'react'
-import {Link} from 'react-router-dom';
 import NaviBar from "../components/Navbar/NavigationbarSA";
 import Sidebar from '../components/Sidebar/Sidebar';
 import * as s from '../App.styles';
 import {menuItems} from '../components/Sidebar/MDSideBarData';
+import MDRoute from '../Routes/MDRoute.js'
 
-class MDMainView extends React.Component
+class MedDoc extends React.Component
 {
+   constructor(props){
+      super(props);
+      this.state = {
+         inputI: 'MedDoc'
+      }
+   }
    // display UI
    render()
    {
@@ -16,20 +22,10 @@ class MDMainView extends React.Component
             <s.AppS>
                <Sidebar
                menuItems={menuItems}
+               mainI={this.state.inputI}
                />
                <s.MainS>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
+                  <MDRoute />
                </s.MainS>
             </s.AppS>
          </s.FinalS>
@@ -37,4 +33,4 @@ class MDMainView extends React.Component
    }
 }
 
-export default MDMainView
+export default MedDoc
