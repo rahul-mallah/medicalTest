@@ -5,6 +5,10 @@ import PrivateRoute from "../util/AuthRoute";
 import MAHomepageUI from "../MedicalAdmin/MAHomepageUI";
 import MyProfilePageUI from "../User/myProfilePageUI";
 import ChangePasswordUI from "../MedicalAdmin/changePwUI";
+import ViewHealthArticleUI from '../User/ViewHealthArticleUI';
+import ViewArticle from "../components/ViewArticle/ViewArticle";
+import EditArticle from "../components/EditArticle/EditArticle";
+import NewArticle from "../components/NewArticle/NewArticle";
 
 const MARoute = () =>
 {
@@ -40,8 +44,16 @@ const MARoute = () =>
             // Send Reminder to Patient
 
             // View Health Article
+            <Route exact path={`${path}/ViewHealthArticle`} component={ViewHealthArticleUI}/>
+
+            // View Individual Article
+            <Route path={`${path}/article/:id`} component={ViewArticle}/>
 
             // Create New Health Post
+            <Route path={`${path}/ViewHealthArticle/new-article`} component={NewArticle}/>
+
+            // Edit Article
+            <Route path={`${path}/edit-article`} component={EditArticle}/>
 
         </Switch>
     )}

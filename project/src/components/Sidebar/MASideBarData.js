@@ -12,15 +12,15 @@ export const menuItems = [
     {name: 'Patient Profile', to: '/PatientProfile', icon: '/icons/patient.svg', 
         subMenuItems: []},
 
-    {name: 'Schedule', to: '/', icon: '/icons/appointment.svg', 
+    {name: 'Schedule', to: '/Schedule', icon: '/icons/appointment.svg', 
         subMenuItems: [
-            {name: 'Create New Appointment', to: '/'},
-            {name: 'Assign Appointment', to: '/'},
-            {name: 'Send Reminder', to: '/'}
+            {name: 'Create New Appointment', to: '/create'},
+            {name: 'Assign Appointment', to: '/assign'},
+            {name: 'Send Reminder', to: '/sendReminder'}
         ]},
 
     {name: 'Educational', to: '/ViewHealthArticle', icon: '/icons/healthArticle.svg', 
        subMenuItems: [
-            {name: 'Create New Post', to: '/'}
+            {name: 'Create New Post', to: '/new-article'}
        ]}
  ];
