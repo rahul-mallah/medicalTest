@@ -20,7 +20,7 @@ function MALoginUI() {
             setError("");
             setLoading(true);
             await login(Email, Password);
-            history.push("/MedicalAdminMainPage");
+            history.push("/MedAdm");
         }catch(error) {
             return setError(error.message);
         }

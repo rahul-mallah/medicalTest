@@ -6,13 +6,13 @@ export const menuItems = [
 
     {name: 'My Profile', to: '/myProfile', icon: '/icons/myProfile.svg', 
         subMenuItems: [
-            {name: 'Change Password', to: '/myProfile'}
+            {name: 'Change Password', to: '/changePW'}
         ]},
 
-    {name: 'Patient Profile', to: '/', icon: '/icons/patient.svg', 
+    {name: 'Patient Profile', to: '/PatientProfile', icon: '/icons/patient.svg', 
         subMenuItems: []},
 
-    {name: 'Schedule', to: '/', icon: '/icons/appointment.svg', 
+    {name: 'Schedule', to: '/Schedule', icon: '/icons/appointment.svg', 
         subMenuItems: [
             {name: 'Create New Schedule', to: '/'},
             {name: 'Approve Schedule', to: '/'}
