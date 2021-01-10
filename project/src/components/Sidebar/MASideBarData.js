@@ -14,8 +14,8 @@ export const menuItems = [
 
     {name: 'Schedule', to: '/Schedule', icon: '/icons/appointment.svg', 
         subMenuItems: [
-            {name: 'Create New Appointment', to: '/create'},
-            {name: 'Assign Appointment', to: '/assign'},
+            {name: 'Doctor Schedule', to: '/docSchedule'},
+            {name: 'Create New Appointment', to: '/Create'},
             {name: 'Send Reminder', to: '/sendReminder'}
         ]},
 
