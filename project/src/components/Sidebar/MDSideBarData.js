@@ -14,12 +14,13 @@ export const menuItems = [
 
     {name: 'Schedule', to: '/Schedule', icon: '/icons/appointment.svg', 
         subMenuItems: [
-            {name: 'Create New Schedule', to: '/'},
-            {name: 'Approve Schedule', to: '/'}
+            {name: 'Doctor Schedule', to: '/docSchedule'},
+            {name: 'Create New Schedule', to: '/Create'},
+            {name: 'Approve Schedule', to: '/Approve'}
         ]},
 
     {name: 'Educational', to: '/ViewHealthArticle', icon: '/icons/healthArticle.svg', 
        subMenuItems: [
-            {name: 'Create New Post', to: '/'}
+            {name: 'Create New Post', to: '/new-article'}
        ]}
  ];

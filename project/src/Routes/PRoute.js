@@ -54,9 +54,8 @@ const PRoute = () =>
             // Doctor Profile
             <Route exact path={`${path}/searchDoctor`} component={SearchDoctor}/>
 
-            <Route exact path={`${path}/doctorProfile/:id`} component={DoctorProfile}/>
-
             // Individual Doctor Profile
+            <Route exact path={`${path}/doctorProfile/:id`} component={DoctorProfile}/>
 
         </Switch>
     )}
