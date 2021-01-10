@@ -42,7 +42,7 @@ class DoctorProfile extends Component {
                     <p className="card-title text-center text-muted">Specialist : {this.state.doctor.Specialist}</p>
                     <p className="card-text text-center text-muted">Department : {this.state.doctor.Department}</p>
                     <p className="card-text text-center text-muted">{this.state.doctor.Qualification}</p>
-                    <a href="#" className="btn btn-primary ">Book Appointment</a>
+                    <a href="/appointmentForm" className="btn btn-primary ">Book Appointment</a>
                 </div>
             </div>
         </div>
