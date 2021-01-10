@@ -31,8 +31,7 @@ function App() {
       <AuthProvider>
         <Switch>
           // User Login Page
-          <Route exact path="/" component={Patient}/>
-          <Route path="/login" component={LoginUI}/>
+          <Route exact path="/" component={LoginUI}/>
 
           // Patient Create New Account Page
           <Route path="/register" component={RegisterUI}/>
