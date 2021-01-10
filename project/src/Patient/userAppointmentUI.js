@@ -1,51 +1,53 @@
-import React from 'react'
 import NavBar from '../components/navbarUI';
+import React, { Component, useState } from 'react';
+import {Nav, Container, Card, Button, Row} from "react-bootstrap";
+import { useAuth } from '../util/Auth';
+import {Link, withRouter} from "react-router-dom";
+import { auth, firestore } from '../firebase';
 
+function UserAppointmentUI() {
+  const{currentUser} = useAuth();
+  const [Email, setEmail] = useState(""); 
+  const [Users, setUsers] = useState([]);
 
+  React.useEffect(()=>{
+    const fetchData = async () =>{
+       firestore.collection("Users")
+       .where("Email", "==", String(currentUser.email))
+       .get()
+       .then(function(data){
+          console.log(data)
+             setUsers(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
+       }); 
+    };
+    fetchData();
+ }, [])
 
-function userAppointmentUI() {
-    return (
-       <div>
-         <h1>
-            User Appointment Page
-         </h1>
-      </div>
-    )
+  return (
+    <div>
+      <Container>
+        <Card>
+          <Card.Title>{Users.map(user => <h4><Link to={{
+                        pathname: 'bookAppointment/', 
+                        state:{user: user}
+            }}>{user.FirstName } {user.LastName} </Link></h4>)}</Card.Title>
+            <Button className="w-50 " type="submit">Book A New Appointment</Button>
+          </Card>
+          <Nav style= {{backgroundColor: "#E5E5E5", fontSize: "20px"}}fill variant="tabs" defaultActiveKey="/home">
+            <Nav.Item>
+              <Nav.Link eventKey="link-1">Upcoming</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="link-2">Missed</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="link-3">Open</Nav.Link>
+            </Nav.Item>
+            </Nav>
+        </Container>
+    </div>
+  )
 }
 
-class FlavorForm extends React.Component {
-   constructor(props) {
-     super(props);
-     this.state = {value: 'coconut'};
-     this.handleChange = this.handleChange.bind(this);
-     this.handleSubmit = this.handleSubmit.bind(this);
-   }
- 
-   handleChange(event) {    this.setState({value: event.target.value});  }
-   handleSubmit(event) {
-     alert('Your favorite flavor is: ' + this.state.value);
-     event.preventDefault();
-   }
- 
-   render() {
-     return (
-       <form onSubmit={this.handleSubmit}>
-         <label>
-           Pick your favorite flavor:
-           <select value={this.state.value} onChange={this.handleChange}>            <option value="grapefruit">Grapefruit</option>
-             <option value="lime">Lime</option>
-             <option value="coconut">Coconut</option>
-             <option value="mango">Mango</option>
-           </select>
-         </label>
-         <input type="submit" value="Submit" />
-       </form>
-     );
-   }
- }
-
-
-
-export default userAppointmentUI
-
+export default UserAppointmentUI
 

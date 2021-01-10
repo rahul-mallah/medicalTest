@@ -6,7 +6,7 @@ import PHomePageUI from "../Patient/PHomepageUI";
 import MyProfilePageUI from "../User/myProfilePageUI";
 import ChangePasswordUI from "../Patient/changePwUI";
 import ViewMyMPUI from "../Patient/ViewMyMPUI"
-import userAppointmentUI from '../Patient/userAppointmentUI';
+import UserAppointmentUI from '../Patient/userAppointmentUI';
 import BookAppointmentUI from '../Patient/BookAppointmentUI';
 import ResAppointmentUI from '../Patient/ResAppointmentUI';
 import CancelAppointmentUI from '../Patient/CancelAppointmentUI';
@@ -34,7 +34,7 @@ const PRoute = () =>
             <PrivateRoute exact path={`${path}/MedicalProfile`} component={ViewMyMPUI}/>
 
             // Appointment
-            <PrivateRoute exact path={`${path}/Appointment`} component={userAppointmentUI}/>
+            <PrivateRoute exact path={`${path}/Appointment`} component={UserAppointmentUI}/>
 
             // Make New Appointment
             <PrivateRoute exact path={`${path}/Appointment/Book`} component={BookAppointmentUI}/>
@@ -56,6 +56,8 @@ const PRoute = () =>
 
             // Individual Doctor Profile
             <Route exact path={`${path}/doctorProfile/:id`} component={DoctorProfile}/>
+
+            <Route exact path={`${path}/bookAppointment/`} component={BookAppointmentUI}/>
 
         </Switch>
     )}

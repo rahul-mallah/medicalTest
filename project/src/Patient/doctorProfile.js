@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {withRouter} from "react-router-dom";
+import {withRouter, Link} from "react-router-dom";
 import parse from "html-react-parser";
 import {Accordion, Card, Button, Row, Col, Image, Container} from "react-bootstrap"
 
@@ -42,7 +42,10 @@ class DoctorProfile extends Component {
                     <p className="card-title text-center text-muted">Specialist : {this.state.doctor.Specialist}</p>
                     <p className="card-text text-center text-muted">Department : {this.state.doctor.Department}</p>
                     <p className="card-text text-center text-muted">{this.state.doctor.Qualification}</p>
-                    <a href="#" className="btn btn-primary ">Book Appointment</a>
+                    <Link to={{
+                   pathname: '/Patient/bookAppointment', 
+                   state:{doctor: this.state.doctor}
+            }}><a href="#" className="btn btn-primary ">Book Appointment</a></Link>
                 </div>
             </div>
         </div>
