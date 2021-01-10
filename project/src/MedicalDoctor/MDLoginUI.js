@@ -67,7 +67,7 @@ function MDLoginUI() {
                 <Link to="/resetPassword">Forgot Password?</Link>
                 <div className="w-100 text-left mt-1">
                 <br></br>Login As
-                <Link to="/login"> Patient </Link> or
+                <Link to="/"> Patient </Link> or
                 <Link to="/MALogin"> Medical Admin</Link>
             </div>
             </div>

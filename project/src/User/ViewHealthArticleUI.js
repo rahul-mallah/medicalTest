@@ -2,14 +2,16 @@ import React, {Component} from 'react'
 import {Container} from 'reactstrap'
 import ArticleCard from "../components/ArticleCard/ArticleCard";
 import {firestore} from '../firebase'
-import NavBarArticle from '../components/NavbarArticleUI';
+import {Row, Col} from 'react-bootstrap'
+import SearchBar from '../Patient/searchBar';
 
 class ViewHealthArticleUI extends Component{
     constructor(props){
         super(props);
         this.state={
             isLoaded: false,
-            articles: []
+            articles: [],
+            searchValue : ""
         }
     }
 
@@ -40,19 +42,37 @@ class ViewHealthArticleUI extends Component{
     }
 
     render() {
+        let filteredArticles = this.state.articles.filter(doc => {
+            return doc.title.toLowerCase().includes(this.state.searchValue.toLowerCase())
+        })
+
         return(
             <div>
+                {/* search bar */}
+                <div
+                style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center"
+                }}
+                >
+                    <SearchBar handleChange={(e) => this.setState({searchValue: e.target.value})} placeholder = "Enter Article..."/>
+                </div>
                 <Container>
-                    {this.state.isLoaded?
-                        this.state.articles.map((article, index) => {
-                            return(
-                                <ArticleCard
-                                    key={index}
-                                    data={article}
-                                />
-                            )
-                        }) : ''
-                    }
+                    <Row>
+                        {this.state.isLoaded?
+                            filteredArticles.map((article, index) => {
+                                return(
+                                    <Col md= "3" className="container-fluid mt-4 mx-3">
+                                    <ArticleCard
+                                        key={index}
+                                        data={article}
+                                    />
+                                    </Col>
+                                )
+                            }) : ''
+                        }
+                    </Row>
                 </Container>         
             </div>
         )
