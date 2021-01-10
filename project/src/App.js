@@ -13,8 +13,7 @@ import SysAdm from "./SystemAdmin/SysAdm";
 // Patient ---------------------------------------------------
 import Patient from './Patient/Patient';
 import RegisterUI  from './Patient/RegisterUI';
-
-// Medical Staff ---------------------------------------------
+import appointmentFormUI  from './Patient/appointmentFormUI';
 
 // Medical Doctor --------------------------------------------
 import MedDoc from './MedicalDoctor/MedDoc'
@@ -35,6 +34,9 @@ function App() {
 
           // Patient Create New Account Page
           <Route path="/register" component={RegisterUI}/>
+
+          // Patient book appointment form
+          <Route path="/appointmentForm" component={appointmentFormUI}/>
 
           // User Reset Password Page
           <Route path="/resetPassword" component={ResetPasswordUI}/>
