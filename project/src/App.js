@@ -35,9 +35,6 @@ function App() {
           // Patient Create New Account Page
           <Route path="/register" component={RegisterUI}/>
 
-          // Patient book appointment form
-          <Route path="/appointmentForm" component={appointmentFormUI}/>
-
           // User Reset Password Page
           <Route path="/resetPassword" component={ResetPasswordUI}/>
 

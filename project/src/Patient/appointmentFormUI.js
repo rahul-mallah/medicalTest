@@ -5,7 +5,7 @@ import { auth, firestore } from '../firebase';
 import moment from 'moment';
 import {useRouteMatch} from 'react-router-dom';
 
-function MyProfilePageUI() {
+function AppointmentFormUI() {
 
    const [FirstName, setFirstName] = useState(""); 
    const [LastName, setLastName] = useState(""); 
@@ -173,4 +173,4 @@ function MyProfilePageUI() {
    )
 }
 
-export default MyProfilePageUI
+export default AppointmentFormUI
