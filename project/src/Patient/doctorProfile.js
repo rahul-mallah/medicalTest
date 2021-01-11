@@ -42,11 +42,11 @@ class DoctorProfile extends Component {
                     <p className="card-title text-center text-muted">Specialist : {this.state.doctor.Specialist}</p>
                     <p className="card-text text-center text-muted">Department : {this.state.doctor.Department}</p>
                     <p className="card-text text-center text-muted">{this.state.doctor.Qualification}</p>
-                    {/* <Link to={{
+                    <Link to={{
                    pathname: '/Patient/bookAppointment', 
                    state:{doctor: this.state.doctor}
-            }}><a href="#" className="btn btn-primary ">Book Appointment</a></Link> */}
-                    <a href="/appointmentForm" className="btn btn-primary ">Book Appointment</a>
+            }}><a href="" className="btn btn-primary ">Book Appointment</a></Link>
+                    {/* <a href="/Patient/appointmentForm" className="btn btn-primary ">Book Appointment</a> */}
                 </div>
             </div>
         </div>

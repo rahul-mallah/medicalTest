@@ -9,6 +9,7 @@ function UserAppointmentUI() {
   const{currentUser} = useAuth();
   const [Email, setEmail] = useState(""); 
   const [Users, setUsers] = useState([]);
+  const doctor = { Name : ""}
 
   React.useEffect(()=>{
     const fetchData = async () =>{
@@ -27,11 +28,11 @@ function UserAppointmentUI() {
     <div>
       <Container>
         <Card>
-          <Card.Title>{Users.map(user => <h4><Link to={{
+          <Card.Title>{Users.map(user => <h4>{user.FirstName } {user.LastName}</h4>)}</Card.Title>
+          <Link to={{
                         pathname: 'bookAppointment/', 
-                        state:{user: user}
-            }}>{user.FirstName } {user.LastName} </Link></h4>)}</Card.Title>
-            <Button className="w-50 " type="submit">Book A New Appointment</Button>
+                        state:{doctor: doctor}
+            }}><Button className="w-50 " type="submit">Book A New Appointment</Button></Link>
           </Card>
           <Nav style= {{backgroundColor: "#E5E5E5", fontSize: "20px"}}fill variant="tabs" defaultActiveKey="/home">
             <Nav.Item>

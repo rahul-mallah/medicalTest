@@ -14,6 +14,9 @@ import ViewHealthArticleUI from '../User/ViewHealthArticleUI';
 import PatientViewArticle from "../components/ViewArticle/PatientViewArticle";
 import DoctorProfile from "../Patient/doctorProfile";
 import SearchDoctor from "../Patient/searchDoctor";
+import ScheduleAppointmentUI from "../Patient/ScheduleAppointmentUI"
+import appointmentFormUI from "../Patient/appointmentFormUI"
+import AppointmentFormUI from '../Patient/appointmentFormUI';
 
 const PRoute = () =>
 {
@@ -57,8 +60,8 @@ const PRoute = () =>
             // Individual Doctor Profile
             <Route exact path={`${path}/doctorProfile/:id`} component={DoctorProfile}/>
 
-            <Route exact path={`${path}/bookAppointment/`} component={BookAppointmentUI}/>
-
+            <PrivateRoute exact path={`${path}/bookAppointment/`} component={BookAppointmentUI}/>
+            <PrivateRoute exact path={`${path}/scheduleAppointment/`} component={ScheduleAppointmentUI}/>
         </Switch>
     )}
 
