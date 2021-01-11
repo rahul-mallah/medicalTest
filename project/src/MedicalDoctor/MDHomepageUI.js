@@ -56,7 +56,7 @@ function MDHomepageUI() {
                             <div className="card-body">
                                 <h5 className="card-title">My Profile</h5>
                                 <p className="card-text">You can see all your profile details here. You may choose to edit your address and telephone number.</p>
-                                <a onClick={() => {window.location.href="/MedDoc/myProfile"}} className="btn btn-primary">View / Amend Appointments</a>
+                                <a onClick={() => {window.location.href="/MedDoc/myProfile"}} className="btn btn-primary">View / Edit profile</a>
                             </div>
                         </div>
                     </div>
