@@ -38,7 +38,7 @@ function SAHomePageUI() {
                             <div className="col-sm">
                                 <div className="card" >
                                     <img className="photo" src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8ZWR1Y2F0aW9ufGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60" 
-                                        className="card-img-top" alt="..." height="200px"/>
+                                        className="card-img-top" alt="..." height="240px"/>
                                         <div className="card-body">
                                             <h5 className="card-title">Educational</h5>
                                             <p className="card-text">Get your hands on the latest health educational materials and health promotions!</p>

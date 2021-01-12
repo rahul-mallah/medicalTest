@@ -3,7 +3,7 @@ import { MDBCol, MDBIcon } from "mdbreact";
 
 const SearchBar = (props) => {
   return (
-    <MDBCol md="6" className="justify-content-center">
+    <MDBCol md="6" className="justify-content-center my-2">
       <div className="input-group md-form form-sm form-1 pl-0">
         <div className="input-group-prepend">
           <span className="input-group-text purple lighten-3" id="basic-text1">

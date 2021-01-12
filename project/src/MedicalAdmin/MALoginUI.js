@@ -20,7 +20,7 @@ function MALoginUI() {
             setError("");
             setLoading(true);
             await login(Email, Password);
-            history.push("/MedicalAdminMainPage");
+            history.push("/MedAdm");
         }catch(error) {
             return setError(error.message);
         }
@@ -68,8 +68,8 @@ function MALoginUI() {
             </div>
             <div className="w-100 text-left mt-1">
                 <br></br>Login As
-                <Link to="/MDLogin"> Medical Doctor</Link> or
-                <Link to="/login"> Patient</Link>
+                <Link to="/"> Patient</Link> or
+               <Link to="/MDLogin"> Medical Doctor</Link> 
             </div>
              </Card.Body>
             </Card>

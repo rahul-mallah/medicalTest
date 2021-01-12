@@ -13,15 +13,14 @@ import SysAdm from "./SystemAdmin/SysAdm";
 // Patient ---------------------------------------------------
 import Patient from './Patient/Patient';
 import RegisterUI  from './Patient/RegisterUI';
-
-// Medical Staff ---------------------------------------------
+import appointmentFormUI  from './Patient/appointmentFormUI';
 
 // Medical Doctor --------------------------------------------
-import MDMainView from './MedicalDoctor/MDMainView'
+import MedDoc from './MedicalDoctor/MedDoc'
 import MDLoginUI from './MedicalDoctor/MDLoginUI'
 
 // Medical Admin ---------------------------------------------
-import MAMainView from './MedicalAdmin/MAMainView'
+import MedAdm from './MedicalAdmin/MedAdm'
 import MALoginUI from './MedicalAdmin/MALoginUI'
 
 function App() {
@@ -31,8 +30,7 @@ function App() {
       <AuthProvider>
         <Switch>
           // User Login Page
-          <Route exact path="/" component={Patient}/>
-          <Route path="/login" component={LoginUI}/>
+          <Route exact path="/" component={LoginUI}/>
 
           // Patient Create New Account Page
           <Route path="/register" component={RegisterUI}/>
@@ -47,11 +45,11 @@ function App() {
           <PrivateRoute path="/Patient" component={Patient}/>
 
           // Medical Doctor Main Page --------------------------------------
-          <Route path="/MedicalDoctorMainPage" component={MDMainView}/>
+          <PrivateRoute path="/MedDoc" component={MedDoc}/>
           <Route path="/MDLogin" component={MDLoginUI}/>
 
           // Medical Admin Main Page ---------------------------------------
-          <Route path="/MedicalAdminMainPage" component={MAMainView}/>
+          <PrivateRoute path="/MedAdm" component={MedAdm}/>
           <Route path="/MALogin" component={MALoginUI}/>
           
         </Switch>

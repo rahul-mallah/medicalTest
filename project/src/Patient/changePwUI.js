@@ -51,7 +51,7 @@ export default function ChangePasswordUI() {
               </Button>
             </Form>
             <div className="w-100 text-center mt-2">
-              <Link to="/Patient">Back to Homepage</Link>
+            <Link onClick={() => {window.location.href="/Patient"}}>Back to Homepage</Link>
             </div>
           </Card.Body>
         </Card>

@@ -3,7 +3,7 @@ import { Form, Button, Card, Alert, Container } from "react-bootstrap"
 import { useAuth } from '../util/Auth';
 import { Link } from "react-router-dom"
 
-export default function ResetPasswordUI() {
+export default function ChangePasswordUI() {
     const emailRef = useRef("");
     const { resetPassword } = useAuth("")
     const [error, setError] = useState("")
@@ -38,7 +38,7 @@ export default function ResetPasswordUI() {
         <Card>
           <Card.Body>
             <h2 className="text-center mb-4" style={{
-                     fontSize: '2em'}}>Reset your Password</h2>
+                     fontSize: '2em'}}>Change your Password</h2>
             {error && <Alert variant="danger">{error}</Alert>}
             {message && <Alert variant="success">{message}</Alert>}
             <Form onSubmit={handleSubmit}>
@@ -47,14 +47,11 @@ export default function ResetPasswordUI() {
                 <Form.Control type="email" ref={emailRef} required />
               </Form.Group>
               <Button disabled={loading} className="w-100 text-center mt-2" type="submit">
-                Reset Password
+                Change Password
               </Button>
             </Form>
             <div className="w-100 text-center mt-2">
-              <Link to="/">Back to Login Screen</Link>
-            </div>
-            <div className="w-100 text-center mt-2">
-          Need an account? <Link to="/register">Join Now!</Link>
+            <Link onClick={() => {window.location.href="/MedAdm"}}>Back to Homepage</Link>
             </div>
           </Card.Body>
         </Card>

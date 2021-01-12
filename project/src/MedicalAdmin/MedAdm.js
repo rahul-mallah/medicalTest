@@ -1,12 +1,18 @@
 import React from 'react'
-import {Link} from 'react-router-dom';
 import NaviBar from "../components/Navbar/NavigationbarSA";
 import Sidebar from '../components/Sidebar/Sidebar';
 import * as s from '../App.styles';
 import {menuItems} from '../components/Sidebar/MASideBarData';
+import MARoute from '../Routes/MARoute.js'
 
-class MAMainView extends React.Component
+class MedAdm extends React.Component
 {
+   constructor(props){
+      super(props);
+      this.state = {
+         inputI: 'MedAdm'
+      }
+   }
    // display UI
    render()
    {
@@ -16,20 +22,10 @@ class MAMainView extends React.Component
             <s.AppS>
                <Sidebar
                menuItems={menuItems}
+               mainI={this.state.inputI}
                />
                <s.MainS>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
-                  <h1> test </h1>
+                  <MARoute />
                </s.MainS>
             </s.AppS>
          </s.FinalS>
@@ -37,4 +33,4 @@ class MAMainView extends React.Component
    }
 }
 
-export default MAMainView
+export default MedAdm
