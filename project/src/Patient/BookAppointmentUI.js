@@ -103,7 +103,10 @@ function BookAppointmentUI() {
                           disabled = {true} 
                           type="text" required/>
                        </Form.Group>
-                       <Link to = {"/Patient/scheduleAppointment"}><Button className="w-100 my-2" type="submit">Next</Button></Link>
+                       <Link to={{
+                        pathname: '/Patient/scheduleAppointment/', 
+                        state:{doctor: doctor}
+            }}><Button className="w-100 my-2" type="submit">Next</Button></Link>
                    </Form>
                </Card.Body>
               </Card>
