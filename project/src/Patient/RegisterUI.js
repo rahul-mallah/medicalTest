@@ -3,6 +3,7 @@ import {Form, Button, Card, Container, Alert} from 'react-bootstrap'
 import { Link, useHistory} from 'react-router-dom';
 import { auth, firestore } from '../firebase';
 import moment from 'moment';
+import PasswordStrengthIndicator from '../components/PasswordStrengthIndicator';
 
 function RegisterUI() {
 
@@ -30,6 +31,33 @@ function RegisterUI() {
    const PasswordRef = useRef();
    const ConfirmPasswordRef = useRef();
 
+   // Check Validity
+   const isNumber = /\d/;
+   const isSpecChar = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+   const isLower = /[a-z]/;
+   const isUpper = /[A-Z]/;
+
+   const [passwordFocused, setPasswordFocused] = useState(false);
+   const [passwordValidity, setPasswordValidity] = useState ({
+      minChar: null,
+      lower: null,
+      upper: null,
+      number: null,
+      specialChar: null
+   });
+
+   const onChangePassword = password =>
+   {
+      setPassword(password);
+      setPasswordValidity({
+         minChar: password.length >=8 ? true : false,
+         lower: isLower.test(password) ? true : false,
+         upper: isUpper.test(password) ? true : false,
+         number: isNumber.test(password) ? true : false,
+         specialChar: isSpecChar.test(password) ? true : false
+      })
+   }
+
    //handle submit
    const handleSubmit = async (e) => {
       e.preventDefault();
@@ -38,6 +66,12 @@ function RegisterUI() {
       {
          return setError("Passwords do not match")
       }
+
+      if (passwordValidity.minChar == false || passwordValidity.lower == false || passwordValidity.upper == false || passwordValidity.number == false || passwordValidity.specialChar == false)
+      {
+         return setError("Password do not meet the requirement");
+      }
+
       try{
          setError("");
          setLoading(true);
@@ -69,6 +103,7 @@ function RegisterUI() {
       setConfirmPassword("");
       setError("");
       setLoading(false);
+      setPasswordFocused(false);
       };
 
    return (
@@ -154,21 +189,25 @@ function RegisterUI() {
                                 marginTop : '50px'
                             }}/>
                      <Form.Group id = "Password">
-                        <Form.Label>Passsword</Form.Label>
+                        <Form.Label>Password</Form.Label>
                         <Form.Control 
                         ref={PasswordRef}
                         value={Password}
-                        onChange={(e) => setPassword(e.target.value)} 
+                        onFocus = {() => setPasswordFocused(true)}
+                        onChange={(e) => onChangePassword(e.target.value)} 
                         type="password" required/>
                      </Form.Group>
                      <Form.Group id = "ConfirmPassword">
-                        <Form.Label>Confirm Passsword</Form.Label>
+                        <Form.Label>Confirm Password</Form.Label>
                         <Form.Control 
                         ref={ConfirmPasswordRef}
                         value={ConfirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)} 
                         type="password" required/>
                      </Form.Group>
+
+                     { passwordFocused && <PasswordStrengthIndicator validity={passwordValidity}/>}
+
                      <Button className="w-100" type="submit">Sign Up</Button>
                  </Form>
             <div className="w-100 text-center mt-2">
