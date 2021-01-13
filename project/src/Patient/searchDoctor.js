@@ -76,7 +76,7 @@ class SearchDoctor extends Component{
                 return doc.Department.includes(this.state.DropDown) 
             else if(this.state.DropDown === "Urology")
                 return doc.Department.includes(this.state.DropDown)   
-            else if(this.state.DropDown === "General Practitioner")
+            else if(this.state.DropDown === "General Practitioner (Non-specialist)")
                 return doc.Department.includes(this.state.DropDown)                
             return doc.Name.toLowerCase().includes(this.state.searchValue.toLowerCase())
         })
