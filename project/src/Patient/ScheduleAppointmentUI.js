@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import moment from 'moment';
-import {Link, withRouter, useLocation} from 'react-router-dom';
+import {Link, withRouter, useLocation, useHistory} from 'react-router-dom';
 import { useAuth } from '../util/Auth';
 import { Form, Button, Card, Alert, Container } from "react-bootstrap"
 import ReactTimeslotCalendar from 'react-timeslot-calendar';
@@ -17,6 +17,7 @@ function ScheduleAppointmentUI() {
     const [error, setError] = useState("");                // store error message
     const [Users, setUsers] = useState([]);
     const { currentUser } = useAuth();
+    const history = useHistory();
 
     React.useEffect(()=>{
         const fetchData = async () =>{
@@ -46,7 +47,7 @@ function ScheduleAppointmentUI() {
             return setError("Date Or Timeslot Not Selected")
         }
         try{
-            firestore.collection("Appointment").add({
+            await firestore.collection("Appointment").add({
                 Date : date,
                 Doctor : doctor.Name,
                 Timeslot : selectedSlot,
@@ -55,6 +56,7 @@ function ScheduleAppointmentUI() {
             })
             .then(() => {
                 alert("Appointment Booked Successfully!");
+                history.push("/Patient/Appointment");
              })
           } catch(error){
              return setError(error.message);
