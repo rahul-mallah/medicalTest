@@ -21,12 +21,12 @@ const DoctorCard = (props) => {
             </Link>
             <Card.Subtitle className="mb-2 text-muted">Department: {props.data.Department}</Card.Subtitle>
             <Card.Subtitle className="mb-2 text-muted">Specialty: {props.data.Specialist}</Card.Subtitle>
-            <TextTruncate 
+            {/* <TextTruncate 
                line={3}
                element="span"
                truncateText="…"
                text={props.data.Information}
-            />
+            /> */}
                <Link to={{pathname: 'doctorProfile/'+props.data.id, state:{doctor: props.data}}}><Button variant="primary">View Profile</Button></Link>
          </Card.Body>
       </Card>

@@ -77,22 +77,17 @@ function ScheduleAppointmentUI() {
     // to filter timeslots for the doctor selected in bookAppoinemntUI 
     
     const bookedTimeslots = [];
-    for(var i = 0; i < times.length; i++)
+    
+    for(var j = 0; j < appointments.length; j++)
     {
-        for(var j = 0; j < appointments.length; j++)
+        //get booked timeslots for the doctor on that day
+        if(date === appointments[j].Date)
         {
-            //get booked timeslots for the doctor on that day
-            if(times[i] === appointments[j].Timeslot)
+            if(doctor.Name === appointments[j].Doctor)
             {
-                if(date === appointments[j].Date)
-                {
-                    if(doctor.Name === appointments[j].Doctor)
-                    {
-                        bookedTimeslots.push(times[i]);
-                    }
-                } 
+                bookedTimeslots.push(appointments[j].Timeslot);
             }
-        }
+        } 
     }
     
     //remove booked timeslots from times array

@@ -4,12 +4,21 @@ import {Nav, Container, Card, Button, Row} from "react-bootstrap";
 import { useAuth } from '../util/Auth';
 import {Link, withRouter} from "react-router-dom";
 import { auth, firestore } from '../firebase';
+import './UserAppointmentUI.css';
+import moment from 'moment';
 
 function UserAppointmentUI() {
+
   const{currentUser} = useAuth();
   const [Email, setEmail] = useState(""); 
   const [Users, setUsers] = useState([]);
-  const doctor = { Name : ""}
+  const [appointments, setAppointments] = useState([]);
+  const doctor = { Name : ""};
+  const [toggleState, setToggleState] = useState(1);
+
+  const toggleTab = (index) => {
+    setToggleState(index);
+  };
 
   React.useEffect(()=>{
     const fetchData = async () =>{
@@ -20,32 +29,86 @@ function UserAppointmentUI() {
           console.log(data)
              setUsers(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
        }); 
+
+       firestore.collection("Appointment")
+       .get()
+       .then(function(data){
+          console.log(data)
+          setAppointments(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
+       }); 
     };
     fetchData();
  }, [])
 
+ const filteredAppointments = appointments.filter(app =>{
+    if(app.PatientEmail === currentUser.email)
+        return app;
+ })
+
   return (
     <div>
-      <Container>
+      <Container className= "w-100">
         <Card>
-          <Card.Title>{Users.map(user => <h4>{user.FirstName } {user.LastName}</h4>)}</Card.Title>
+          <Card.Title className = "my-3 px-5">{Users.map(user => <h4>{user.FirstName } {user.LastName}</h4>)}
+          <div className = "col text-right">
           <Link to={{
                         pathname: 'bookAppointment/', 
                         state:{doctor: doctor}
-            }}><Button className="w-50 " type="submit">Book A New Appointment</Button></Link>
+            }}><Button type="submit">Book New Appointment</Button></Link>
+              </div>
+              </Card.Title>
           </Card>
-          <Nav style= {{backgroundColor: "#E5E5E5", fontSize: "20px"}}fill variant="tabs" defaultActiveKey="/home">
-            <Nav.Item>
-              <Nav.Link eventKey="link-1">Upcoming</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="link-2">Missed</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="link-3">Open</Nav.Link>
-            </Nav.Item>
-            </Nav>
         </Container>
+        <Container className = "my-5 w-100">
+        <Card>
+          <div className="bloc-tabs">
+        <button
+          className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
+          onClick={() => toggleTab(1)}
+        >
+          Upcoming
+        </button>
+        <button
+          className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
+          onClick={() => toggleTab(2)}
+        >
+          Past
+        </button>
+      </div>
+
+      <div className="content-tabs">
+        <div
+          className={toggleState === 1 ? "content  active-content" : "content"}
+        >
+          <h2>View Your Upcoming Appointments</h2>
+          <hr />
+          {filteredAppointments.map(app =>
+          <Card className = "my-5">
+            <Card.Header as="h5">Date : {moment(app.Date).format('MMMM Do YYYY')}</Card.Header>
+              <Card.Body>
+                <Card.Title>Doctor : {app.Doctor}</Card.Title>
+                <Card.Text>Booked Time : {app.Timeslot}</Card.Text>
+                <Button variant="primary">Reschedule Appointment</Button>
+                <Button className = "mx-4" variant="primary">Cancel Appointment</Button>
+            </Card.Body>
+          </Card>
+          )}
+        </div>
+
+        <div
+          className={toggleState === 2 ? "content  active-content" : "content"}
+        >
+          <h2>Content 2</h2>
+          <hr />
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente
+            voluptatum qui adipisci.
+          </p>
+        </div>
+      </div>
+      </Card>
+      </Container>
+        
     </div>
   )
 }
