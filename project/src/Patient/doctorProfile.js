@@ -38,10 +38,9 @@ class DoctorProfile extends Component {
                         </div>
             <div className="col text-center w-75 ">
                 <div className="card-block px-2">
-                    <h4 className="card-title text-center text-muted">{this.state.doctor.Name}</h4>
-                    <p className="card-title text-center text-muted">Specialist : {this.state.doctor.Specialist}</p>
+                    <h1 className="card-title text-center text-muted">{this.state.doctor.Name}</h1>
+                    <p className="card-title text-center text-muted">{this.state.doctor.Specialist}</p>
                     <p className="card-text text-center text-muted">Department : {this.state.doctor.Department}</p>
-                    <p className="card-text text-center text-muted">{this.state.doctor.Qualification}</p>
                     <Link to={{
                    pathname: '/Patient/bookAppointment', 
                    state:{doctor: this.state.doctor}
@@ -65,7 +64,7 @@ class DoctorProfile extends Component {
                     <Card.Img variant="top" src="https://www.flaticon.com/svg/static/icons/svg/3135/3135715.svg" height="100px" />
                         <Card.Header style={{backgroundColor:"#E5E5E5"}} className="text-center">
                         <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                         <h4><b>Profile</b></h4>
+                         <h4><b>BIOGRAPHY</b></h4>
                         </Accordion.Toggle>
                         </Card.Header>
                     <Accordion.Collapse eventKey="0">
@@ -79,7 +78,7 @@ class DoctorProfile extends Component {
                     <Card.Img variant="top" src="https://www.flaticon.com/svg/static/icons/svg/2987/2987903.svg" height="100px" />
                         <Card.Header style={{backgroundColor:"#E5E5E5"}} className="text-center">
                         <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                        <h4><b>Education</b></h4>
+                        <h4><b>QUALIFICATION</b></h4>
                         </Accordion.Toggle>
                         </Card.Header>
                     <Accordion.Collapse eventKey="0">
@@ -88,33 +87,6 @@ class DoctorProfile extends Component {
                     </Card>
                     </Accordion>
                     
-                    <Accordion defaultActiveKey="0" className="my-5 d-flex justify-content-center">
-                    <Card className="w-75">
-                    <Card.Img variant="top" src="https://www.flaticon.com/svg/static/icons/svg/610/610333.svg" height="100px" />
-                        <Card.Header style={{backgroundColor:"#E5E5E5"}} className="text-center"> 
-                        <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                        <h4><b>Awards</b></h4>
-                        </Accordion.Toggle>
-                        </Card.Header>
-                    <Accordion.Collapse eventKey="0">
-                        <Card.Body>{this.state.doctor.Awards}</Card.Body>
-                     </Accordion.Collapse>
-                    </Card>
-                    </Accordion>
-
-                    <Accordion defaultActiveKey="0" className="my-5 d-flex justify-content-center">
-                    <Card className= "w-75">
-                    <Card.Img variant="top" src="https://www.flaticon.com/svg/static/icons/svg/1087/1087185.svg" height="100px" />
-                        <Card.Header style={{backgroundColor:"#E5E5E5"}} className="text-center">
-                        <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                         <h4><b>Publications</b></h4>
-                        </Accordion.Toggle>
-                        </Card.Header>
-                    <Accordion.Collapse eventKey="0">
-                        <Card.Body>{this.state.doctor.Publication}</Card.Body>
-                     </Accordion.Collapse>
-                    </Card>
-                    </Accordion>
                 </div>
             )
         }
