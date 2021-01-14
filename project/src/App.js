@@ -13,7 +13,6 @@ import SysAdm from "./SystemAdmin/SysAdm";
 // Patient ---------------------------------------------------
 import Patient from './Patient/Patient';
 import RegisterUI  from './Patient/RegisterUI';
-import appointmentFormUI  from './Patient/appointmentFormUI';
 
 // Medical Doctor --------------------------------------------
 import MedDoc from './MedicalDoctor/MedDoc'

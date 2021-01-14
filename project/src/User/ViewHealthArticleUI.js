@@ -56,7 +56,7 @@ class ViewHealthArticleUI extends Component{
                     alignItems: "center"
                 }}
                 >
-                    <SearchBar handleChange={(e) => this.setState({searchValue: e.target.value})} placeholder = "Enter Article..."/>
+                    <SearchBar handleChange={(e) => this.setState({searchValue: e.target.value})} placeholder = "Search for an article..."/>
                 </div>
                 <Container>
                     <Row>
