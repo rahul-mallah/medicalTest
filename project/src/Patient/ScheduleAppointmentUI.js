@@ -195,7 +195,7 @@ function ScheduleAppointmentUI() {
                 <Link to={{
                         pathname: '/Patient/bookAppointment', 
                         state:{doctor: doctor}
-            }}><Button className="w-100 my-2" type="submit">Cancel</Button></Link>
+            }}><Button className="w-100 my-2" type="submit">Return</Button></Link>
                 </Form>
                 </Card.Body>
                 </Card>
