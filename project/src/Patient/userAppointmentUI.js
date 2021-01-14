@@ -15,6 +15,7 @@ function UserAppointmentUI() {
   const [appointments, setAppointments] = useState([]);
   const doctor = { Name : ""};
   const [toggleState, setToggleState] = useState(1);
+  const [date, setDate] = useState(new Date());
 
   const toggleTab = (index) => {
     setToggleState(index);
@@ -44,6 +45,18 @@ function UserAppointmentUI() {
     if(app.PatientEmail === currentUser.email)
         return app;
  })
+
+ const filterUpcoming = filteredAppointments.filter(app =>{
+    let today = moment(date).format('MMMM Do YYYY');
+    let appDate = moment(app.Date).format('MMMM Do YYYY');
+    return appDate >= today;
+ })
+
+ const filterPast = filteredAppointments.filter(app =>{
+  let today = moment(date).format('MMMM Do YYYY');
+  let appDate = moment(app.Date).format('MMMM Do YYYY');
+  return appDate < today;
+})
 
   return (
     <div>
@@ -82,7 +95,7 @@ function UserAppointmentUI() {
         >
           <h2>View Your Upcoming Appointments</h2>
           <hr />
-          {filteredAppointments.map(app =>
+          {filterUpcoming.map(app =>
           <Card className = "my-5">
             <Card.Header as="h5">Date : {moment(app.Date).format('MMMM Do YYYY')}</Card.Header>
               <Card.Body>
@@ -98,12 +111,19 @@ function UserAppointmentUI() {
         <div
           className={toggleState === 2 ? "content  active-content" : "content"}
         >
-          <h2>Content 2</h2>
+          <h2>View Your Past Appointments</h2>
           <hr />
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente
-            voluptatum qui adipisci.
-          </p>
+          {filterPast.map(app =>
+          <Card className = "my-5">
+            <Card.Header as="h5">Date : {moment(app.Date).format('MMMM Do YYYY')}</Card.Header>
+              <Card.Body>
+                <Card.Title>Doctor : {app.Doctor}</Card.Title>
+                <Card.Text>Booked Time : {app.Timeslot}</Card.Text>
+                <Button variant="primary">Reschedule Appointment</Button>
+                <Button className = "mx-4" variant="primary">Cancel Appointment</Button>
+            </Card.Body>
+          </Card>
+          )}
         </div>
       </div>
       </Card>
