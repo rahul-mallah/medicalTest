@@ -2,8 +2,7 @@ import React,{useState} from 'react'
 import moment from 'moment';
 import {Link, withRouter, useLocation, useHistory} from 'react-router-dom';
 import { useAuth } from '../util/Auth';
-import { Form, Button, Card, Alert, Container } from "react-bootstrap"
-import ReactTimeslotCalendar from 'react-timeslot-calendar';
+import { Form, Button, Card, Alert, Container } from "react-bootstrap";
 import { auth, firestore } from '../firebase';
 import "./ScheduleAppointment.css";
 
@@ -78,6 +77,7 @@ function ScheduleAppointmentUI() {
              return setError(error.message);
           }
         setSelectedSlot("");
+        setDate("");
    }
 
    //select a random doctor on click
