@@ -50,7 +50,7 @@ function ScheduleAppointmentUI() {
      }, [])
 
      //handle submit
-   const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
         if(date === "" || selectedSlot === "")
@@ -72,8 +72,28 @@ function ScheduleAppointmentUI() {
             })
             .then(() => {
                 alert("Appointment Booked Successfully!");
-                history.push("/Patient/Appointment");
-             })
+            })
+            
+            // Send email to user
+            let details = {
+                date: date,
+                doctor: docGP.Name,
+                timeslot: selectedSlot,
+                user: Users[0].FirstName + " " + Users[0].LastName,
+                email: currentUser.email
+            };
+            let response = await fetch("http://localhost:5000/book", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json;charset=utf-8"
+                },
+                body: JSON.stringify(details)
+            });
+            let result = await response.json();
+            alert(result.status);
+
+            history.push("/Patient/Appointment");
+
           } catch(error){
              return setError(error.message);
           }
