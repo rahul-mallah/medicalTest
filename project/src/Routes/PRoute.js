@@ -15,8 +15,6 @@ import PatientViewArticle from "../components/ViewArticle/PatientViewArticle";
 import DoctorProfile from "../Patient/doctorProfile";
 import SearchDoctor from "../Patient/searchDoctor";
 import ScheduleAppointmentUI from "../Patient/ScheduleAppointmentUI"
-import appointmentFormUI from "../Patient/appointmentFormUI"
-import AppointmentFormUI from '../Patient/appointmentFormUI';
 
 const PRoute = () =>
 {
@@ -38,9 +36,6 @@ const PRoute = () =>
 
             // Appointment
             <PrivateRoute exact path={`${path}/Appointment`} component={UserAppointmentUI}/>
-
-            // Make New Appointment
-            <PrivateRoute exact path={`${path}/Appointment/Book`} component={BookAppointmentUI}/>
 
             // Reschedule Appointment
             <PrivateRoute exact path={`${path}/Appointment/Reschedule`} component={ResAppointmentUI}/>

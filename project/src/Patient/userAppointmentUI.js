@@ -13,6 +13,7 @@ function UserAppointmentUI() {
   const [Email, setEmail] = useState(""); 
   const [Users, setUsers] = useState([]);
   const [appointments, setAppointments] = useState([]);
+  const [doctors, setDoctors] = useState([]);
   const doctor = { Name : ""};
   const [toggleState, setToggleState] = useState(1);
   const [date, setDate] = useState(new Date());
@@ -36,6 +37,13 @@ function UserAppointmentUI() {
        .then(function(data){
           console.log(data)
           setAppointments(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
+       }); 
+
+       firestore.collection("Medical Doctors")
+       .get()
+       .then(function(data){
+          console.log(data)
+          setDoctors(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
        }); 
     };
     fetchData();
@@ -95,14 +103,20 @@ function UserAppointmentUI() {
         >
           <h2>View Your Upcoming Appointments</h2>
           <hr />
-          {filterUpcoming.map(app =>
+          {filterUpcoming.map(app => 
           <Card className = "my-5">
             <Card.Header as="h5">Date : {moment(app.Date).format('MMMM Do YYYY')}</Card.Header>
               <Card.Body>
                 <Card.Title>Doctor : {app.Doctor}</Card.Title>
                 <Card.Text>Booked Time : {app.Timeslot}</Card.Text>
-                <Button variant="primary">Reschedule Appointment</Button>
-                <Button className = "mx-4" variant="primary">Cancel Appointment</Button>
+                <Link to={{
+                        pathname: 'Appointment/Reschedule', 
+                        state:{Appointment: app}
+            }}><Button variant="primary">Reschedule Appointment</Button></Link>
+                <Link to={{
+                        pathname: 'Appointment/Cancel', 
+                        state:{Appointment: app}
+            }}><Button className = "mx-4" variant="primary">Cancel Appointment</Button></Link>
             </Card.Body>
           </Card>
           )}
@@ -119,8 +133,10 @@ function UserAppointmentUI() {
               <Card.Body>
                 <Card.Title>Doctor : {app.Doctor}</Card.Title>
                 <Card.Text>Booked Time : {app.Timeslot}</Card.Text>
-                <Button variant="primary">Reschedule Appointment</Button>
-                <Button className = "mx-4" variant="primary">Cancel Appointment</Button>
+                <Link to={{
+                        pathname: 'bookAppointment/', 
+                        state:{doctor: doctor}
+            }}><Button variant="primary">Book Again</Button></Link>
             </Card.Body>
           </Card>
           )}
