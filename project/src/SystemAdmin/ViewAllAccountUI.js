@@ -39,6 +39,7 @@ function ViewAllAccountUI()
                      <th>Date Of Birth</th>
                      <th>Email Address</th>
                      <th>Telephone</th>
+                     <th>Account Type</th>
                      <th>Actions</th>
                   </tr>
                </thead>
@@ -53,6 +54,7 @@ function ViewAllAccountUI()
                            <td>{users.DOB}</td>
                            <td>{users.Email}</td>
                            <td>{users.Telephone}</td>
+                           <td>Patients(Hard code for now)</td>
                            <UserInput users = {users}/>
                            </tr>
                      ))}                                                                              
