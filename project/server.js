@@ -84,3 +84,33 @@ router.post("/createAcc", (req, res) => {
         }
     });
 });
+
+// create email for reschedule appointment
+router.post("/reschedule", (req, res) => {
+    const date = req.body.date;
+    const doctor = req.body.doctor;
+    const timeslot = req.body.timeslot;
+    const user = req.body.user;
+    const email = req.body.email;
+    const mail = {
+        from: 'UOWMyAppointment@gmail.com',
+        to: email,
+        cc: 'UOWMyAppointment@gmail.com',
+        subject: 'MyAppointment Booking Confirmation',
+        html: `<p> Dear ${user}, </p>
+                <p> This email is to inform you that your booking with ${doctor} has been successfully changed to ${date} ${timeslot}. </p>
+                <p> Regards, </p>
+                <p> MyAppointment Team </p>
+        `
+    };
+    transporter.sendMail(mail, (error) => {
+        if (error)
+        {
+            res.json({status: "ERROR"});
+        }
+        else
+        {
+            res.json({status: "Confirmation Email Sent"});
+        }
+    });
+});

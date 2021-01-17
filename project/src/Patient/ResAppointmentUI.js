@@ -40,7 +40,7 @@ function ResAppointmentUI() {
             .get()
             .then(function(data){
                 console.log(data)
-                setDoctor(data.docs.map(doc => ({ ...doc.data(), id: doc.id}))); 
+                setDoctor(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
             });
         };
         fetchData();
@@ -59,11 +59,30 @@ function ResAppointmentUI() {
          await firestore.collection("Appointment").doc(Appointment.id).update({
             Date : date,
             Timeslot: selectedSlot,
-         })
-         .then(() => {
+        })
+        .then(() => {
             alert("Appointment Rescheduled Successfully!");
-            history.push("/Patient/Appointment");
-         })
+        })
+
+        // Send email to user
+        let details = {
+            date: date,
+            doctor: doct.Name,
+            timeslot: selectedSlot,
+            user: Users[0].FirstName + " " + Users[0].LastName,
+            email: currentUser.email
+        };
+        let response = await fetch("http://localhost:5000/reschedule", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json;charset=utf-8"
+            },
+            body: JSON.stringify(details)
+        });
+        let result = await response.json();
+        console.log(result.status);
+
+        history.push("/Patient/Appointment");
       }
       catch(error){
          return setError(error.message);

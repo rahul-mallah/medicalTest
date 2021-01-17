@@ -103,7 +103,7 @@ function RegisterUI() {
             body: JSON.stringify(details)
          });
          let result = await response.json();
-         alert(result.status);
+         console.log(result.status);
       } catch(error){
          return setError(error.message);
       }
