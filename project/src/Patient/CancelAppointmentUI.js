@@ -22,8 +22,27 @@ function CancelAppointmentUI() {
          await firestore.collection("Appointment").doc(Appointment.id).delete()
          .then(() => {
             alert("Appointment Cancelled Successfully!");
-            history.push("/Patient/Appointment");
          })
+
+         // Send email to user
+         let details = {
+            date: Appointment.Date,
+            doctor: Appointment.Doctor,
+            timeslot: Appointment.Timeslot,
+            user: Appointment.Patient,
+            email: Appointment.PatientEmail
+         };
+         let response = await fetch("http://localhost:5000/cancel", {
+            method: "POST",
+            headers: {
+               "Content-Type": "application/json;charset=utf-8"
+            },
+            body: JSON.stringify(details)
+         });
+         let result = await response.json();
+         console.log(result.status);
+
+         history.push("/Patient/Appointment");
       }
       catch(error){
          return setError(error.message);
