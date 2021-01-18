@@ -89,6 +89,21 @@ function RegisterUI() {
          .then(() => {
             alert("Account Registered Successfully!");
          })
+
+         // send email to user
+         let details = {
+            email: Email.toLowerCase(),
+            user: FirstName + " " + LastName
+         };
+         let response = await fetch("http://localhost:5000/createAcc", {
+            method: "POST",
+            headers: {
+               "Content-Type": "application/json;charset=utf-8"
+            },
+            body: JSON.stringify(details)
+         });
+         let result = await response.json();
+         console.log(result.status);
       } catch(error){
          return setError(error.message);
       }
@@ -211,7 +226,7 @@ function RegisterUI() {
                      <Button className="w-100" type="submit">Sign Up</Button>
                  </Form>
             <div className="w-100 text-center mt-2">
-                Already have an account? <Link to="/login"><u>Login!</u></Link>
+                Already have an account? <Link to="/"><u>Login!</u></Link>
             </div>
              </Card.Body>
             </Card>

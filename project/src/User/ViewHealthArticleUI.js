@@ -20,7 +20,7 @@ class ViewHealthArticleUI extends Component{
     }
 
     getMyArticles = () =>{
-        firestore.collection("HealthArticles").limit(8).get().then(docs =>{
+        firestore.collection("HealthArticles").get().then(docs =>{
             if(!docs.empty){
                 let allArticles = []
                 docs.forEach(function(doc){
@@ -56,7 +56,7 @@ class ViewHealthArticleUI extends Component{
                     alignItems: "center"
                 }}
                 >
-                    <SearchBar handleChange={(e) => this.setState({searchValue: e.target.value})} placeholder = "Enter Article..."/>
+                    <SearchBar handleChange={(e) => this.setState({searchValue: e.target.value})} placeholder = "Search for an article..."/>
                 </div>
                 <Container>
                     <Row>
