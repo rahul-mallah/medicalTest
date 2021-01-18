@@ -147,8 +147,8 @@ function ScheduleAppointmentUI() {
                 <div className="w-100" style={{maxWidth: "400px"}}>
                     <Card>
                         <Card.Body>
-                        <Card.Title>No Doctor Was Selected</Card.Title>
-                        <Button onClick = {selectDoc} className="w-100 my-2">Click For General Practitioner</Button>
+                        <Card.Title>You did not select a doctor therefore a gerneral practitioner will be assigned to you. Click below to view your assigned doctor.</Card.Title>
+                        <Button onClick = {selectDoc} className="w-100 my-2">View my doctor</Button>
                         </Card.Body>
                     </Card>
                 </div>
