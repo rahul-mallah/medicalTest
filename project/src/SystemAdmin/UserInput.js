@@ -1,20 +1,9 @@
 import React from 'react'
 import {firestore} from '../firebase';
+import { Form, Button, Card, Alert, Container } from "react-bootstrap"
+import {Link, BrowserRouter} from 'react-router-dom';
 
 export const UserInput = ({users}) => {
-    const [FirstName, setFirstName] = React.useState(users.FirstName)
-    const [LastName, setLastName] = React.useState(users.LastName)
-
-    const onUpdateFirstName = () => {
-        const db = firestore
-        db.collection('Users').doc(users.id).set({...users, FirstName})
-    }
-
-    const onUpdateLastName = () => {
-        const db = firestore
-        db.collection('Users').doc(users.id).set({...users, LastName})
-    }
-
 
 
     const onDelete = () => {
@@ -25,19 +14,14 @@ export const UserInput = ({users}) => {
     }
 
     return (<>
-    
-        {/* <input  */}
-            {/* value = {FirstName} */}
-            {/* onChange = {e => { */}
-                {/* setFirstName(e.target.value) */}
-            {/* }} */}
-        {/* /> */}
-        
-        
         {/* {<button onClick={onUpdateFirstName}>Update</button>} */}
         <div>
-        {/* <a onClick={() => {window.location.href="/SysAdm/viewIndvAcc"}} className="btn btn-success">Edit</a> */}
+        <Link to = {{
+            pathname: '/SysAdm/viewIndvAcc',
+            state: {user: users.data}
+        }}><Button type = "submit" className = "btn btn-success">Edit</Button></Link>
         <button onClick={onDelete} class = "btn btn-danger">Delete</button>
+        {/* <a onClick={() => {window.location.href="/SysAdm/viewIndvAcc"}} className="btn btn-success">Edit</a> */}
         </div>
     </>
     )

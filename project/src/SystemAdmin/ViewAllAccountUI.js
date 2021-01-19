@@ -13,6 +13,7 @@ function ViewAllAccountUI()
    const [users, setUsers] = useState([])
    const [search, setSearch] = useState("")
    const [loading, setLoading] = useState(false)
+   const [filteredUsers, setFilteredUsers] = useState([]);
    
 
    React.useEffect(() => {
@@ -25,13 +26,15 @@ function ViewAllAccountUI()
       fetchData()
    }, [])
 
-//   const filteredUsers = users.filter(doc => {
-      // return doc.FirstName.toLowerCase().includes(searchValue.toLowerCase())
-//   })
+   React.useEffect(() => {
+      setFilteredUsers(
+        users.filter((user) =>
+          user.Email.toLowerCase().includes(search.toLowerCase())
+        )
+      );
+    }, [search, users]);
 
-      const filteredUsers = users.filter(doc => {
-        return doc.FirstName.toLowerCase().includes(search.toLowerCase())
-      } )
+
 
    return(
       <>
@@ -40,26 +43,18 @@ function ViewAllAccountUI()
             <h1 class = "display-4 text-center">User Accounts</h1>
          </div>
       </div>
-                {/* search bar */}
-                <div
-                style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center"
-                }}
-               
-                >
-                    {/* <input type = "text" placeholder = "Search" onChange = {e => setSearch(e.target.value)}></input> */}
+         {/* search bar */}
+         <div
+            style={{
+                   display: "flex",
+                   justifyContent: "center",
+                   alignItems: "center"
+               }}
+         >
+            <SearchBar handleChange={(e) => setSearch(e.target.value)} placeholder = "Search for a user by Email..."/>
+         </div>
+                                                                                                                                                                     
 
-                    {/* {filteredUsers.map((user, idx) => { */}
-                       {/* <UserInput key = {idx}{...user} /> */}
-                    {/* } */}
-                    {/* )} */}
-                </div>
-
-         
-
-   
       <div className = "row">
          <div className = "col-md-12">
             <table className = "table table-borderless table-stripped">
@@ -78,7 +73,7 @@ function ViewAllAccountUI()
                </thead>
                <tbody>
                   
-                     {users.map(users => (
+                     {filteredUsers.map(users => (
                         <tr>
                            <td>{users.FirstName}</td>
                            <td>{users.LastName}</td>
@@ -88,12 +83,12 @@ function ViewAllAccountUI()
                            <td>{users.Email}</td>
                            <td>{users.Telephone}</td>
                            <td>Patients(Hard code for now)</td>
-                           <Link to = {{
-                              pathname: '/SysAdm/viewIndvAcc',
-                              state: {user: users}
-                           }}><Button type = "submit">Edit</Button></Link>
+                           {/* <Link to = {{ */}
+                              {/* pathname: '/SysAdm/viewIndvAcc', */}
+                              {/* state: {user: users} */}
+                           {/* }}><Button type = "submit">Edit</Button></Link> */}
+                           {/* <button onClick={onDelete} class = "btn btn-danger">Delete</button> */}
                            <UserInput users = {users}/>
-
                            </tr>
                      ))}                                                                              
                </tbody>

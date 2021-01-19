@@ -3,7 +3,7 @@ import { Form, Button, Card, Alert, Container } from "react-bootstrap"
 import { useAuth } from '../util/Auth';
 import { auth, firestore } from '../firebase';
 import moment from 'moment';
-import {useRouteMatch} from 'react-router-dom';
+import {useRouteMatch, useLocation} from 'react-router-dom';
 import SearchBar from './searchBar';
 
 
@@ -27,8 +27,8 @@ function ViewIndividualAccountUI() {
 
    const {path} = useRouteMatch();
 
-   const [search, setSearch] = useState("");
-   const [filteredUsers, setFilteredUsers] = useState([]);
+   const {state} = useLocation();
+   const {users} = state;
 
    React.useEffect(()=>{
       const fetchData = async () =>{
@@ -42,16 +42,6 @@ function ViewIndividualAccountUI() {
       };
       fetchData();
    }, [])
-
-   React.useEffect(() => {
-      setFilteredUsers(
-        Users.filter((user) =>
-          user.FirstName.toLowerCase().includes(search.toLowerCase())
-        )
-      );
-    }, [search, Users]);
-
-
   
 
    function onEdit(){
@@ -100,16 +90,13 @@ function ViewIndividualAccountUI() {
       setEditEnabled(false);
    }
 
-   // const filteredUsers = Users.filter(doc => {
-      // return doc.FirstName.toLowerCase().includes(search.toLowerCase())
-//   })
+ 
 
    return (
       <>
       
-      <input type = "text" placeholder = "Search" onChange= {e => setSearch(e.target.value)}></input>
       <div>
-            {filteredUsers.map(user => 
+            {Users.map(user => 
             <Container className="d-flex align-items-center justify-content-center"
       style={{ minHeight: "100vh"}}>
           <div className="w-100" style={{Width: "60%"}}>
