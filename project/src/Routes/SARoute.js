@@ -33,6 +33,9 @@ const SARoute = () =>
             // View All Account
             <PrivateRoute exact path= {`${path}/viewAllAccount`} component={ViewAllAccountUI} />
 
+            // View Individual User Account
+            <PrivateRoute path={`${path}/viewIndividualAccount`} component={EditArticle}/>
+
             // Create New Account
             <PrivateRoute exact path={`${path}/viewAllAccount/createAccount`} component={CreateAccountUI}/>
 
@@ -50,6 +53,7 @@ const SARoute = () =>
 
             // Edit Article
             <Route path={`${path}/edit-article`} component={EditArticle}/>
+
         </Switch>
     )}
 
