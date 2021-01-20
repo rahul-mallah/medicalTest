@@ -2,6 +2,8 @@ import React from 'react'
 import {useRouteMatch, Switch, Route} from 'react-router-dom';
 import PrivateRoute from "../util/AuthRoute";
 
+import NoMatch from '../noMatch'
+
 import MDHomepageUI from "../MedicalDoctor/MDHomepageUI";
 import MyProfilePageUI from "../User/myProfilePageUI";
 import ChangePasswordUI from "../MedicalDoctor/changePwUI";
@@ -76,6 +78,11 @@ const MDRoute = () =>
 
             // Edit Article
             <Route path={`${path}/edit-article`} component={EditArticle}/>
+
+            // Display error if path does not match
+            <Route path="*">
+                <NoMatch />
+            </Route>
 
         </Switch>
     )}

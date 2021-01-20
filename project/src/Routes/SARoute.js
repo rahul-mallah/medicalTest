@@ -2,6 +2,8 @@ import React from 'react'
 import {useRouteMatch, Switch, Route} from 'react-router-dom';
 import PrivateRoute from "../util/AuthRoute";
 
+import NoMatch from '../noMatch'
+
 import SAHomePageUI from "../SystemAdmin/SAHomepageUI";
 import MyProfilePageUI from "../User/myProfilePageUI";
 import ViewAllAccountUI from "../SystemAdmin/ViewAllAccountUI";
@@ -53,6 +55,11 @@ const SARoute = () =>
 
             // Edit Article
             <Route path={`${path}/edit-article`} component={EditArticle}/>
+
+            // Display error if path does not match
+            <Route path="*">
+                <NoMatch />
+            </Route>
 
         </Switch>
     )}

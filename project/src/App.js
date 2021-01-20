@@ -22,6 +22,8 @@ import MDLoginUI from './MedicalDoctor/MDLoginUI'
 import MedAdm from './MedicalAdmin/MedAdm'
 import MALoginUI from './MedicalAdmin/MALoginUI'
 
+import NoMatch from './noMatch'
+
 function App() {
   return (
       <div>
@@ -50,6 +52,11 @@ function App() {
           // Medical Admin Main Page ---------------------------------------
           <PrivateRoute path="/MedAdm" component={MedAdm}/>
           <Route path="/MALogin" component={MALoginUI}/>
+          
+          // Display error if path does not match
+          <Route path="*">
+            <NoMatch />
+          </Route>
           
         </Switch>
         </AuthProvider>
