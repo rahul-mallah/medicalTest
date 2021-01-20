@@ -116,7 +116,7 @@ function CreateAccountUI() {
          let result = await response.json();
          console.log(result.status);
       } catch(error){
-         setError(error.message);
+         return setError(error.message);
          
       }
       setFirstName("");
@@ -187,13 +187,17 @@ function CreateAccountUI() {
                         title = "Please enter 8 digits"
                         type="invalid" required/>
                      </Form.Group>
+
                      <Form.Group id = "AccountType">
                         <Form.Label>Account Type</Form.Label>
                      </Form.Group>
+
+
                      <select>
-                     <option value = {AccountType} ref = {AccountTypeRef} onChange={(e) => setAccountType(e.target.value$('Medical Doctor'))}>Medical Doctor</option>
-                     <option value = {AccountType} ref = {AccountTypeRef} onChange={(e) => setAccountType(e.target.value$('Medical Dog'))}>Medical Dog</option>
+                     <option ref = {AccountTypeRef} value = {AccountType} onChange={(e) => setAccountType(e.target.value)}>Medical Doctor</option>
+                     <option ref = {AccountTypeRef} value = {AccountType}  onChange={(e) => setAccountType(e.target.value)}>Medical Dog</option>
                      </select>
+
                      <hr  style={{
                                 borderColor : '#000000',
                                 marginTop : '50px'
