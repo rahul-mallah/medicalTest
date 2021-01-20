@@ -16,6 +16,7 @@ function CreateAccountUI() {
    const [DOB, setDOB] = useState(""); 
    const [Email, setEmail] = useState(""); 
    const [Telephone, setTelephone] = useState(""); 
+   const [AccountType, setAccountType] = useState("");
    const [Password, setPassword] = useState(""); 
    const [ConfirmPassword, setConfirmPassword] = useState(""); 
    const [error, setError] = useState("");
@@ -31,6 +32,8 @@ function CreateAccountUI() {
    const TelephoneRef = useRef();
    const PasswordRef = useRef();
    const ConfirmPasswordRef = useRef();
+
+   const AccountTypeRef = useRef();
 
    // Check Validity
    const isNumber = /\d/;
@@ -91,7 +94,8 @@ function CreateAccountUI() {
             FirstName: FirstName,
             LastName: LastName,
             Email: Email.toLowerCase(),
-            Telephone: Telephone
+            Telephone: Telephone,
+            AccountType: AccountType
          })
          .then(() => {
             alert("Account Registered Successfully!");
@@ -127,6 +131,7 @@ function CreateAccountUI() {
       setError("");
       setLoading(false);
       setPasswordFocused(false);
+      setAccountType("");
       };
 
    return (
@@ -182,6 +187,13 @@ function CreateAccountUI() {
                         title = "Please enter 8 digits"
                         type="invalid" required/>
                      </Form.Group>
+                     <Form.Group id = "AccountType">
+                        <Form.Label>Account Type</Form.Label>
+                     </Form.Group>
+                     <select>
+                     <option value = {AccountType} ref = {AccountTypeRef} onChange={(e) => setAccountType(e.target.value$('Medical Doctor'))}>Medical Doctor</option>
+                     <option value = {AccountType} ref = {AccountTypeRef} onChange={(e) => setAccountType(e.target.value$('Medical Dog'))}>Medical Dog</option>
+                     </select>
                      <hr  style={{
                                 borderColor : '#000000',
                                 marginTop : '50px'
