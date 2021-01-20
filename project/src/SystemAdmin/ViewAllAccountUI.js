@@ -5,13 +5,19 @@ import { useAuth } from '../util/Auth';
 import { auth, firestore } from '../firebase';
 import { Form, Button, Card, Alert, Container } from "react-bootstrap"
 import {UserInput} from './UserInput'
+import SearchBar from './searchBar';
 
 
 function ViewAllAccountUI() 
 {
    const [users, setUsers] = useState([])
+   const [search, setSearch] = useState("")
+   const [loading, setLoading] = useState(false)
+   const [filteredUsers, setFilteredUsers] = useState([]);
+   
 
    React.useEffect(() => {
+   
       const fetchData = async () => {
          const db = firestore
          const data = await db.collection('Users').get()
@@ -20,6 +26,16 @@ function ViewAllAccountUI()
       fetchData()
    }, [])
 
+   React.useEffect(() => {
+      setFilteredUsers(
+        users.filter((user) =>
+          user.Email.toLowerCase().includes(search.toLowerCase())
+        )
+      );
+    }, [search, users]);
+
+
+
    return(
       <>
       <div class = "jumbotron jumbotron-fluid">
@@ -27,7 +43,19 @@ function ViewAllAccountUI()
             <h1 class = "display-4 text-center">User Accounts</h1>
          </div>
       </div>
-      <div clasasName = "row">
+         {/* search bar */}
+         <div
+            style={{
+                   display: "flex",
+                   justifyContent: "center",
+                   alignItems: "center"
+               }}
+         >
+            <SearchBar handleChange={(e) => setSearch(e.target.value)} placeholder = "Search for a user by Email..."/>
+         </div>
+                                                                                                                                                                     
+
+      <div className = "row">
          <div className = "col-md-12">
             <table className = "table table-borderless table-stripped">
                <thead className = "thead-light" >
@@ -45,7 +73,7 @@ function ViewAllAccountUI()
                </thead>
                <tbody>
                   
-                     {users.map(users => (
+                     {filteredUsers.map(users => (
                         <tr>
                            <td>{users.FirstName}</td>
                            <td>{users.LastName}</td>
@@ -55,6 +83,11 @@ function ViewAllAccountUI()
                            <td>{users.Email}</td>
                            <td>{users.Telephone}</td>
                            <td>Patients(Hard code for now)</td>
+                           {/* <Link to = {{ */}
+                              {/* pathname: '/SysAdm/viewIndvAcc', */}
+                              {/* state: {user: users} */}
+                           {/* }}><Button type = "submit">Edit</Button></Link> */}
+                           {/* <button onClick={onDelete} class = "btn btn-danger">Delete</button> */}
                            <UserInput users = {users}/>
                            </tr>
                      ))}                                                                              
@@ -78,12 +111,5 @@ function ViewAllAccountUI()
    )
 
 }
-
-
-
-
-
-   
-
 
 export default ViewAllAccountUI

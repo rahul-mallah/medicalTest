@@ -6,6 +6,8 @@ import {firestore } from '../firebase';
 import { useAuth } from "../util/Auth"
 import { AuthProvider } from '../util/Auth';
 
+import NoMatch from '../noMatch'
+
 import MDHomepageUI from "../MedicalDoctor/MDHomepageUI";
 import MyProfilePageUI from "../User/myProfilePageUI";
 import ChangePasswordUI from "../MedicalDoctor/changePwUI";
@@ -99,6 +101,11 @@ const MDRoute = () =>
             {/* // Edit Article */}
             <Route path={`${path}/edit-article`} component={EditArticle}/>
             </AuthProvider>
+
+            // Display error if path does not match
+            <Route path="*">
+                <NoMatch />
+            </Route>
 
         </Switch>
     )}
