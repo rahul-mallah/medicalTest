@@ -1,6 +1,10 @@
-import React from 'react'
+import React,{useState} from 'react'
 import {useRouteMatch, Switch, Route} from 'react-router-dom';
 import PrivateRoute from "../util/AuthRoute";
+import PatientRoute from "../util/PatientRoute";
+import {firestore } from '../firebase';
+import { useAuth } from "../util/Auth"
+import { AuthProvider } from '../util/Auth';
 
 import PHomePageUI from "../Patient/PHomepageUI";
 import MyProfilePageUI from "../User/myProfilePageUI";
@@ -19,44 +23,62 @@ import ScheduleAppointmentUI from "../Patient/ScheduleAppointmentUI"
 const PRoute = () =>
 {
     const {path} = useRouteMatch();
+    const { currentUser } = useAuth();
+    const [Users, setUsers] = useState([]); 
+
+    React.useEffect(()=>{
+        const fetchData = async () =>{
+           firestore.collection("Users")
+           .where("Email", "==", String(currentUser.email))
+           .get()
+           .then(function(data){
+                console.log(data)
+                setUsers(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
+            });
+        };
+        fetchData();
+     }, [])
+
+    const user = {...Users[0]};
 
     return(
         <Switch>
-            // Patient Homepage
-            <PrivateRoute exact path= {`${path}`} component={PHomePageUI} />
+            <AuthProvider>
+            <PatientRoute exact path= {`${path}`} component={PHomePageUI} role={user.Role}/>
 
-            // My Profile
-            <PrivateRoute exact path={`${path}/myProfile`} component={MyProfilePageUI}/>
+            {/* // My Profile */}
+            <PatientRoute exact path={`${path}/myProfile`} component={MyProfilePageUI} role={user.Role}/>
 
-            // Change Password
-            <PrivateRoute exact path={`${path}/myProfile/changePW`} component={ChangePasswordUI}/>
+            {/* // Change Password */}
+            <PatientRoute exact path={`${path}/myProfile/changePW`} component={ChangePasswordUI} role={user.Role}/>
 
-            // Medical Profile
-            <PrivateRoute exact path={`${path}/MedicalProfile`} component={ViewMyMPUI}/>
+            {/* // Medical Profile */}
+            <PatientRoute exact path={`${path}/MedicalProfile`} component={ViewMyMPUI} role={user.Role}/>
 
-            // Appointment
-            <PrivateRoute exact path={`${path}/Appointment`} component={UserAppointmentUI}/>
+            {/* // Appointment */}
+            <PatientRoute exact path={`${path}/Appointment`} component={UserAppointmentUI} role={user.Role}/>
 
-            // Reschedule Appointment
-            <PrivateRoute exact path={`${path}/Appointment/Reschedule`} component={ResAppointmentUI}/>
+            {/* // Reschedule Appointment */}
+            <PatientRoute exact path={`${path}/Appointment/Reschedule`} component={ResAppointmentUI} role={user.Role}/>
 
-            // Cancel Appointment
-            <PrivateRoute exact path={`${path}/Appointment/Cancel`} component={CancelAppointmentUI}/>
+            {/* // Cancel Appointment */}
+            <PatientRoute exact path={`${path}/Appointment/Cancel`} component={CancelAppointmentUI} role={user.Role}/>
 
-            // View Health Article
+            {/* // View Health Article */}
             <Route exact path={`${path}/ViewHealthArticle`} component={ViewHealthArticleUI}/>
 
-            // View Individual Article
+            {/* // View Individual Article */}
             <Route path={`${path}/article/:id`} component={PatientViewArticle}/>
 
-            // Doctor Profile
-            <Route exact path={`${path}/searchDoctor`} component={SearchDoctor}/>
+            {/* // Doctor Profile */}
+            <PatientRoute exact path={`${path}/searchDoctor`} component={SearchDoctor} role={user.Role}/>
 
-            // Individual Doctor Profile
-            <Route exact path={`${path}/doctorProfile/:id`} component={DoctorProfile}/>
+            {/* // Individual Doctor Profile */}
+            <PatientRoute exact path={`${path}/doctorProfile/:id`} component={DoctorProfile} role={user.Role}/>
 
-            <PrivateRoute exact path={`${path}/bookAppointment/`} component={BookAppointmentUI}/>
-            <PrivateRoute exact path={`${path}/scheduleAppointment/`} component={ScheduleAppointmentUI}/>
+            <PatientRoute exact path={`${path}/bookAppointment/`} component={BookAppointmentUI} role={user.Role}/>
+            <PatientRoute exact path={`${path}/scheduleAppointment/`} component={ScheduleAppointmentUI} role={user.Role}/>
+            </AuthProvider>
         </Switch>
     )}
 
