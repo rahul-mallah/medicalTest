@@ -112,11 +112,4 @@ function ViewAllAccountUI()
 
 }
 
-
-
-
-
-   
-
-
 export default ViewAllAccountUI
