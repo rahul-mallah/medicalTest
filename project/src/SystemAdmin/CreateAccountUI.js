@@ -112,7 +112,8 @@ function CreateAccountUI() {
          let result = await response.json();
          console.log(result.status);
       } catch(error){
-         return setError(error.message);
+         setError(error.message);
+         
       }
       setFirstName("");
       setLastName("");
