@@ -57,6 +57,7 @@ function CreateAccountUI() {
       await fileRef.put(file);
       setFileUrl(await fileRef.getDownloadURL());
     };
+    
 
    const onChangePassword = password =>
    {
@@ -192,10 +193,9 @@ function CreateAccountUI() {
                         <Form.Label>Account Type</Form.Label>
                      </Form.Group>
 
-
-                     <select>
-                     <option ref = {AccountTypeRef} value = {AccountType} onChange={(e) => setAccountType(e.target.value)}>Medical Doctor</option>
-                     <option ref = {AccountTypeRef} value = {AccountType}  onChange={(e) => setAccountType(e.target.value)}>Medical Dog</option>
+                     <select ref = {AccountTypeRef} value = {AccountType} onChange = {(e)=> setAccountType(e.target.value)}>
+                        <option value = "Medical Doctor">Medical Doctor</option>
+                        <option value = "Medical Admin">Medical Admin</option>
                      </select>
 
                      <hr  style={{

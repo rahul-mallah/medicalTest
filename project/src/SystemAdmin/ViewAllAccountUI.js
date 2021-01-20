@@ -53,8 +53,13 @@ function ViewAllAccountUI()
          >
             <SearchBar handleChange={(e) => setSearch(e.target.value)} placeholder = "Search for a user by Email..."/>
          </div>
-                                                                                                                                                                     
-
+                                                                                                                                   
+         {/* <Link to = {{ */}
+           {/* pathname: '/SysAdm/viewIndvAcc', */}
+           {/* state: {user: users.data} */}
+       {/* }}><input type = "radio" value = "Test"/>Test */}
+      {/* </Link> */}
+       
       <div className = "row">
          <div className = "col-md-12">
             <table className = "table table-borderless table-stripped">

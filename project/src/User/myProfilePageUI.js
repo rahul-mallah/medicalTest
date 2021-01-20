@@ -146,7 +146,7 @@ function MyProfilePageUI() {
                         <Form.Label>Email Address</Form.Label>
                         <Form.Control 
                         defaultValue = {user.Email} 
-                        disabled = {enableFields} 
+                        disabled = {true} 
                         onChange={(e) => setEmail(e.target.value)}
                         type="email" required/>
                      </Form.Group>
