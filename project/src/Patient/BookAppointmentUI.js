@@ -5,6 +5,7 @@ import {menuItems} from '../components/Sidebar/SASideBarData';
 import { useAuth } from '../util/Auth';
 import { auth, firestore } from '../firebase';
 import moment from 'moment';
+import './UserAppointmentUI.css';
 
 function BookAppointmentUI() {
 
@@ -35,7 +36,8 @@ function BookAppointmentUI() {
             <div className="w-100" style={{Width: "60%"}}>
               <Card>
                <Card.Body>
-                   <h2 className= "text-center mb-4">Select A Doctor</h2>
+                   <h2 className= "text-center mb-4">Book a new appointment</h2>
+                   <label class="note">Note: You may choose a doctor of your choice or click next without selecting a doctor</label>
                    {error && <Alert variant="danger">{error}</Alert>}
                    <Form>
                        <Form.Group id = "FirstName">

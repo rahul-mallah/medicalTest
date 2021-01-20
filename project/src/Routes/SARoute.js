@@ -2,6 +2,8 @@ import React from 'react'
 import {useRouteMatch, Switch, Route} from 'react-router-dom';
 import PrivateRoute from "../util/AuthRoute";
 
+import NoMatch from '../noMatch'
+
 import SAHomePageUI from "../SystemAdmin/SAHomepageUI";
 import MyProfilePageUI from "../User/myProfilePageUI";
 import ViewAllAccountUI from "../SystemAdmin/ViewAllAccountUI";
@@ -33,6 +35,9 @@ const SARoute = () =>
             // View All Account
             <PrivateRoute exact path= {`${path}/viewAllAccount`} component={ViewAllAccountUI} />
 
+            // View Individual User Account
+            <PrivateRoute path={`${path}/viewIndividualAccount`} component={EditArticle}/>
+
             // Create New Account
             <PrivateRoute exact path={`${path}/viewAllAccount/createAccount`} component={CreateAccountUI}/>
 
@@ -50,6 +55,12 @@ const SARoute = () =>
 
             // Edit Article
             <Route path={`${path}/edit-article`} component={EditArticle}/>
+
+            // Display error if path does not match
+            <Route path="*">
+                <NoMatch />
+            </Route>
+
         </Switch>
     )}
 

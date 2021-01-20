@@ -2,6 +2,8 @@ import React from 'react'
 import {useRouteMatch, Switch, Route} from 'react-router-dom';
 import PrivateRoute from "../util/AuthRoute";
 
+import NoMatch from '../noMatch'
+
 import PHomePageUI from "../Patient/PHomepageUI";
 import MyProfilePageUI from "../User/myProfilePageUI";
 import ChangePasswordUI from "../Patient/changePwUI";
@@ -37,6 +39,10 @@ const PRoute = () =>
             // Appointment
             <PrivateRoute exact path={`${path}/Appointment`} component={UserAppointmentUI}/>
 
+            // Book Appointment
+            <PrivateRoute exact path={`${path}/bookAppointment/`} component={BookAppointmentUI}/>
+            <PrivateRoute exact path={`${path}/scheduleAppointment/`} component={ScheduleAppointmentUI}/>
+
             // Reschedule Appointment
             <PrivateRoute exact path={`${path}/Appointment/Reschedule`} component={ResAppointmentUI}/>
 
@@ -55,8 +61,11 @@ const PRoute = () =>
             // Individual Doctor Profile
             <Route exact path={`${path}/doctorProfile/:id`} component={DoctorProfile}/>
 
-            <PrivateRoute exact path={`${path}/bookAppointment/`} component={BookAppointmentUI}/>
-            <PrivateRoute exact path={`${path}/scheduleAppointment/`} component={ScheduleAppointmentUI}/>
+            // Display error if path does not match
+            <Route path="*">
+                <NoMatch />
+            </Route>
+            
         </Switch>
     )}
 

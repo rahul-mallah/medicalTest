@@ -57,6 +57,7 @@ function CancelAppointmentUI() {
           <Card>
              <Card.Body>
                 <Card.Title className= "text-center">Cancel Appointment</Card.Title>
+                <label class="note">The following appointment will be cancelled:</label>
                 {error && <Alert variant="danger">{error}</Alert>}
                  <Form onSubmit={handleSubmit} className="my-4">
                  <Form.Group id = "date">
@@ -81,7 +82,7 @@ function CancelAppointmentUI() {
                         defaultValue={Appointment.Doctor}
                         type="text" required/>
                 </Form.Group>
-                <Button className="w-100 my-2" type="submit">Confirm Cancel Appointment</Button>
+                <Button className="w-100 my-2" type="submit">Cancel Appointment</Button>
                 <Link to={'/Patient/Appointment'}>
                     <Button className="w-100 my-2" type="submit">Return</Button></Link>
                 </Form>

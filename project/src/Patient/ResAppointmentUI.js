@@ -151,6 +151,7 @@ function ResAppointmentUI() {
              <Card.Body>
                  <Form onSubmit={handleSubmit}>
                  <Form.Group id = "date">
+                        <label class="note">Note: You will not be able to reschedule an appointment from the same day</label>
                         <Form.Label>Select A Date</Form.Label>
                         {error && <Alert variant="danger">{error}</Alert>}
                         <Form.Control 
@@ -161,12 +162,13 @@ function ResAppointmentUI() {
                      </Form.Group>
                      <Form.Group id = "timeslots">
                      <Form.Label>Available Time Slots</Form.Label>
+                     <label class="note">Time slots will display after selecting a date</label>
             {filteredTimes.map(time => (date === "") ? null : <div> 
                 <input type="radio" value={time} name="time" 
                 onChange={e => {setSelectedSlot(e.target.value)}} /><label>{time}</label>
                 </div>)}
                 </Form.Group>
-                <Button className="w-100 my-2" type="submit">Confirm</Button>
+                <Button className="w-100 my-2" type="submit">Book</Button>
                 <Link to={'/Patient/Appointment'}>
                     <Button className="w-100 my-2" type="submit">Return</Button></Link>
                 </Form>

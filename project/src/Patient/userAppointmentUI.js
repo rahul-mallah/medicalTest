@@ -101,7 +101,7 @@ function UserAppointmentUI() {
         <div
           className={toggleState === 1 ? "content  active-content" : "content"}
         >
-          <h2>View Your Upcoming Appointments</h2>
+          <h2>Your Upcoming Appointments</h2>
           <hr />
           {filterUpcoming.map(app => 
           <Card className = "my-5">
@@ -125,7 +125,7 @@ function UserAppointmentUI() {
         <div
           className={toggleState === 2 ? "content  active-content" : "content"}
         >
-          <h2>View Your Past Appointments</h2>
+          <h2>Your Past Appointments</h2>
           <hr />
           {filterPast.map(app =>
           <Card className = "my-5">
