@@ -102,11 +102,11 @@ const MDRoute = () =>
             <Route path={`${path}/edit-article`} component={EditArticle}/>
             </AuthProvider>
 
-            // Display error if path does not match
+            {/* // Display error if path does not match */}
             <Route path="*">
                 <NoMatch />
             </Route>
-
+            
         </Switch>
     )}
 

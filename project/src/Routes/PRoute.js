@@ -60,6 +60,10 @@ const PRoute = () =>
             {/* // Appointment */}
             <PatientRoute exact path={`${path}/Appointment`} component={UserAppointmentUI} role={user.Role}/>
 
+            {/* // Book Apointment */}
+            <PatientRoute exact path={`${path}/bookAppointment/`} component={BookAppointmentUI} role={user.Role}/>
+            <PatientRoute exact path={`${path}/scheduleAppointment/`} component={ScheduleAppointmentUI} role={user.Role}/>
+
             {/* // Reschedule Appointment */}
             <PatientRoute exact path={`${path}/Appointment/Reschedule`} component={ResAppointmentUI} role={user.Role}/>
 
@@ -78,9 +82,12 @@ const PRoute = () =>
             {/* // Individual Doctor Profile */}
             <PatientRoute exact path={`${path}/doctorProfile/:id`} component={DoctorProfile} role={user.Role}/>
 
-            <PatientRoute exact path={`${path}/bookAppointment/`} component={BookAppointmentUI} role={user.Role}/>
-            <PatientRoute exact path={`${path}/scheduleAppointment/`} component={ScheduleAppointmentUI} role={user.Role}/>
             </AuthProvider>
+            {/* // Display error if path does not match */}
+            <Route path="*">
+                <NoMatch />
+            </Route>
+            
         </Switch>
     )}
 
