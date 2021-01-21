@@ -1,8 +1,28 @@
-import React from 'react';
+import React,{useState} from 'react'
+import { Route, Redirect } from "react-router-dom"
+import {firestore } from '../firebase';
+import { useAuth } from "../util/Auth"
 import NavBar from '../components/navbarUI';
 import { Link } from "react-router-dom"
 
 function PHomepageUI() {
+    const { currentUser } = useAuth();
+    const [Users, setUsers] = useState([]); 
+    const [user, setUser] = useState({});
+
+    React.useEffect(()=>{
+        const fetchData = async () =>{
+           firestore.collection("Users")
+           .where("Email", "==", String(currentUser.email))
+           .get()
+           .then(function(data){
+                console.log(data)
+                setUsers(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
+            })
+            .then(setUser({...Users[0]}));
+        };
+        fetchData();
+     }, [])
     return (
         <div>
             <div>
