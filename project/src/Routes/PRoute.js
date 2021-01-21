@@ -81,6 +81,11 @@ const PRoute = () =>
             <PatientRoute exact path={`${path}/bookAppointment/`} component={BookAppointmentUI} role={user.Role}/>
             <PatientRoute exact path={`${path}/scheduleAppointment/`} component={ScheduleAppointmentUI} role={user.Role}/>
             </AuthProvider>
+            {/* // Display error if path does not match */}
+            <Route path="*">
+                <NoMatch />
+            </Route>
+            
         </Switch>
     )}
 
