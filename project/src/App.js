@@ -16,11 +16,9 @@ import RegisterUI  from './Patient/RegisterUI';
 
 // Medical Doctor --------------------------------------------
 import MedDoc from './MedicalDoctor/MedDoc'
-import MDLoginUI from './MedicalDoctor/MDLoginUI'
 
 // Medical Admin ---------------------------------------------
 import MedAdm from './MedicalAdmin/MedAdm'
-import MALoginUI from './MedicalAdmin/MALoginUI'
 
 import NoMatch from './noMatch'
 
@@ -47,11 +45,9 @@ function App() {
 
           // Medical Doctor Main Page --------------------------------------
           <PrivateRoute path="/MedDoc" component={MedDoc}/>
-          <Route path="/MDLogin" component={MDLoginUI}/>
 
           // Medical Admin Main Page ---------------------------------------
           <PrivateRoute path="/MedAdm" component={MedAdm}/>
-          <Route path="/MALogin" component={MALoginUI}/>
           
           // Display error if path does not match
           <Route path="*">

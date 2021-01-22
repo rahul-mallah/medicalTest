@@ -2,13 +2,21 @@ import React, { Component } from 'react'
 import {withRouter, Link} from "react-router-dom";
 import parse from "html-react-parser";
 import {Accordion, Card, Button, Row, Col, Image, Container} from "react-bootstrap"
+import { firestore } from '../firebase';
+import  classes from './doctorProfile.module.css';
+
 
 class DoctorProfile extends Component {
     constructor(props){
         super(props)
         this.state={
             doctor: {},
-            isLoaded : false
+            isLoaded : false,
+  
+  
+  
+  
+  
         }
         console.log(props)
     }
@@ -27,9 +35,16 @@ class DoctorProfile extends Component {
         }
 
     }
+
+    
+
+
+    
+
     render() {
         if(this.state.isLoaded){
             return (
+                <>
                 <div>
                     <div className="card w-100">
                         <div className="row no-gutters">
@@ -87,7 +102,47 @@ class DoctorProfile extends Component {
                     </Card>
                     </Accordion>
                     
+                    <div id = 'container'>
+                        <h1></h1>
+                    </div> 
+                
+                    <div className = {classes.form}>
+                        <h5>Add Comment</h5>
+                        Name: <input type = "text" id = "name" /> <br/> <br/>
+                        Date: <input type = "date" id = "date"/> <br/> <br/>
+                        Body: <textarea row = "5" col = "30" id = "bodyText"></textarea> <br/> <br/>
+                        <input type = "button" id = "addComment" value = "Add Comment" />
+                    </div>
+
+                    <div>
+
+                    <form onSubmit={this.submit}>
+                        <input type="text" value={this.state.value} onChange={this.handleChange} />
+                        <input type="submit" />
+                    </form>
+                    <h2>{this.state.show}</h2>
+ 
+ 
+ 
+ 
+
+
+                    </div>
+
+                   
+                   
+                   
+                   
+                   
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                 </div>
+                </>
             )
         }
         else{
@@ -97,6 +152,7 @@ class DoctorProfile extends Component {
                 </div>
             )
         }
+        
     }
 }
 
