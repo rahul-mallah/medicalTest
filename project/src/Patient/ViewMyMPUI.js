@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {withRouter, Link} from "react-router-dom";
 import ReactDOM from 'react-dom'
+import './comment.css'
 
 class ViewMyMPUI extends React.Component {
   constructor() {
@@ -106,7 +107,6 @@ class Comment extends React.Component {
   _deleteComment() {
     alert();
   }}
-
 
 // ReactDOM.render( /*#__PURE__*/React.createElement(ViewMyMPUI, null), document.getElementById('main'));
 
