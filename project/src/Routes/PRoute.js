@@ -45,7 +45,6 @@ const PRoute = () =>
 
     return(
         <Switch>
-            <AuthProvider>
             <PatientRoute exact path= {`${path}`} component={PHomePageUI} role={user.Role}/>
 
             {/* // My Profile */}
@@ -82,7 +81,6 @@ const PRoute = () =>
             {/* // Individual Doctor Profile */}
             <PatientRoute exact path={`${path}/doctorProfile/:id`} component={DoctorProfile} role={user.Role}/>
 
-            </AuthProvider>
             {/* // Display error if path does not match */}
             <Route path="*">
                 <NoMatch />
