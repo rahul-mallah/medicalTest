@@ -9,7 +9,6 @@ class ViewMyMPUI extends React.Component {
     this.state = {
       showComments: false,
       comments: [] };
-
   }
 
   render() {
@@ -85,9 +84,6 @@ class CommentForm extends React.Component {
 
       React.createElement("div", { className: "comment-form-actions" }, /*#__PURE__*/
       React.createElement("button", { type: "submit" }, "Post Comment"))));
-
-
-
   } // end render
 
   _handleSubmit(event) {
@@ -106,15 +102,10 @@ class Comment extends React.Component {
       React.createElement("p", { className: "comment-body" }, "- ", this.props.body), /*#__PURE__*/
       React.createElement("div", { className: "comment-footer" }, /*#__PURE__*/
       React.createElement("a", { href: "#", className: "comment-footer-delete", onClick: this._deleteComment }, "Delete Comment"))));
-
-
-
   }
   _deleteComment() {
-    alert("-- DELETE Comment Functionality COMMING SOON...");
+    alert();
   }}
-
-
 
 
 // ReactDOM.render( /*#__PURE__*/React.createElement(ViewMyMPUI, null), document.getElementById('main'));
