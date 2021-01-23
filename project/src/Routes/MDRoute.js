@@ -49,7 +49,7 @@ const MDRoute = () =>
 
     return(
         <Switch>
-            <AuthProvider>
+            
             {/* // Medical Doctor Homepage */}
             <DoctorRoute exact path= {`${path}`} component={MDHomepageUI} role={user.Role}/>
 
@@ -100,7 +100,7 @@ const MDRoute = () =>
 
             {/* // Edit Article */}
             <Route path={`${path}/edit-article`} component={EditArticle}/>
-            </AuthProvider>
+            
 
             {/* // Display error if path does not match */}
             <Route path="*">
