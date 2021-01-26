@@ -84,7 +84,8 @@ function RegisterUI() {
             Address: Address,
             DOB: DOB,
             Email: Email.toLowerCase(),
-            Telephone: Telephone
+            Telephone: Telephone,
+            Role: "Patient"
          })
          .then(() => {
             alert("Account Registered Successfully!");

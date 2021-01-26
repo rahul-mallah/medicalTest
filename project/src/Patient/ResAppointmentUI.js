@@ -70,7 +70,8 @@ function ResAppointmentUI() {
             doctor: doct.Name,
             timeslot: selectedSlot,
             user: Users[0].FirstName + " " + Users[0].LastName,
-            email: currentUser.email
+            email: currentUser.email,
+            department: doct.Department
         };
         let response = await fetch("http://localhost:5000/reschedule", {
             method: "POST",
