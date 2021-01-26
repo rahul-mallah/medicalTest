@@ -9,13 +9,15 @@ class PatientComments extends React.Component {
 
     this.state = {
       showComments: false,
-      comments: [] };
+      comments: []
+    };
   }
 
   render() {
     const comments = this._getComments();
     let commentNodes;
     let buttonText = 'Show Comments';
+    
 
     if (this.state.showComments) {
       buttonText = 'Hide Comments';
@@ -36,18 +38,24 @@ class PatientComments extends React.Component {
       this._getCommentsTitle(comments.length)),
 
       commentNodes) 
+
+      
       );
-
-
   } // end render
 
   _addComment(author, body) {
+
     const comment = {
       id: this.state.comments.length + 1,
       author,
-      body };
+      body,
+      email: this.props.email
+     };
 
+    
     this.setState({ comments: this.state.comments.concat([comment]) }); // *new array references help React stay fast, so concat works better than push here.
+    
+    
   }
 
   _handleClick() {
