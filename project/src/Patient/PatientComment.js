@@ -34,6 +34,7 @@ function PatientComment(props) {
      }, [])
      const user = {...users[0]}
      const array = []
+     
 
     async function submitComment (e) {
         e.preventDefault()
@@ -45,7 +46,7 @@ function PatientComment(props) {
         }
         
         array.push(obj)
-        setComments(array => [...array, obj]);
+       
 
         await firestore.collection("comments").add(
             {
@@ -57,6 +58,15 @@ function PatientComment(props) {
         ).then(() => {
             alert("Posted successfully")
         })
+        await firestore.collection("comments")
+        .where("Email", "==", String(props.email))
+        .get()
+        .then(function(data){
+           console.log(data)
+              setComments(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
+        }); 
+        
+
     }
 
     function deleteComment (comment) {
@@ -65,15 +75,8 @@ function PatientComment(props) {
         }).catch(err => alert(err))
     }
 
-    let c = comments
 
-    function deleteComment() {
-        firestore.collection("comments").where("comment", "==", c).get()
-        .then(querySnapshot => {
-            querySnapshot.docs[0].ref.delete();
-        })
-    }
-
+    
     return (
         
         <div>
@@ -102,16 +105,15 @@ function PatientComment(props) {
                     {comments.length !== 0 && (<h4 className = "comment-count"> {comments.length} comment </h4> 
                     )}
                    
-
-
-
                       {comments.map(comment => 
                     <div className = "comment">
                         <p className = "comment-header">{user.FirstName + " " + user.LastName}</p>
                         <p className = "comment-body">{comment.comment}</p>
                         <div className = "comment-footer" >
                             {/* <button className = "comment-footer-delete" onClick = {deleteComment}>Delete Comment</button> */}
-                            <CommentInput comments = {comment}/>
+
+                            <CommentInput comments = {comment.id} id = {props.id} array = {array}/>
+                            
                         </div>
                     </div>)}
                     
