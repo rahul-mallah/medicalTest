@@ -66,11 +66,6 @@ function LoginUI() {
             <div className="w-100 text-center mt-2">
                 Don't have an account? <Link to="/register"><u>Join Now!</u></Link>
             </div>
-            <div className="w-100 text-left mt-1">
-                <br></br>Login As
-                <Link to="/MALogin"> Medical Admin</Link> or
-                <Link to="/MDLogin"> Medical Dcotor</Link>
-            </div>
              </Card.Body>
             </Card>
             </div>

@@ -2,13 +2,19 @@ import React, { Component } from 'react'
 import {withRouter, Link} from "react-router-dom";
 import parse from "html-react-parser";
 import {Accordion, Card, Button, Row, Col, Image, Container} from "react-bootstrap"
+import { firestore } from '../firebase';
+import  classes from './doctorProfile.module.css';
+import PatientComments from './PatientComments';
+
 
 class DoctorProfile extends Component {
     constructor(props){
         super(props)
         this.state={
             doctor: {},
-            isLoaded : false
+            isLoaded : false,
+            showComments: false,
+            comments: []
         }
         console.log(props)
     }
@@ -27,10 +33,11 @@ class DoctorProfile extends Component {
         }
 
     }
+
     render() {
         if(this.state.isLoaded){
-            return (
-                <div>
+            return (      
+              <div>
                     <div className="card w-100">
                         <div className="row no-gutters">
                         <div className="col-auto">
@@ -86,8 +93,10 @@ class DoctorProfile extends Component {
                      </Accordion.Collapse>
                     </Card>
                     </Accordion>
-                    
-                </div>
+
+            
+                    <PatientComments className/>                     
+          </div>                                      
             )
         }
         else{
@@ -98,6 +107,6 @@ class DoctorProfile extends Component {
             )
         }
     }
-}
+  }                  
 
 export default withRouter(DoctorProfile)

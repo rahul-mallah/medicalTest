@@ -8,7 +8,6 @@ import { Link } from "react-router-dom"
 function PHomepageUI() {
     const { currentUser } = useAuth();
     const [Users, setUsers] = useState([]); 
-    const [user, setUser] = useState({});
 
     React.useEffect(()=>{
         const fetchData = async () =>{
@@ -19,7 +18,6 @@ function PHomepageUI() {
                 console.log(data)
                 setUsers(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
             })
-            .then(setUser({...Users[0]}));
         };
         fetchData();
      }, [])
