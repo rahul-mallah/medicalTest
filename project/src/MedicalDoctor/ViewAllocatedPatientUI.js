@@ -152,6 +152,12 @@ function ViewAllocatedPatientUI() {
                 <Card.Text>Booked Time : {app.Timeslot}</Card.Text>
                 <Button variant="primary">Patient Information</Button>
                 <Button className = "mx-3"variant="primary">Reschedule</Button>
+                <div className="col text-right">
+                  <Link to={{
+                        pathname: '/MedDoc/CreateMP', 
+                        state:{appointment: app}
+            }}><Button>Create Medical Documents</Button></Link>
+                </div>
             </Card.Body>
           </Card>
           )}
