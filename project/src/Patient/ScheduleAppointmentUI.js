@@ -80,7 +80,8 @@ function ScheduleAppointmentUI() {
                 doctor: docGP.Name,
                 timeslot: selectedSlot,
                 user: Users[0].FirstName + " " + Users[0].LastName,
-                email: currentUser.email
+                email: currentUser.email,
+                department: docGP.Department
             };
             let response = await fetch("http://localhost:5000/book", {
                 method: "POST",

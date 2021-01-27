@@ -28,33 +28,19 @@ function ViewIndividualAccountUI() {
    const {path} = useRouteMatch();
 
    const {state} = useLocation();
-   const {users} = state;
-
-   React.useEffect(()=>{
-      const fetchData = async () =>{
-         firestore.collection("Users")
-         
-         .get()
-         .then(function(data){
-            console.log(data)
-               setUsers(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
-         });
-      };
-      fetchData();
-   }, [])
-  
+   const {user} = state;  
 
    function onEdit(){
       setEditEnabled(true);
       setUpdateEnabled(false);
       setEnableFields(false);
-      setFirstName(Users[0].FirstName);
-      setLastName(Users[0].LastName);
-      setNRIC(Users[0].NRIC);
-      setDOB(Users[0].DOB);
-      setAddress(Users[0].Address);
-      setEmail(Users[0].Email);
-      setTelephone(Users[0].Telephone);
+      setFirstName(user.FirstName);
+      setLastName(user.LastName);
+      setNRIC(user.NRIC);
+      setDOB(user.DOB);
+      setAddress(user.Address);
+      setEmail(user.Email);
+      setTelephone(user.Telephone);
    }
 
    //handle submit
@@ -64,19 +50,14 @@ function ViewIndividualAccountUI() {
       try{
          setError("");
          setUpdateEnabled(true);
-         if(currentUser.email !== Email)
-         {
-            await updateEmail(Email);
-         }
          //update data in firestore collection
-         firestore.collection("Users").doc(Users[0].id)
+         firestore.collection("Users").doc(user.id)
             .update({
                FirstName: FirstName,
                LastName: LastName,
                NRIC: NRIC,
                Address: Address,
                DOB: DOB,
-               Email: Email.toLowerCase(),
                Telephone: Telephone
             })
             .then(() => {
@@ -96,7 +77,6 @@ function ViewIndividualAccountUI() {
       <>
       
       <div>
-            {Users.map(user => 
             <Container className="d-flex align-items-center justify-content-center"
       style={{ minHeight: "100vh"}}>
           <div className="w-100" style={{Width: "60%"}}>
@@ -156,7 +136,7 @@ function ViewIndividualAccountUI() {
                         <Form.Label>Email Address</Form.Label>
                         <Form.Control 
                         defaultValue = {user.Email} 
-                        disabled = {enableFields} 
+                        disabled = {true} 
                         onChange={(e) => setEmail(e.target.value)}
                         type="email" required/>
                      </Form.Group>
@@ -178,7 +158,7 @@ function ViewIndividualAccountUI() {
             </Card>
             </div>
             </Container>
-            )}
+            
       </div>
       </>
    )

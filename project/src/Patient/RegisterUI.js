@@ -4,6 +4,7 @@ import { Link, useHistory} from 'react-router-dom';
 import { auth, firestore } from '../firebase';
 import moment from 'moment';
 import PasswordStrengthIndicator from '../components/PasswordStrengthIndicator';
+import {useAuth} from '../util/Auth'
 
 function RegisterUI() {
 
@@ -76,7 +77,8 @@ function RegisterUI() {
          setError("");
          setLoading(true);
          await auth.createUserWithEmailAndPassword(Email, Password)
-         
+              
+
          firestore.collection('Users').add({
             FirstName: FirstName,
             LastName: LastName,
@@ -84,7 +86,8 @@ function RegisterUI() {
             Address: Address,
             DOB: DOB,
             Email: Email.toLowerCase(),
-            Telephone: Telephone
+            Telephone: Telephone,
+            Role: "Patient",
          })
          .then(() => {
             alert("Account Registered Successfully!");

@@ -86,6 +86,7 @@ function MyProfilePageUI() {
 
    return (
       <div>
+         <h1>{currentUser.uid}</h1>
             {Users.map(user => 
             <Container className="d-flex align-items-center justify-content-center"
       style={{ minHeight: "100vh"}}>
