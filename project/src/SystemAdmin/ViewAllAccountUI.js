@@ -26,13 +26,10 @@ function ViewAllAccountUI()
       fetchData()
    }, [])
 
-   React.useEffect(() => {
-      setFilteredUsers(
-        users.filter((user) =>
-          user.Email.toLowerCase().includes(search.toLowerCase())
-        )
-      );
-    }, [search, users]);
+   const filteredArray =   users.filter((user) =>
+   user.Email.toLowerCase().includes(search.toLowerCase())
+ )
+
 
 
 
@@ -78,7 +75,7 @@ function ViewAllAccountUI()
                </thead>
                <tbody>
                   
-                     {filteredUsers.map(users => (
+                     {filteredArray.map(users => (
                         <tr>
                            <td>{users.FirstName}</td>
                            <td>{users.LastName}</td>
@@ -93,7 +90,14 @@ function ViewAllAccountUI()
                               {/* state: {user: users} */}
                            {/* }}><Button type = "submit">Edit</Button></Link> */}
                            {/* <button onClick={onDelete} class = "btn btn-danger">Delete</button> */}
-                           <UserInput users = {users}/>
+
+                        <UserInput users = {users}/>
+
+
+
+
+
+
                            </tr>
                      ))}                                                                              
                </tbody>

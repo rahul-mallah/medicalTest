@@ -9,6 +9,7 @@ import {Card} from 'react-bootstrap'
 import StarRatings from 'react-star-ratings';
 import ReactStars from "react-rating-stars-component";
 
+
 function PatientComment(props) {
     const [comments, setComments] = useState([])
     const [currentComments, setCurrentComments] = useState("")
@@ -36,7 +37,7 @@ function PatientComment(props) {
         fetchData();
      }, [])
      const user = {...users[0]}
-     const array = []
+     let array = []
      
 
     async function submitComment (e) {
@@ -72,9 +73,12 @@ function PatientComment(props) {
         }); 
     }
 
-    function deleteComment (comment) {
-        firestore.collection("comments").doc(comment.id).delete().then(()=>{
+    async function DeleteComment (comment) {
+        array = array.filter(i => i.id !== comment.id);
+       await firestore.collection("comments").doc(comment.id).delete().then(()=>{
             alert("Comment has been deleted successfully!")
+            window.location.reload();
+
         }).catch(err => alert(err))
     }
   
@@ -86,15 +90,6 @@ function PatientComment(props) {
     return (
         
         <div>
-            <Card.Img src = "https://www.flaticon.com/svg/vstatic/svg/929/929424.svg?token=exp=1611676295~hmac=238ec7075a3a2f8a9ccff9c7433e3866" 
-            
-                style = {
-                    {
-                        width: "2%",
-                    }
-                }
-            >      
-            </Card.Img>
             <div className = "comment-box">
                 <h2>Join the Discussion</h2>
                 <form className = "comment-form">
@@ -105,7 +100,7 @@ function PatientComment(props) {
                         </input>
                         <textarea placeholder="Comment" rows = "4" onChange={(e) => setCurrentComments(e.target.value)} required>
                         </textarea>
-                        <input placeholder = "rating" type = "number" min = "1" onChange={(e) => setRating(e.target.value)} required></input>
+                        <input placeholder = "rating" type = "number" min = "1" max = "5" onChange={(e) => setRating(e.target.value)} required></input>
                         <div className = "comment-form-actions">
                             <button type = "submit" onClick = {submitComment}>
                                 Post Comment
@@ -126,21 +121,17 @@ function PatientComment(props) {
                         <p className = "comment-header">{comment.patient} </p>
                         <p className = "comment-body">{comment.comment}</p>
                         
-                        <ReactStars
-                        count={5}
-                        value = {2}
-                        size={24}
-                        isHalf={true}
-                        activeColor="#ffd700"
-                        />
+                        <StarRatings
+                        rating= {parseFloat(comment.rating)}
+                        starDimension="20px"
+                        starSpacing="5px"
+                        starRatedColor="orange"
+                    />            
 
                    
                    
                         <div className = "comment-footer" >
-                            {/* <button className = "comment-footer-delete" onClick = {deleteComment}>Delete Comment</button> */}
-
-                            <CommentInput comments = {comment} id = {props.id} array = {array}/>
-                            
+                            <button className = "btn btn-danger mt-4" onClick = {(e)=>{DeleteComment(comment)}}>Delete</button>
                         </div>
                     </div>)}
                     
