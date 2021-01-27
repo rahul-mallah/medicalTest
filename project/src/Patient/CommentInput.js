@@ -14,8 +14,7 @@ export const CommentInput = (props) => {
         db.collection('comments').doc(props.comments.id).delete()
        
         alert("Account has been deleted successfully!")
-        history.push('/Patient/searchDoctor')
-
+        // history.push('/Patient/searchDoctor')
     }
 
     // {"/Patient/doctorProfile/" + props.id}
