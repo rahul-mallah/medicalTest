@@ -1,10 +1,39 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { Form, Button, Card, Alert, Container } from "react-bootstrap";
+import {useLocation} from "react-router-dom"
+import { auth, firestore } from '../firebase';
 import moment from 'moment';
 
-function MC(props) {
+function ViewMedicalCertificate() {
+    const {state} = useLocation();
+    const {appointment} = state;
+    const [medDocs, setMedDocs] = useState([]);
+    const [doc, setDoc] = useState([]);
+    React.useEffect(()=>{
+        const fetchData = async () =>{
+            firestore.collection("Medical Documents")
+            .where("appointmentID","==",appointment.id)
+            .get()
+            .then(function(data){
+               console.log(data)
+               setMedDocs(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
+            }); 
+            firestore.collection("Medical Doctors")
+            .where("Email","==",appointment.DocEmail)
+            .get()
+            .then(function(data){
+               console.log(data)
+               setDoc(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
+            }); 
+        };
+        fetchData();
+    },[])
+    const document = {...medDocs[0]};
+    const doctor = {...doc[0]};
+
     return (
         <div className="text-center">
+            {document.MedicalCertificate === "" ? <h1>NO MEDICAL CERTIFICATE</h1> : 
             <Container className="mb-5">
                 <Card style={{backgroundColor:"#f9ffe8"}}>
                     <Card.Title  style = {{fontSize: '3rem',
@@ -19,11 +48,11 @@ function MC(props) {
                 <Card.Title className="mt-2" style={{fontSize: "2rem",
                 fontFamily:'times new roman',
                 fontWeight: 'bold',
-            }}>{props.name}</Card.Title>
+            }}>{document.Patient}</Card.Title>
             <Card.Text className="mt-2" style={{fontSize: '1.5rem',
                 fontFamily: 'times new roman',
                 fontStyle: 'italic',
-            }}>is unfit for duty for a period of {props.days} days</Card.Text>
+            }}>is unfit for duty for a period of {document.MedicalCertificate} days</Card.Text>
             <Card.Title  style = {{fontSize: '2rem',
                     fontFamily: 'times new roman',
                     fontWeight: 'lighter',
@@ -32,11 +61,11 @@ function MC(props) {
             <Card.Text className="mt-2" style={{fontSize: '1.5rem',
                 fontFamily: 'times new roman',
                 fontStyle: 'italic',
-            }}>This medical certificate has been issued on {moment(props.startDate).format("DD/MM/YYYY")} and is valid till {moment(props.endDate).format("DD/MM/YYYY")}</Card.Text>
-            <Card.Img src={props.imageURL}
-            style={{maxWidth:"10%",
+            }}>This medical certificate has been issued on {document.MCStartDate} and is valid till {document.MCEndDate}</Card.Text>
+            <Card.Img src={doctor.Signature}
+            style={{maxWidth:"5%",
                     maxHeight: "5%",
-                    marginLeft: "75%",
+                    marginLeft: "77%",
         }}
             ></Card.Img>
             <hr
@@ -51,16 +80,16 @@ function MC(props) {
                 <Card.Text className = "text-right"
                 style ={{
                     fontFamily: 'sans-serif',
-                    marginRight: '11%',
+                    marginRight: '14%',
                     fontSize: '0.9rem'
                 }}
-                >{props.doctor.Name}</Card.Text>
+                >{doctor.Name}</Card.Text>
                 </Card>
                 
             </Container>
+            }
         </div>
     )
 }
 
-export default MC
-
+export default ViewMedicalCertificate

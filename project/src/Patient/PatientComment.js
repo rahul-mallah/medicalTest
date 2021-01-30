@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {withRouter, Link, useLocation} from "react-router-dom";
+import {Button} from "react-bootstrap";
 import ReactDOM from 'react-dom'
 import './comment.css'
 import { useAuth } from '../util/Auth';
@@ -32,9 +33,13 @@ function PatientComment(props) {
         };
         fetchData();
      }, [])
+
      const user = {...users[0]}
-     const array = []
-     
+     let array = []
+     for(var i = 0; i < comments.length; i++)
+    {
+        array.push(comments[i]);
+    }
 
     async function submitComment (e) {
         e.preventDefault()
@@ -44,10 +49,6 @@ function PatientComment(props) {
             patientEmail: currentUser.email,
             comment: currentComments
         }
-        
-        array.push(obj)
-       
-
         await firestore.collection("comments").add(
             {
                 Email: props.email,
@@ -64,12 +65,19 @@ function PatientComment(props) {
         .then(function(data){
            console.log(data)
               setComments(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
-        }); 
+        })
+        .then(() =>{
+            array = [];
+            for(var i = 0; i < comments.length; i++)
+            {
+                array.push(comments[i]);
+            }
+        }) 
         
-
     }
 
     function deleteComment (comment) {
+        array = array.filter(i => i.id !== comment.id);
         firestore.collection("comments").doc(comment.id).delete().then(()=>{
             alert("Comment has been deleted successfully!")
         }).catch(err => alert(err))
@@ -102,18 +110,17 @@ function PatientComment(props) {
                 </button>
                 <h3>Comments</h3>
                     {comments.length === 0 && (<h4 className = "comment-count"> No comments yet </h4>)}
-                    {comments.length !== 0 && (<h4 className = "comment-count"> {comments.length} comment </h4> 
+                    {comments.length !== 0 && (<h4 className = "comment-count"> {array.length} comment </h4> 
                     )}
                    
-                      {comments.map(comment => 
-                    <div className = "comment">
+                      {array.map(comment => 
+                    <div className = "comment" key = {comment.id}>
                         <p className = "comment-header">{user.FirstName + " " + user.LastName}</p>
                         <p className = "comment-body">{comment.comment}</p>
                         <div className = "comment-footer" >
                             {/* <button className = "comment-footer-delete" onClick = {deleteComment}>Delete Comment</button> */}
 
                             <CommentInput comments = {comment.id} id = {props.id} array = {array}/>
-                            
                         </div>
                     </div>)}
                     

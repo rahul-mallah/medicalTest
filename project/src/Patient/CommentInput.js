@@ -8,12 +8,17 @@ export const CommentInput = (props) => {
 
 
     const onDelete = () => { 
+        for(var i = 0; i < props.array.length; i++)
+        {
+            if(props.array[i].id === props.comments)
+            {
+                props.array.splice(i, 1);
+            }
+        }
         const db = firestore
         db.collection('comments').doc(props.comments).delete()
         //window.location.reload();
-        alert("Account has been deleted successfully!")
-
-
+        alert("Account has been deleted successfully!");
     }
 
     // {"/Patient/doctorProfile/" + props.id}

@@ -2,6 +2,7 @@ import React,{useState, useRef} from 'react'
 import Popup from "reactjs-popup";
 import SignaturePad from "react-signature-canvas";
 import { Form, Button, Card, Alert, Container } from "react-bootstrap";
+import moment from 'moment';
 import "./CreateMC.css";
 import {Link, withRouter, useLocation, useHistory} from 'react-router-dom';
 import { useAuth } from '../util/Auth';
@@ -13,6 +14,7 @@ function CreateMC() {
     const{appointment} = state;
     const[noOfDays, setNoOfDays] = useState(1);
     const[doc, setDoc] = useState([]);
+    const[document,setDocument] = useState([]);
     const[imageURL, setImageURL] = useState(null);
     const history = useHistory();
     const sigCanvas = useRef({});
@@ -25,17 +27,30 @@ function CreateMC() {
             .then(function(data){
                console.log(data)
                setDoc(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
-            }); 
+            })
+            firestore.collection("Medical Documents")
+            .where("appointmentID","==",appointment.id)
+            .get()
+            .then(function(data){
+               console.log(data)
+               setDocument(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
+            })
         };
-        fetchData();
+        fetchData()
     },[])
 
     const doctor = {...doc[0]};
     const clear = () => sigCanvas.current.clear();
+    let img = doctor.Signature
 
     const save = () => {
         setImageURL(sigCanvas.current.getTrimmedCanvas().toDataURL("image/png"));
+        img = imageURL
     }
+    
+    const startDate = new Date();
+    const endDate = new Date(startDate);
+    endDate.setDate(endDate.getDate() + (noOfDays-1));
 
     const saveToDataBase = async () => {
         await firestore.collection("Medical Doctors").doc(doctor.id).update({
@@ -44,15 +59,23 @@ function CreateMC() {
         .then(() =>{
             alert("Signature Updated successfully");
         })
-        history.push({
-            pathname: '/MedDoc/CreateMC', 
-            state:{appointment: appointment}
-        });
+        window.location.reload();
     }
-    
-    const startDate = new Date();
-    const endDate = new Date(startDate);
-    endDate.setDate(endDate.getDate() + (noOfDays-1));
+
+    const saveMC = async () => {
+        await firestore.collection("Medical Documents").doc(document[0].id).update({
+            MedicalCertificate : noOfDays,
+            MCStartDate : moment(startDate).format("DD/MM/YYYY"),
+            MCEndDate : moment(endDate).format("DD/MM/YYYY")
+        })
+        .then(() =>{
+            alert("Medical Certificate Created Successfully");
+        })
+        history.push({
+            pathname: "/MedDoc/Schedule",
+            state: {doctor: doctor}
+        })
+    }
 
     return (
         <div>
@@ -73,7 +96,7 @@ function CreateMC() {
                             />
                             </Form.Group>
                             <Popup modal
-                                trigger={<Button className="mt-3">Click To Update Your Digital Signature</Button>}
+                                trigger={<Button className="mt-3 mb-3">Click To Update Your Digital Signature</Button>}
                                 closeOnDocumentClick={false}>
                                     {close => (
                                         <>
@@ -94,10 +117,10 @@ function CreateMC() {
                                 <Card.Img src={imageURL} height="200px"></Card.Img>
                                 </Form.Group>
                                 <Form.Group>
-                                <Button onClick={saveToDataBase}>Save Your Signature</Button>
+                                <Button onClick={(e)=> {saveToDataBase()}}>Save Your Signature</Button>
                                 </Form.Group>
                                 <Form.Group>
-                                <Button className="mt-3">Generate MC</Button>
+                                <Button onClick={(e)=> {saveMC()}} className="mt-3">Generate MC</Button>
                                 </Form.Group>
                         </Form>
 
@@ -105,7 +128,7 @@ function CreateMC() {
                 </Card>
              </div>
              <MC imageURL={doctor.Signature} name={appointment.Patient} days={noOfDays}
-                startDate={startDate} endDate={endDate}
+                startDate={startDate} endDate={endDate} doctor={doctor}
                  />
              </Container>
         </div>

@@ -68,7 +68,8 @@ function ScheduleAppointmentUI() {
                 Timeslot : selectedSlot,
                 Patient : Users[0].FirstName + " " + Users[0].LastName,
                 PatientEmail : currentUser.email,
-                DocEmail : docGP.Email
+                DocEmail : docGP.Email,
+                DocCreated : false
             })
             .then(() => {
                 alert("Appointment Booked Successfully!");

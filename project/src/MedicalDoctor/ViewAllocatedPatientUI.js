@@ -56,19 +56,15 @@ function ViewAllocatedPatientUI() {
 
    //filter upcoming
    const filterUpcoming = appointments.filter(app =>{
-    let today = moment(new Date()).format('MMMM Do YYYY');
-    let appDate = moment(app.Date).format('MMMM Do YYYY');
-    return appDate >= today;
+    return new Date(app.Date+" "+ convertTime12to24(app.Timeslot.substr(11,app.Timeslot.length))) >= new Date();
  })
 
   //filter past
   const filterPast = appointments.filter(app =>{
-    let today = moment(new Date()).format('MMMM Do YYYY');
-    let appDate = moment(app.Date).format('MMMM Do YYYY');
-    return appDate < today;
+    return new Date(app.Date+" "+ convertTime12to24(app.Timeslot.substr(11,app.Timeslot.length))) < new Date();
  })
 
-  // sort according to date and timeslot for past in desc order
+  //sort according to date and timeslot for past in desc order
   const sortedPast = filterPast.sort((a,b) => 
   new Date(b.Date + " "+ convertTime12to24(b.Timeslot.substr(0,8)))-
   new Date(a.Date + " "+ convertTime12to24(a.Timeslot.substr(0,8)))
@@ -153,10 +149,14 @@ function ViewAllocatedPatientUI() {
                 <Button variant="primary">Patient Information</Button>
                 <Button className = "mx-3"variant="primary">Reschedule</Button>
                 <div className="col text-right">
-                  <Link to={{
+                  {!app.DocCreated ? <Link to={{
                         pathname: '/MedDoc/CreateMP', 
                         state:{appointment: app}
-            }}><Button>Create Medical Documents</Button></Link>
+            }}><Button>Create Medical Document</Button></Link> : null}
+            {app.DocCreated ? <Link to={{
+                        pathname: '/MedDoc/ViewMP', 
+                        state:{appointment: app}
+            }}><Button>View/Edit Medical Document</Button></Link> : null}
                 </div>
             </Card.Body>
           </Card>
@@ -166,7 +166,7 @@ function ViewAllocatedPatientUI() {
         <div className={toggleState === 2 ? "content  active-content" : "content"}>
           <h2>Past Patient Seen</h2>
           <hr />
-          {sortedPast.map(app =>
+          {filterPast.map(app =>
           <Card className = "my-5">
             <Card.Header as="h5">Date : {moment(app.Date).format('MMMM Do YYYY')}</Card.Header>
               <Card.Body>

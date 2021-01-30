@@ -4,8 +4,9 @@ import { useAuth } from '../util/Auth';
 import MC from "./MC"
 import { Form, Button, Card, Alert, Container } from "react-bootstrap";
 import { auth, firestore } from '../firebase';
+import {useRouteMatch} from 'react-router-dom';
 
-function CreateMPUI() {
+function ViewMPUI() {
     const {state} = useLocation();
     const {appointment} = state;
     //usestates
@@ -18,9 +19,11 @@ function CreateMPUI() {
     const[WardFee, setWardFee] = useState(0);
     const[TestFee, setTestFee] = useState(0);
     const[MiscFee, setMiscFee] = useState(0);
-    const [error, setError] = useState("");                
-    const [MCDisabled, setMCDisabled] = useState(true);
-    const [btnDisabled, setBtnDisabled] = useState(false);
+    const [error, setError] = useState("");  
+    const[editDisabled, setEditDisabled] = useState(false);
+    const[fieldsDisabled, setFieldsDisabled] = useState(true);
+
+    const {path} = useRouteMatch();
 
     React.useEffect(()=>{
         const fetchData = async () =>{
@@ -35,16 +38,29 @@ function CreateMPUI() {
         fetchData();
     },[])
 
+    const document = {...medDocs[0]};
+    
+    function onEdit(){
+        setEditDisabled(true);
+        setFieldsDisabled(false);
+        setReason(document.Reason);
+        setLabResult(document.LabResults);
+        setPrescription(document.MedicalPrescription);
+        setConsultFee(document.consultFee);
+        setPrescriptionFee(document.prescriptionFee);
+        setWardFee(document.wardFee);
+        setTestFee(document.testFee);
+        setMiscFee(document.miscFee);
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError("");
-        if(medDocs && medDocs.length)
-        {
-            return setError("This medical document has already been created");
-        }
-
         try{
-            await firestore.collection("Medical Documents").add({
+            setError("");
+            setFieldsDisabled(true);
+            //update data in firestore collection
+         firestore.collection("Medical Documents").doc(document.id)
+         .update({
                 appointmentID: appointment.id,
                 Patient: appointment.Patient,
                 PatientEmail: appointment.PatientEmail,
@@ -58,29 +74,20 @@ function CreateMPUI() {
                 prescriptionFee: parseFloat(PrescriptionFee),
                 wardFee: parseFloat(WardFee),
                 testFee: parseFloat(TestFee),
-                miscFee: parseFloat(MiscFee), 
-                MedicalCertificate: ""
-            })
-            await firestore.collection("Appointment").doc(appointment.id).update({
-                DocCreated : true
-            })
-            .then(() => {
-                alert("Medical Document Created Successfully!");
-            })
-          } catch(error){
-             return setError(error.message);
-          }
-            setReason("");
-            setLabResult("");
-            setPrescription("");
-            setConsultFee(0);
-            setPrescriptionFee(0);
-            setWardFee(0);
-            setTestFee(0);
-            setMiscFee(0);
-            setMCDisabled(false);
-            setBtnDisabled(true);
+                miscFee: parseFloat(MiscFee)
+         })
+         .then(() => {
+            alert("Updated Successfully!");
+         })
+        }
+        catch(error){
+            setError(error.message);
+        }
+        setFieldsDisabled(true);
+        setEditDisabled(false);
     }
+
+
     return (
         <div>
             <Container className="d-flex align-items-center justify-content-center">
@@ -93,14 +100,14 @@ function CreateMPUI() {
                     <Form.Group id = "Name">
                     <Form.Label>Patient Name</Form.Label>
                     <Form.Control 
-                        defaultValue = {appointment.Patient} 
+                        defaultValue = {document.Patient} 
                         disabled = {true} 
                         type="text" required/>
                     </Form.Group>
                     <Form.Group id = "VisitDate">
                     <Form.Label>Date of Visit</Form.Label>
                     <Form.Control 
-                        defaultValue = {appointment.Date} 
+                        defaultValue = {document.DateOfVisit} 
                         disabled = {true} 
                         type="date" required/>
                     </Form.Group>
@@ -108,7 +115,8 @@ function CreateMPUI() {
                     <Form.Label>Reason for Visit</Form.Label>
                     <Form.Control
                         as="textarea"
-                        value = {Reason}
+                        defaultValue = {document.Reason}
+                        disabled = {fieldsDisabled}
                         rows = {3}
                         onChange={(e) => setReason(e.target.value)}
                         required
@@ -118,7 +126,8 @@ function CreateMPUI() {
                     <Form.Label>Medical Prescriptions</Form.Label>
                     <Form.Control
                         as="textarea"
-                        value = {Prescription}
+                        defaultValue = {document.MedicalPrescription}
+                        disabled = {fieldsDisabled}
                         rows = {3}
                         onChange={(e) => setPrescription(e.target.value)}
                         required
@@ -128,7 +137,8 @@ function CreateMPUI() {
                     <Form.Label>Lab Results</Form.Label>
                     <Form.Control
                         as="textarea"
-                        value = {LabResult}
+                        defaultValue = {document.LabResults}
+                        disabled = {fieldsDisabled}
                         rows = {3}
                         onChange={(e) => setLabResult(e.target.value)}
                         required
@@ -140,7 +150,8 @@ function CreateMPUI() {
                     <Form.Label>Consultation Fee</Form.Label>
                     <Form.Control
                         type="number"
-                        value = {ConsultFee}
+                        defaultValue={document.consultFee}
+                        disabled = {fieldsDisabled}
                         min='0'
                         onChange={(e) => setConsultFee(e.target.value)}
                         required
@@ -150,7 +161,8 @@ function CreateMPUI() {
                     <Form.Label>Prescription Fee</Form.Label>
                     <Form.Control
                         type="number"
-                        value={PrescriptionFee}
+                        defaultValue={document.prescriptionFee}
+                        disabled = {fieldsDisabled}
                         min='0'
                         onChange={(e) => setPrescriptionFee(e.target.value)}
                         required
@@ -160,7 +172,8 @@ function CreateMPUI() {
                     <Form.Label>Ward Fee</Form.Label>
                     <Form.Control
                         type="number"
-                        value={WardFee}
+                        defaultValue={document.wardFee}
+                        disabled = {fieldsDisabled}
                         min='0'
                         onChange={(e) => setWardFee(e.target.value)}
                         required
@@ -170,7 +183,8 @@ function CreateMPUI() {
                     <Form.Label>Medical Test Fee</Form.Label>
                     <Form.Control
                         type="number"
-                        value={TestFee}
+                        defaultValue={document.testFee}
+                        disabled = {fieldsDisabled}
                         min='0'
                         onChange={(e) => setTestFee(e.target.value)}
                         required
@@ -180,18 +194,22 @@ function CreateMPUI() {
                     <Form.Label>Miscellaneous Fee</Form.Label>
                     <Form.Control
                         type="number"
-                        value={MiscFee}
+                        defaultValue={document.miscFee}
+                        disabled = {fieldsDisabled}
                         min='0'
                         onChange={(e) => setMiscFee(e.target.value)}
                         required
                     />
                     </Form.Group>
-                    <Button disabled = {medDocs.length > 0 || btnDisabled} className="w-100 my-2" type="submit">Create Medical Record</Button>
                     <Link to={{
-                        pathname: '/MedDoc/CreateMC', 
+                        pathname: '/MedDoc/ViewMC', 
                         state:{appointment: appointment}
-            }}><Button disabled = {!medDocs.length > 0 && MCDisabled} className="w-100 my-2">Create Medical Certificate</Button></Link>
+            }}><Button className="w-100 my-2">View MC</Button></Link>
+                    <Button onClick={(e)=> onEdit()}className="w-100 my-2" disabled={editDisabled}>Edit</Button>
+                    <Button type="submit"className="w-100 my-2" disabled={fieldsDisabled}>Update</Button>
+                    <Button href = {`${path}`} disabled = {fieldsDisabled} className="w-100 my-2">Cancel</Button>
                 </Form>
+                
              </Card.Body>
              </Card>
              </div>
@@ -200,4 +218,4 @@ function CreateMPUI() {
     )
 }
 
-export default CreateMPUI
+export default ViewMPUI

@@ -21,6 +21,9 @@ import PatientViewArticle from "../components/ViewArticle/PatientViewArticle";
 import DoctorProfile from "../Patient/doctorProfile";
 import SearchDoctor from "../Patient/searchDoctor";
 import ScheduleAppointmentUI from "../Patient/ScheduleAppointmentUI"
+import ViewIndividualMPUI from "../Patient/ViewIndividualMPUI";
+import ViewMC from "../Patient/ViewMC";
+import ViewReceipt from "../Patient/ViewReceipt";
 
 const PRoute = () =>
 {
@@ -55,6 +58,15 @@ const PRoute = () =>
 
             {/* // Medical Profile */}
             <PatientRoute exact path={`${path}/MedicalProfile`} component={ViewMyMPUI} role={user.Role}/>
+
+            {/* // Individual Medical Profile */}
+            <PatientRoute exact path={`${path}/ViewMedicalProfile`} component={ViewIndividualMPUI} role={user.Role}/>
+
+            {/* // View MC */}
+            <PatientRoute exact path={`${path}/ViewMC`} component={ViewMC} role={user.Role}/>
+
+            {/* // View Receipt */}
+            <PatientRoute exact path={`${path}/ViewReceipt`} component={ViewReceipt} role={user.Role}/>
 
             {/* // Appointment */}
             <PatientRoute exact path={`${path}/Appointment`} component={UserAppointmentUI} role={user.Role}/>

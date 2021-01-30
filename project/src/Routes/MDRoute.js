@@ -17,7 +17,7 @@ import EditArticle from "../components/EditArticle/EditArticle";
 import NewArticle from "../components/NewArticle/NewArticle";
 import CreateMPUI from "../MedicalDoctor/CreateMPUI";
 import PatientProfileUI from  "../MedicalStaff/PatientProfileUI";
-import ViewMPUI from "../MedicalStaff/ViewMPUI";
+import ViewMPUI from "../MedicalDoctor/ViewMPUI";
 import TransferMPUI from "../MedicalStaff/TransferMPUI";
 import ViewDoctorScheduleUI from "../MedicalStaff/ViewDoctorScheduleUI";
 import RequestEditApptUI from "../MedicalStaff/RequestEditApptUI";
@@ -26,6 +26,7 @@ import ViewAllocatedPatientUI from "../MedicalDoctor/ViewAllocatedPatientUI"
 import UpdateMPUI from "../MedicalDoctor/UpdateMPUI"
 import RequestApprovalUI from "../MedicalDoctor/RequestApprovalUI"
 import CreateMC from "../MedicalDoctor/CreateMC"
+import ViewMedicalCertificate from "../MedicalDoctor/ViewMedicalCertificate"
 
 const MDRoute = () =>
 {
@@ -70,6 +71,9 @@ const MDRoute = () =>
 
             {/* // View Patient Medical Record */}
             <DoctorRoute exact path={`${path}/ViewMP`} component={ViewMPUI} role={user.Role}/>
+
+            {/* // View Patient Medical Certicficate */}
+            <DoctorRoute exact path={`${path}/ViewMC`} component={ViewMedicalCertificate} role={user.Role}/>
 
             {/* // Update Patient Medical Record */}
             <DoctorRoute exact path={`${path}/UpdateMP`} component={UpdateMPUI} role={user.Role}/>
