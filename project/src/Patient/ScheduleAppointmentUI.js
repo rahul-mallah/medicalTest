@@ -38,7 +38,8 @@ function ScheduleAppointmentUI() {
             });
 
             firestore.collection("Medical Doctors")
-            .where("Department", "==", "General Practitioner (Non-specialist)")
+            .where("Department", ">=", "General Practitioner (Non-specialist)")
+            .where("Department", "<=", "General Practitioner (Non-specialist)\uF7FF")
             .get()
             .then(function(data){
                 console.log(data)

@@ -6,6 +6,9 @@ import './comment.css'
 import { useAuth } from '../util/Auth';
 import { auth, firestore} from '../firebase';
 import {CommentInput} from './CommentInput'
+import {Card} from 'react-bootstrap'
+import StarRatings from 'react-star-ratings';
+import ReactStars from "react-rating-stars-component";
 
 
 function PatientComment(props) {
@@ -13,6 +16,7 @@ function PatientComment(props) {
     const [currentComments, setCurrentComments] = useState("")
     const {currentUser} = useAuth()
     const [users, setUsers] = useState([])
+    const [rating, setRating] = useState(1)
 
     React.useEffect(()=>{
         const fetchData = async () =>{
@@ -36,10 +40,7 @@ function PatientComment(props) {
 
      const user = {...users[0]}
      let array = []
-     for(var i = 0; i < comments.length; i++)
-    {
-        array.push(comments[i]);
-    }
+     
 
     async function submitComment (e) {
         e.preventDefault()
@@ -47,14 +48,16 @@ function PatientComment(props) {
             email: props.email,
             patient: user.FirstName + " " + user.LastName,
             patientEmail: currentUser.email,
-            comment: currentComments
+            comment: currentComments,
+            rating: rating
         }
         await firestore.collection("comments").add(
             {
                 Email: props.email,
                 patient: user.FirstName + " " + user.LastName,
                 patientEmail: currentUser.email,
-                comment: currentComments
+                comment: currentComments,
+                rating: rating
             }
         ).then(() => {
             alert("Posted successfully")
@@ -65,26 +68,23 @@ function PatientComment(props) {
         .then(function(data){
            console.log(data)
               setComments(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
-        })
-        .then(() =>{
-            array = [];
-            for(var i = 0; i < comments.length; i++)
-            {
-                array.push(comments[i]);
-            }
-        }) 
-        
+        }); 
     }
 
-    function deleteComment (comment) {
+    async function DeleteComment (comment) {
         array = array.filter(i => i.id !== comment.id);
-        firestore.collection("comments").doc(comment.id).delete().then(()=>{
+       await firestore.collection("comments").doc(comment.id).delete().then(()=>{
             alert("Comment has been deleted successfully!")
+            window.location.reload();
+
         }).catch(err => alert(err))
     }
+  
+    // function getRating(comment) {
+        // let r = parse(comment.rating, 10)
+        // return r
+    // }
 
-
-    
     return (
         
         <div>
@@ -98,6 +98,7 @@ function PatientComment(props) {
                         </input>
                         <textarea placeholder="Comment" rows = "4" onChange={(e) => setCurrentComments(e.target.value)} required>
                         </textarea>
+                        <input placeholder = "rating" type = "number" min = "1" max = "5" onChange={(e) => setRating(e.target.value)} required></input>
                         <div className = "comment-form-actions">
                             <button type = "submit" onClick = {submitComment}>
                                 Post Comment
@@ -113,26 +114,21 @@ function PatientComment(props) {
                     {comments.length !== 0 && (<h4 className = "comment-count"> {array.length} comment </h4> 
                     )}
                    
-                      {array.map(comment => 
-                    <div className = "comment" key = {comment.id}>
-                        <p className = "comment-header">{user.FirstName + " " + user.LastName}</p>
+                      {comments.map(comment => 
+                    <div className = "comment">
+                        <p className = "comment-header">{comment.patient} </p>
                         <p className = "comment-body">{comment.comment}</p>
+                        
+                        <StarRatings
+                        rating= {parseFloat(comment.rating)}
+                        starDimension="20px"
+                        starSpacing="5px"
+                        starRatedColor="orange"
+                    />            
                         <div className = "comment-footer" >
-                            {/* <button className = "comment-footer-delete" onClick = {deleteComment}>Delete Comment</button> */}
-
-                            <CommentInput comments = {comment.id} id = {props.id} array = {array}/>
+                            <button disabled = {currentUser.email !== comment.patientEmail} className = "btn btn-danger mt-4" onClick = {(e)=>{DeleteComment(comment)}}>Delete</button>
                         </div>
                     </div>)}
-                    
-    
-    
-    
-    
-    
-    
-
-    
-    
             </div> 
         </div>
     )
