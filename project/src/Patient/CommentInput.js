@@ -10,22 +10,23 @@ export const CommentInput = (props) => {
 
 
     const onDelete = () => { 
+        for(var i = 0; i < props.array.length; i++)
+        {
+            if(props.array[i].id === props.comments)
+            {
+                props.array.splice(i, 1);
+            }
+        }
         const db = firestore
         db.collection('comments').doc(props.comments.id).delete()
        
         alert("Account has been deleted successfully!")
-        // history.push('/Patient/searchDoctor')
     }
 
-    // {"/Patient/doctorProfile/" + props.id}
-
     return (<>
-        {/* {<button onClick={onUpdateFirstName}>Update</button>} */}
         <div>
         
         <button onClick={onDelete} disabled = {currentUser.email !== props.comments.patientEmail} class = "btn btn-danger">Delete</button>
-       
-        {/* <a onClick={() => {window.location.href="/SysAdm/viewIndvAcc"}} className="btn btn-success">Edit</a> */}
         </div>
     </>
     )

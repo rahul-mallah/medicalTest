@@ -1,12 +1,9 @@
 import React, {useState} from 'react'
-import {withRouter, Link, useLocation} from "react-router-dom";
-import ReactDOM from 'react-dom'
 import './comment.css'
 import { useAuth } from '../util/Auth';
-import { auth, firestore} from '../firebase';
-import {CommentInput} from './CommentInput'
-import {Card} from 'react-bootstrap'
+import { firestore} from '../firebase';
 import StarRatings from 'react-star-ratings';
+import moment from 'moment';
 
 function PatientComment(props) {
     const [comments, setComments] = useState([])
@@ -14,10 +11,6 @@ function PatientComment(props) {
     const {currentUser} = useAuth()
     const [users, setUsers] = useState([])
     const [rating, setRating] = useState(1)
-    const [likes, setLikes] = useState("")
-    const [doctorRating, setDoctorRating] = useState(1)
-    const [count, setCount] = useState(0)
-    const [total,  setTotal] = useState(0)
 
     React.useEffect(()=>{
         const fetchData = async () =>{
@@ -49,7 +42,7 @@ function PatientComment(props) {
             patientEmail: currentUser.email,
             comment: currentComments,
             rating: rating, 
-            count: count
+            date: moment(new Date()).format('MMMM Do YYYY')
         }
         
         array.push(obj)
@@ -62,7 +55,7 @@ function PatientComment(props) {
                 patientEmail: currentUser.email,
                 comment: currentComments,
                 rating: rating,
-                count: count
+                date: moment(new Date()).format('MMMM Do YYYY')
             }
         ).then(() => {
             alert("Posted successfully")
@@ -85,48 +78,37 @@ function PatientComment(props) {
         }).catch(err => alert(err))
     }
   
-    // function getRating(comment) {
-        // let r = parse(comment.rating, 10)
-        // return r
-    // }
 
+  let Total = 0
 
-   const handleIncrement = () => {
-    //    setCount(prevCount => prevCount + 1)
-    setCount(count + 1)
-   }
-
-   const onChange = e => {
-    e.persist();
-    //setRating({ ...rating, [e.target.name]: e.target.value });
-    const ratingValues = {
-      ...rating,
-      [e.target.name]: Number(e.target.value)
-    };
-    setRating(ratingValues);
-  };
-
-  React.useEffect(() => {
-    console.log(rating);
-    calculateAvgRating(rating);
-  }, [rating]);
-
-  const calculateAvgRating = ratingValues => {
-      const {
-          rating,
-      } = ratingValues
-
-      const finalAvg = rating / comments
-      setTotal(finalAvg)
+  for (var i = 0; i < comments.length; i++) {
+      Total += parseFloat(comments[i].rating)
   }
+
+  const avg = Total / comments.length
+
    
     return (
-        
         <div className="d-flex align-items-center justify-content-center">
             <div className = "comment-box">
                 <h2>REVIEWS</h2>
+
+                <h3>{avg.toFixed(1)}</h3>
+
+
+
+                
+                
+                <StarRatings
+                rating= {avg?avg:0}
+                starDimension="20px"
+                starSpacing="2px"
+                starRatedColor="orange"         
+            />
+
+            
+
                 <h5>{comments.length} total</h5>
-                {/* <button type="button" onClick={onChangeValue(counter + 1)}> Increase Counter </button> */}
                 
 
                 <form className = "comment-form">
@@ -145,49 +127,43 @@ function PatientComment(props) {
                         </div>
                     </div>
                 </form>
-                <button id = "comment-reveal" type = "submit">
-                     Show Comments
-                </button>
                 <h3>Comments</h3>
                     {comments.length === 0 && (<h4 className = "comment-count"> No comments yet </h4>)}
                     {comments.length !== 0 && (<h4 className = "comment-count"> {comments.length} comment </h4> 
                     )}
-                   
+            
 
 
                       {comments.map(comment => 
                       
                     
                     <div className = "comment">
-                        <p className = "comment-header mt-1">{comment.patient} </p>
+                        <p className = "mt-1">{comment.patient} </p>
                         
-                        <StarRatings
+                        <div className = "row" style = {{
+                            marginLeft: "0.01%"
+                        }}> 
+                        <StarRatings 
+                         
+                         
+                         
+                        
                         rating= {parseFloat(comment.rating)}
                         starDimension="20px"
                         starSpacing="2px"
-                        starRatedColor="orange"         
-                    />
-        
+                        starRatedColor="orange"  
+                        />
+                        <p className = "ml-3 mt-1">{comment.date}</p>
+                        </div>
 
-                    
-
-                    
-                               
+                                                   
                         <p className = "comment-body mt-4">{comment.comment}</p>
 
 
-                        <button onClick = {(e) => setCount(count + 1)} > 💓
-                       <h5>{count}</h5>
-                       </button>                                             
                         <div className = "comment-footer ml-1" >
-                            <button className = "btn btn-danger mt-4" onClick = {(e)=>{DeleteComment(comment)}}>Delete</button>
+                            <button className = "btn btn-danger mt-4" onClick = {(e)=>{DeleteComment(comment)}} disabled = {currentUser.email !== comment.patientEmail}>Delete</button>
                         </div>
-                    </div>)}
-                    
-                
-    
-    
-    
+                    </div>)}                            
             </div> 
         </div>
     )

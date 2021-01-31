@@ -38,7 +38,8 @@ function ScheduleAppointmentUI() {
             });
 
             firestore.collection("Medical Doctors")
-            .where("Department", "==", "General Practitioner (Non-specialist)")
+            .where("Department", ">=", "General Practitioner (Non-specialist)")
+            .where("Department", "<=", "General Practitioner (Non-specialist)\uF7FF")
             .get()
             .then(function(data){
                 console.log(data)
@@ -68,7 +69,8 @@ function ScheduleAppointmentUI() {
                 Timeslot : selectedSlot,
                 Patient : Users[0].FirstName + " " + Users[0].LastName,
                 PatientEmail : currentUser.email,
-                DocEmail : docGP.Email
+                DocEmail : docGP.Email,
+                DocCreated : false
             })
             .then(() => {
                 alert("Appointment Booked Successfully!");

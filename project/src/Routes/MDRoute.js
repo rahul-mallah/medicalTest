@@ -15,9 +15,9 @@ import ViewArticle from "../components/ViewArticle/ViewArticle";
 import ViewHealthArticleUI from '../User/ViewHealthArticleUI';
 import EditArticle from "../components/EditArticle/EditArticle";
 import NewArticle from "../components/NewArticle/NewArticle";
-import CreateMPUI from "../MedicalStaff/CreateMPUI";
+import CreateMPUI from "../MedicalDoctor/CreateMPUI";
 import PatientProfileUI from  "../MedicalStaff/PatientProfileUI";
-import ViewMPUI from "../MedicalStaff/ViewMPUI";
+import ViewMPUI from "../MedicalDoctor/ViewMPUI";
 import TransferMPUI from "../MedicalStaff/TransferMPUI";
 import ViewDoctorScheduleUI from "../MedicalStaff/ViewDoctorScheduleUI";
 import RequestEditApptUI from "../MedicalStaff/RequestEditApptUI";
@@ -25,6 +25,8 @@ import CreateNewApptUI from "../MedicalStaff/CreateNewAppt";
 import ViewAllocatedPatientUI from "../MedicalDoctor/ViewAllocatedPatientUI"
 import UpdateMPUI from "../MedicalDoctor/UpdateMPUI"
 import RequestApprovalUI from "../MedicalDoctor/RequestApprovalUI"
+import CreateMC from "../MedicalDoctor/CreateMC"
+import ViewMedicalCertificate from "../MedicalDoctor/ViewMedicalCertificate"
 
 const MDRoute = () =>
 {
@@ -35,7 +37,7 @@ const MDRoute = () =>
     React.useEffect(()=>{
         const fetchData = async () =>{
            firestore.collection("Users")
-           .where("Email", "==", String(currentUser.email))
+           .where("Email", "==", currentUser.email)
            .get()
            .then(function(data){
                 console.log(data)
@@ -49,7 +51,6 @@ const MDRoute = () =>
 
     return(
         <Switch>
-            
             {/* // Medical Doctor Homepage */}
             <DoctorRoute exact path= {`${path}`} component={MDHomepageUI} role={user.Role}/>
 
@@ -65,8 +66,14 @@ const MDRoute = () =>
             {/* // Create Patient Medical Record */}
             <DoctorRoute exact path={`${path}/CreateMP`} component={CreateMPUI} role={user.Role}/>
 
+            {/* // Create Patient Medical Certificate */}
+            <DoctorRoute exact path={`${path}/CreateMC`} component={CreateMC} role={user.Role}/>
+
             {/* // View Patient Medical Record */}
             <DoctorRoute exact path={`${path}/ViewMP`} component={ViewMPUI} role={user.Role}/>
+
+            {/* // View Patient Medical Certicficate */}
+            <DoctorRoute exact path={`${path}/ViewMC`} component={ViewMedicalCertificate} role={user.Role}/>
 
             {/* // Update Patient Medical Record */}
             <DoctorRoute exact path={`${path}/UpdateMP`} component={UpdateMPUI} role={user.Role}/>
