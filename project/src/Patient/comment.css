@@ -44,17 +44,11 @@ button {
   color: #404040;
 }
 
-#comment-reveal {
-  float: right;
-  background-color: #00BDFC;
-  color: #fff;
-}
 .comment {
   border-top: 0.125rem solid #404040;
 }
 .comment-body {
   font-style: italic;
-  width: 80px;
 }
 
 .comment-footer {

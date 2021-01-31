@@ -127,7 +127,6 @@ function CreateAccountUI() {
             })
          }
 
-
          // send email to user
          let details = {
             email: Email.toLowerCase(),
@@ -224,7 +223,6 @@ function CreateAccountUI() {
                         <option>Medical Doctor</option>
                         <option>Medical Admin</option>
                      </select>
-
 
                      <hr  style={{
                                 borderColor : '#000000',

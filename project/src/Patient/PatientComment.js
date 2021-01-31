@@ -91,25 +91,35 @@ function PatientComment(props) {
     return (
         <div className="d-flex align-items-center justify-content-center">
             <div className = "comment-box">
-                <h2>REVIEWS</h2>
-
-                <h3>{avg.toFixed(1)}</h3>
-
-
-
                 
+                <h5>REVIEWS</h5>
                 
+                <h1 className = "font" style = {{
+                    fontSize: "70px"
+                }}>{avg.toFixed(1)}</h1>
+
+            <div className = "star" style = {{
+                marginTop: "-1%"
+            }}> 
                 <StarRatings
                 rating= {avg?avg:0}
-                starDimension="20px"
+                starDimension="25px"
                 starSpacing="2px"
                 starRatedColor="orange"         
             />
-
+            </div>
             
-
-                <h5>{comments.length} total</h5>
+            <div className = "row">
+            <img src = "https://www.flaticon.com/svg/vstatic/svg/74/74472.svg?token=exp=1612109418~hmac=cf7fe3938b55bfae27864642d72f4251" style = {{
+                width: "20px",
+                colorAdjust: "#0069d9",
+                marginLeft: "1%"
                 
+            }}/>
+            <h5 className = "mt-2 ml-1">{comments.length} total</h5>
+            </div>
+            
+            
 
                 <form className = "comment-form">
                     <div className = "comment-form-fields">
@@ -117,23 +127,21 @@ function PatientComment(props) {
                         </input>
                         <input placeholder = "Email" value = {currentUser.email} disabled = {true } required>
                         </input>
-                        <textarea placeholder="Comment" rows = "4" onChange={(e) => setCurrentComments(e.target.value)} required>
+                        <textarea placeholder="Write a review" rows = "4" onChange={(e) => setCurrentComments(e.target.value)} required>
                         </textarea>
-                        <input placeholder = "rating" type = "number" min = "1" max = "5" onChange={(e) => setRating(e.target.value)} required></input>
+                        <input placeholder = "Leave a rating" type = "number" min = "1" max = "5" onChange={(e) => setRating(e.target.value)} required></input>
                         <div className = "comment-form-actions">
                             <button type = "submit" onClick = {submitComment}>
-                                Post Comment
+                                Post Review
                             </button>
                         </div>
                     </div>
                 </form>
-                <h3>Comments</h3>
-                    {comments.length === 0 && (<h4 className = "comment-count"> No comments yet </h4>)}
-                    {comments.length !== 0 && (<h4 className = "comment-count"> {comments.length} comment </h4> 
+                <h3>Reviews</h3>
+                    {comments.length === 0 && (<h4 className = "comment-count"> No reviews yet </h4>)}
+                    {comments.length !== 0 && (<h4 className = "comment-count"> {comments.length} reviews </h4> 
                     )}
             
-
-
                       {comments.map(comment => 
                       
                     
@@ -141,7 +149,8 @@ function PatientComment(props) {
                         <p className = "mt-1">{comment.patient} </p>
                         
                         <div className = "row" style = {{
-                            marginLeft: "0.01%"
+                            marginLeft: "-0.05%",
+                            marginTop: "-0.5%"
                         }}> 
                         <StarRatings 
                          
