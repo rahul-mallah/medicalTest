@@ -36,11 +36,8 @@ button {
     padding: 0.25rem 0;
     width: 99%;
     font-style: italic;
+    margin-left: 1rem;
   }
-
-.comment-form-actions {
-  
-}
 .comment-count {
   color: #404040;
 }
@@ -55,13 +52,8 @@ button {
 }
 .comment-body {
   font-style: italic;
-  margin-left: 1rem;
 }
+
 .comment-footer {
   margin-bottom: 1rem;
-}
-.comment-footer-delete {
-  padding: 0.2rem 0;
-  color: #404040;
-  text-decoration: none;
 }

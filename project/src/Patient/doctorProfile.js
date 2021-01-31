@@ -96,7 +96,8 @@ class DoctorProfile extends Component {
                     </Accordion>
 
             
-                    <PatientComment email={this.state.doctor.Email} id = {this.state.doctor.id} />          
+                    <PatientComment email={this.state.doctor.Email} id = {this.state.doctor.id} /> 
+                           
                                       
           </div>                                      
             )
