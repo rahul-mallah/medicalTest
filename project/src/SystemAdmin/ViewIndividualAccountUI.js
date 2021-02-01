@@ -5,6 +5,7 @@ import { auth, firestore } from '../firebase';
 import moment from 'moment';
 import {useRouteMatch, useLocation} from 'react-router-dom';
 import SearchBar from './searchBar';
+import { useHistory } from "react-router-dom";
 
 
 function ViewIndividualAccountUI() {
@@ -29,6 +30,7 @@ function ViewIndividualAccountUI() {
 
    const {state} = useLocation();
    const {user} = state;  
+   let history = useHistory();
 
    function onEdit(){
       setEditEnabled(true);
@@ -62,6 +64,7 @@ function ViewIndividualAccountUI() {
             })
             .then(() => {
                alert("Updated Successfully!");
+               history.push({pathname: '/SysAdm/viewAllAccount'})
             })
       }catch(error){
          setError(error.message);
@@ -70,6 +73,7 @@ function ViewIndividualAccountUI() {
       setUpdateEnabled(true);
       setEditEnabled(false);
    }
+   
 
  
 
@@ -151,8 +155,15 @@ function ViewIndividualAccountUI() {
                         type="invalid" required/>
                      </Form.Group>
                      <Button onClick={onEdit} disabled = {editEnabled} className="w-100 my-2">Edit</Button>
+            
+            
+            
                      <Button disabled = {updateEnabled} className="w-100 my-2" type="submit">Update</Button>
+                  
                      <Button href = {`${path}`} disabled = {updateEnabled} className="w-100 my-2">Cancel</Button>
+
+
+                     
                  </Form>
              </Card.Body>
             </Card>

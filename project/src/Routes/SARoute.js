@@ -11,11 +11,13 @@ import ViewHealthArticleUI from '../User/ViewHealthArticleUI';
 import ChangePasswordUI from "../SystemAdmin/changePwUI";
 import CreateAccountUI from "../SystemAdmin/CreateAccountUI";
 import ViewIndividualAccountUI from "../SystemAdmin/ViewIndividualAccountUI";
+import ViewAllStaffAccount from "../SystemAdmin/ViewAllStaffAccount";
 import ViewArticle from "../components/ViewArticle/ViewArticle";
 import EditArticle from "../components/EditArticle/EditArticle";
 
 
 import NewArticle from "../components/NewArticle/NewArticle";
+
 
 const SARoute = () =>
 {
@@ -56,6 +58,10 @@ const SARoute = () =>
             // Edit Article
             <Route path={`${path}/edit-article`} component={EditArticle}/>
 
+            //Staff
+            <Route path={`${path}/viewAllStaffAccount`} component={ViewAllStaffAccount}/>
+
+
             // Display error if path does not match
             <Route path="*">
                 <NoMatch />
@@ -65,3 +71,4 @@ const SARoute = () =>
     )}
 
 export default SARoute;
+
