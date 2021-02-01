@@ -110,7 +110,7 @@ function PatientComment(props) {
             </div>
             
             <div className = "row">
-            <img src = "https://www.flaticon.com/svg/vstatic/svg/74/74472.svg?token=exp=1612109418~hmac=cf7fe3938b55bfae27864642d72f4251" style = {{
+            <img src = "https://www.flaticon.com/svg/vstatic/svg/3358/3358902.svg?token=exp=1612171347~hmac=e27f444ac60e2ba54cd07f70b1392594" style = {{
                 width: "20px",
                 colorAdjust: "#0069d9",
                 marginLeft: "1%"
@@ -127,9 +127,9 @@ function PatientComment(props) {
                         </input>
                         <input placeholder = "Email" value = {currentUser.email} disabled = {true } required>
                         </input>
-                        <textarea placeholder="Write a review" rows = "4" onChange={(e) => setCurrentComments(e.target.value)} required>
+                        <textarea placeholder="Write a review here" rows = "4" onChange={(e) => setCurrentComments(e.target.value)} required>
                         </textarea>
-                        <input placeholder = "Leave a rating" type = "number" min = "1" max = "5" onChange={(e) => setRating(e.target.value)} required></input>
+                        <input placeholder = "Leave a rating here" type = "number" min = "1" max = "5" onChange={(e) => setRating(e.target.value)} required></input>
                         <div className = "comment-form-actions">
                             <button type = "submit" onClick = {submitComment}>
                                 Post Review

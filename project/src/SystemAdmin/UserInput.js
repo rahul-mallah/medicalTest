@@ -11,6 +11,7 @@ export const UserInput = (props) => {
         db.collection('Users').doc(props.users.id).delete()
         //window.location.reload();
         alert("Account has been deleted successfully!")
+        window.location.reload();
     }
 
     return (<>

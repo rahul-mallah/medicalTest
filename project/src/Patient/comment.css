@@ -46,6 +46,7 @@ button {
 
 .comment {
   border-top: 0.125rem solid #404040;
+  /* color: #404040; */
 }
 .comment-body {
   font-style: italic;
