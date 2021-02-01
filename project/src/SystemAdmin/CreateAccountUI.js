@@ -16,7 +16,7 @@ function CreateAccountUI() {
    const [DOB, setDOB] = useState(""); 
    const [Email, setEmail] = useState(""); 
    const [Telephone, setTelephone] = useState(""); 
-   const [AccountType, setAccountType] = useState("");
+   const [Role, setRole] = useState("");
    const [Password, setPassword] = useState(""); 
    const [ConfirmPassword, setConfirmPassword] = useState(""); 
    const [error, setError] = useState("");
@@ -33,7 +33,7 @@ function CreateAccountUI() {
    const PasswordRef = useRef();
    const ConfirmPasswordRef = useRef();
 
-   const AccountTypeRef = useRef();
+   const RoleRef = useRef();
 
    // Check Validity
    const isNumber = /\d/;
@@ -74,6 +74,10 @@ function CreateAccountUI() {
    //handle submit
    const handleSubmit = async (e) => {
       e.preventDefault();
+
+      if (Role === "" || Role === "Select A Role") {
+         return setError("Not A Valid Role")
+      }
       
       if(Password !== ConfirmPassword)
       {
@@ -89,18 +93,39 @@ function CreateAccountUI() {
          setError("");
          setLoading(true);
          await auth.createUserWithEmailAndPassword(Email, Password)
+
          
-         await firestore.collection('All Medical Staff').add({
-            Avatar: fileUrl,
+         
+         await firestore.collection('Users').add({
             FirstName: FirstName,
             LastName: LastName,
             Email: Email.toLowerCase(),
-            Telephone: Telephone,
-            AccountType: AccountType
+            Role: Role
          })
-         .then(() => {
-            alert("Account Registered Successfully!");
-         })
+
+         if (Role === "Medical Doctor"){
+            await firestore.collection('Medical Doctors').add({
+               Image: fileUrl,
+               Name: FirstName + " " + LastName,
+               Email: Email.toLowerCase(),
+               Role: Role
+            })
+            .then(() => {
+               alert("Account Registered Successfully!");
+            })
+         }
+
+         if (Role === "Medical Admin"){
+            await firestore.collection('All Medical Staff').add({
+               Image: fileUrl,
+               Name: FirstName + " " + LastName,
+               Email: Email.toLowerCase(),
+               Role: Role
+            })
+            .then(() => {
+               alert("Account Registered Successfully!");
+            })
+         }
 
          // send email to user
          let details = {
@@ -132,7 +157,7 @@ function CreateAccountUI() {
       setError("");
       setLoading(false);
       setPasswordFocused(false);
-      setAccountType("");
+      setRole("");
       };
 
    return (
@@ -190,12 +215,13 @@ function CreateAccountUI() {
                      </Form.Group>
 
                      <Form.Group id = "AccountType">
-                        <Form.Label>Account Type</Form.Label>
+                        <Form.Label>Role</Form.Label>
                      </Form.Group>
 
-                     <select ref = {AccountTypeRef} value = {AccountType} onChange = {(e)=> setAccountType(e.target.value)}>
-                        <option value = "Medical Doctor">Medical Doctor</option>
-                        <option value = "Medical Admin">Medical Admin</option>
+                     <select placeholder = "Select A Role" onChange = {(e)=> setRole(e.target.value)}>
+                        <option disabled = "disabled" selected = "selected">Select A Role</option>
+                        <option>Medical Doctor</option>
+                        <option>Medical Admin</option>
                      </select>
 
                      <hr  style={{
