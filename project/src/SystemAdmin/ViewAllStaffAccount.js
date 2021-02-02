@@ -9,7 +9,7 @@ import SearchBar from './searchBar';
 import { useHistory } from "react-router-dom";
 
 
-function ViewAllAccountUI() 
+function ViewAllStaffAccount() 
 {
    const [users, setUsers] = useState([])
    const [search, setSearch] = useState("")
@@ -22,7 +22,7 @@ function ViewAllAccountUI()
    
       const fetchData = async () => {
          const db = firestore
-         const data = await db.collection('Users').get()
+         const data = await db.collection('All Medical Staff').get()
          setUsers(data.docs.map(doc => ({...doc.data(), id: doc.id})))
       }
       fetchData()
@@ -32,14 +32,11 @@ function ViewAllAccountUI()
    user.Email.toLowerCase().includes(search.toLowerCase())
  )
 
-
-
-
    return(
       <>
       <div class = "jumbotron jumbotron-fluid">
          <div class = "container">
-            <h1 class = "display-4 text-center">User Accounts</h1>
+            <h1 class = "display-4 text-center">Staff Accounts</h1>
          </div>
       </div>
          {/* search bar */}
@@ -52,47 +49,34 @@ function ViewAllAccountUI()
          >
             <SearchBar handleChange={(e) => setSearch(e.target.value)} placeholder = "Search for a user by Email..."/>
          </div>
-
-         <div
-        style={{
-               display: "flex",
-               justifyContent: "center",
-               alignItems: "center",
-               marginBottom: "20px",
-               fontWeight: "bold"
-           }}
-     >
-         <input  type = "radio" value = "Test" onClick = {() => {window.location.href="/SysAdm/viewAllStaffAccount"}}/>Staff
-         <input  type = "radio" value = "Test" onClick = {() => {window.location.href="/SysAdm/viewAllAccount"}}/>All Users
-     </div>       
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-
- 
-                                                                                                                            
+                                                                                                                                   
       
       {/* <a onClick={() => {window.location.href="/SysAdm/viewAllStaffAccount"}} className="btn btn-primary">View / Edit Profile</a> */}
 
     
+   
+      <div
+         style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginBottom: "20px",
+                fontWeight: "bold"
+            }}
+      >
+         <input  type = "radio" value = "Test" onClick = {() => {window.location.href="/SysAdm/viewAllStaffAccount"}}/>Staff
+         <input  type = "radio" value = "Test" onClick = {() => {window.location.href="/SysAdm/viewAllAccount"}}/>All Users
+      </div>       
+
+
+       
       <div className = "row">
          <div className = "col-md-12">
             <table className = "table table-borderless table-stripped">
                <thead className = "thead-light" >
                   <tr>
-                     <th>Name</th>
-                     <th>NRIC</th>
-                     <th>Address</th>
-                     <th>Date Of Birth</th>
-                     <th>Email Address</th>
-                     <th>Telephone</th>
+                     <th>Name</th>                                                 
+                     <th>Email Address</th>  
                      <th>Role</th>
                      <th>Actions</th>
                   </tr>
@@ -101,13 +85,8 @@ function ViewAllAccountUI()
                   
                      {filteredArray.map(users => (
                         <tr>
-                           {users.Name ? (<td>{users.Name}</td>):(<td>{users.FirstName} {users.LastName}</td>)} 
-                            
-                           {users.NRIC ? (<td>{users.NRIC}</td>):(<td>-</td>)}
-                           {users.Address ? (<td>{users.Address}</td>):(<td>-</td>)}
-                           {users.DOB ? (<td>{users.DOB}</td>):(<td>-</td>)}
+                           <td>{users.Name}</td>                                                                                                 
                            <td>{users.Email}</td>
-                           {users.Telephone ? (<td>{users.Telephone}</td>):(<td>-</td>)}
                            <td>{users.Role}</td>
                            {/* <Link to = {{ */}
                               {/* pathname: '/SysAdm/viewIndvAcc', */}
@@ -145,4 +124,4 @@ function ViewAllAccountUI()
 
 }
 
-export default ViewAllAccountUI
+export default ViewAllStaffAccount

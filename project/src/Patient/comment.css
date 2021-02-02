@@ -16,17 +16,19 @@ button {
 }
 
 .comment-box {
-  max-width: 37.5rem;
+  width: 75%;
   color: #0069d9;
   background-color: #E5E5E5;
   border-radius: 0.875rem;
   padding: 0.2rem 1rem 2rem;
 }
+
 .comment-form {
   background-color: #fff;
   border-radius: 0.25rem;
   margin-bottom: 2rem;
-  padding: 1rem;  
+  padding: 1rem; 
+ 
 }
 .comment-form-fields input, .comment-form-fields textarea {
   margin-bottom: 0.25rem;
@@ -36,28 +38,22 @@ button {
     padding: 0.25rem 0;
     width: 99%;
     font-style: italic;
+    margin-left: 1rem;
   }
 .comment-count {
   color: #404040;
 }
 
-#comment-reveal {
-  float: right;
-  background-color: #00BDFC;
-  color: #fff;
-}
 .comment {
   border-top: 0.125rem solid #404040;
+  /* color: #404040; */
 }
 .comment-body {
   font-style: italic;
-  margin-left: 1rem;
 }
+
 .comment-footer {
   margin-bottom: 1rem;
 }
-.comment-footer-delete {
-  padding: 0.2rem 0;
-  color: #404040;
-  text-decoration: none;
-}
+
+

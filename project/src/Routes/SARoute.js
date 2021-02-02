@@ -1,6 +1,7 @@
-import React from 'react'
+import React, {useState} from 'react';
 import {useRouteMatch, Switch, Route} from 'react-router-dom';
-import PrivateRoute from "../util/AuthRoute";
+import {firestore} from "../firebase";
+import { useAuth } from "../util/Auth"
 
 import NoMatch from '../noMatch'
 
@@ -11,38 +12,59 @@ import ViewHealthArticleUI from '../User/ViewHealthArticleUI';
 import ChangePasswordUI from "../SystemAdmin/changePwUI";
 import CreateAccountUI from "../SystemAdmin/CreateAccountUI";
 import ViewIndividualAccountUI from "../SystemAdmin/ViewIndividualAccountUI";
+import ViewAllStaffAccount from "../SystemAdmin/ViewAllStaffAccount";
 import ViewArticle from "../components/ViewArticle/ViewArticle";
 import EditArticle from "../components/EditArticle/EditArticle";
 
-
 import NewArticle from "../components/NewArticle/NewArticle";
+
+import SystemAdminRoute from "../util/SystemAdminRoute";
+
 
 const SARoute = () =>
 {
     const {path} = useRouteMatch();
 
+    const { currentUser } = useAuth();
+    const [Users, setUsers] = useState([]); 
+
+    React.useEffect(()=>{
+        const fetchData = async () =>{
+           firestore.collection("Users")
+           .where("Email", "==", String(currentUser.email))
+           .get()
+           .then(function(data){
+                console.log(data)
+                setUsers(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
+            });
+        };
+        fetchData();
+     }, [])
+
+    const user = {...Users[0]};
+
     return(
         <Switch>
             // Sys Adm Homepage
-            <PrivateRoute exact path= {`${path}`} component={SAHomePageUI} />
+            <SystemAdminRoute exact path= {`${path}`} component={SAHomePageUI} role={user.Role}/>
 
             // My Profils
-            <PrivateRoute exact path={`${path}/myProfile`} component={MyProfilePageUI}/>
+            <SystemAdminRoute exact path={`${path}/myProfile`} component={MyProfilePageUI} role={user.Role}/>
 
             // Change Password
-            <PrivateRoute exact path={`${path}/myProfile/changePW`} component={ChangePasswordUI}/>
+            <SystemAdminRoute exact path={`${path}/myProfile/changePW`} component={ChangePasswordUI} role={user.Role}/>
 
             // View All Account
-            <PrivateRoute exact path= {`${path}/viewAllAccount`} component={ViewAllAccountUI} />
+            <SystemAdminRoute exact path= {`${path}/viewAllAccount`} component={ViewAllAccountUI} role={user.Role} />
 
             // View Individual User Account
-            <PrivateRoute path={`${path}/viewIndividualAccount`} component={EditArticle}/>
+            <SystemAdminRoute path={`${path}/viewIndividualAccount`} component={EditArticle} role={user.Role}/>
 
             // Create New Account
-            <PrivateRoute exact path={`${path}/viewAllAccount/createAccount`} component={CreateAccountUI}/>
+            <SystemAdminRoute exact path={`${path}/viewAllAccount/createAccount`} component={CreateAccountUI} role={user.Role}/>
 
             // View Individual Account
-            <PrivateRoute exact path={`${path}/viewIndvAcc`} component={ViewIndividualAccountUI}/>
+            <SystemAdminRoute exact path={`${path}/viewIndvAcc`} component={ViewIndividualAccountUI} role={user.Role}/>
 
             // View Health Article
             <Route exact path={`${path}/ViewHealthArticle`} component={ViewHealthArticleUI}/>
@@ -51,10 +73,14 @@ const SARoute = () =>
             <Route path={`${path}/article/:id`} component={ViewArticle}/>
 
             // Create New Article
-            <Route path={`${path}/ViewHealthArticle/new-article`} component={NewArticle}/>
+            <SystemAdminRoute path={`${path}/ViewHealthArticle/new-article`} component={NewArticle} role={user.Role}/>
 
             // Edit Article
-            <Route path={`${path}/edit-article`} component={EditArticle}/>
+            <SystemAdminRoute path={`${path}/edit-article`} component={EditArticle} role={user.Role}/>
+
+            //View All Staff
+            <SystemAdminRoute path={`${path}/viewAllStaffAccount`} component={ViewAllStaffAccount} role={user.Role}/>
+
 
             // Display error if path does not match
             <Route path="*">
@@ -65,3 +91,4 @@ const SARoute = () =>
     )}
 
 export default SARoute;
+

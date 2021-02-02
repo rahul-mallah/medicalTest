@@ -1,15 +1,9 @@
 import React, {useState} from 'react'
-import {withRouter, Link, useLocation} from "react-router-dom";
-import {Button} from "react-bootstrap";
-import ReactDOM from 'react-dom'
 import './comment.css'
 import { useAuth } from '../util/Auth';
-import { auth, firestore} from '../firebase';
-import {CommentInput} from './CommentInput'
-import {Card} from 'react-bootstrap'
+import { firestore} from '../firebase';
 import StarRatings from 'react-star-ratings';
-import ReactStars from "react-rating-stars-component";
-
+import moment from 'moment';
 
 function PatientComment(props) {
     const [comments, setComments] = useState([])
@@ -37,11 +31,9 @@ function PatientComment(props) {
         };
         fetchData();
      }, [])
-
      const user = {...users[0]}
      let array = []
-     
-
+           
     async function submitComment (e) {
         e.preventDefault()
         const obj = {
@@ -49,15 +41,21 @@ function PatientComment(props) {
             patient: user.FirstName + " " + user.LastName,
             patientEmail: currentUser.email,
             comment: currentComments,
-            rating: rating
+            rating: rating, 
+            date: moment(new Date()).format('MMMM Do YYYY')
         }
+        
+        array.push(obj)
+
+        
         await firestore.collection("comments").add(
             {
                 Email: props.email,
                 patient: user.FirstName + " " + user.LastName,
                 patientEmail: currentUser.email,
                 comment: currentComments,
-                rating: rating
+                rating: rating,
+                date: moment(new Date()).format('MMMM Do YYYY')
             }
         ).then(() => {
             alert("Posted successfully")
@@ -80,55 +78,101 @@ function PatientComment(props) {
         }).catch(err => alert(err))
     }
   
-    // function getRating(comment) {
-        // let r = parse(comment.rating, 10)
-        // return r
-    // }
 
+  let Total = 0
+
+  for (var i = 0; i < comments.length; i++) {
+      Total += parseFloat(comments[i].rating)
+  }
+
+  const avg = Total / comments.length
+
+   
     return (
-        
-        <div>
+        <div className="d-flex align-items-center justify-content-center">
             <div className = "comment-box">
-                <h2>Join the Discussion</h2>
+                
+                <h5>REVIEWS</h5>
+                
+                <h1 className = "font" style = {{
+                    fontSize: "70px"
+                }}>{avg.toFixed(1)}</h1>
+
+            <div className = "star" style = {{
+                marginTop: "-1%"
+            }}> 
+                <StarRatings
+                rating= {avg?avg:0}
+                starDimension="25px"
+                starSpacing="2px"
+                starRatedColor="orange"         
+            />
+            </div>
+            
+            <div className = "row">
+            <img src = "https://www.flaticon.com/svg/vstatic/svg/3358/3358902.svg?token=exp=1612171347~hmac=e27f444ac60e2ba54cd07f70b1392594" style = {{
+                width: "20px",
+                colorAdjust: "#0069d9",
+                marginLeft: "1%"
+                
+            }}/>
+            <h5 className = "mt-2 ml-1">{comments.length} total</h5>
+            </div>
+            
+            
+
                 <form className = "comment-form">
                     <div className = "comment-form-fields">
                         <input placeholder = "Name" value = {user.FirstName + " " + user.LastName} disabled = {true } required>
                         </input>
                         <input placeholder = "Email" value = {currentUser.email} disabled = {true } required>
                         </input>
-                        <textarea placeholder="Comment" rows = "4" onChange={(e) => setCurrentComments(e.target.value)} required>
+                        <textarea placeholder="Write a review here" rows = "4" onChange={(e) => setCurrentComments(e.target.value)} required>
                         </textarea>
-                        <input placeholder = "rating" type = "number" min = "1" max = "5" onChange={(e) => setRating(e.target.value)} required></input>
+                        <input placeholder = "Leave a rating here" type = "number" min = "1" max = "5" onChange={(e) => setRating(e.target.value)} required></input>
                         <div className = "comment-form-actions">
                             <button type = "submit" onClick = {submitComment}>
-                                Post Comment
+                                Post Review
                             </button>
                         </div>
                     </div>
                 </form>
-                <button id = "comment-reveal" type = "submit">
-                     Show Comments
-                </button>
-                <h3>Comments</h3>
-                    {comments.length === 0 && (<h4 className = "comment-count"> No comments yet </h4>)}
-                    {comments.length !== 0 && (<h4 className = "comment-count"> {array.length} comment </h4> 
+                <h3>Reviews</h3>
+                    {comments.length === 0 && (<h4 className = "comment-count"> No reviews yet </h4>)}
+                    {comments.length !== 0 && (<h4 className = "comment-count"> {comments.length} reviews </h4> 
                     )}
-                   
+            
                       {comments.map(comment => 
+                      
+                    
                     <div className = "comment">
-                        <p className = "comment-header">{comment.patient} </p>
-                        <p className = "comment-body">{comment.comment}</p>
+                        <p className = "mt-1">{comment.patient} </p>
                         
-                        <StarRatings
+                        <div className = "row" style = {{
+                            marginLeft: "-0.05%",
+                            marginTop: "-0.5%"
+                        }}> 
+                        <StarRatings 
+                         
+                         
+                         
+                        
                         rating= {parseFloat(comment.rating)}
                         starDimension="20px"
-                        starSpacing="5px"
-                        starRatedColor="orange"
-                    />            
-                        <div className = "comment-footer" >
-                            <button disabled = {currentUser.email !== comment.patientEmail} className = "btn btn-danger mt-4" onClick = {(e)=>{DeleteComment(comment)}}>Delete</button>
+                        starSpacing="2px"
+                        starRatedColor="orange"  
+                        />
+                        <p className = "ml-3 mt-1">{comment.date}</p>
                         </div>
-                    </div>)}
+
+                                                   
+                        <p className = "comment-body mt-4">{comment.comment}</p>
+
+
+                        <div className = "comment-footer ml-1" >
+                            <button className = "btn btn-danger mt-4" onClick = {(e)=>{DeleteComment(comment)}} disabled = {currentUser.email !== comment.patientEmail}>Delete</button>
+                        </div>
+                    </div>)}                            
             </div> 
         </div>
     )

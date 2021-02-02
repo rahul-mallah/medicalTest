@@ -4,7 +4,6 @@ import parse from "html-react-parser";
 import {Accordion, Card, Button, Row, Col, Image, Container} from "react-bootstrap"
 import { firestore } from '../firebase';
 import  classes from './doctorProfile.module.css';
-import PatientComments from './PatientComments';
 import PatientComment from './PatientComment';
 
 
@@ -96,7 +95,8 @@ class DoctorProfile extends Component {
                     </Accordion>
 
             
-                    <PatientComment email={this.state.doctor.Email} id = {this.state.doctor.id} />          
+                    <PatientComment email={this.state.doctor.Email} id = {this.state.doctor.id} /> 
+                           
                                       
           </div>                                      
             )

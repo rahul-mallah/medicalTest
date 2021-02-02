@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {Form, Button, Card, Container, Alert} from 'react-bootstrap'
-import { auth } from '../firebase';
+import { auth, firestore } from '../firebase';
 import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../util/Auth';
 function LoginUI() {
@@ -11,10 +11,11 @@ function LoginUI() {
     const [loading, setLoading] = useState(false);
     const {login} = useAuth();
     const history = useHistory();
+    const [users, setUsers] = useState([]);
+    const {currentUser} = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         try {
             setError("");
             setLoading(true);
@@ -27,6 +28,8 @@ function LoginUI() {
         setPassword("");
         setLoading(false);
     };
+
+
 
     return (
         <div style={{backgroundImage: `url("https://i.ibb.co/yRDqQHh/pexels-karolina-grabowska-4021769.jpg")`,
