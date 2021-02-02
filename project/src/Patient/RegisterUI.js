@@ -32,6 +32,9 @@ function RegisterUI() {
    const PasswordRef = useRef();
    const ConfirmPasswordRef = useRef();
 
+   const {signup} = useAuth()
+   const {currentUser} = useAuth()
+
    // Check Validity
    const isNumber = /\d/;
    const isSpecChar = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
@@ -76,7 +79,9 @@ function RegisterUI() {
       try{
          setError("");
          setLoading(true);
-         await auth.createUserWithEmailAndPassword(Email, Password)
+         await signup(Email, Password) 
+
+         
               
 
          firestore.collection('Users').add({

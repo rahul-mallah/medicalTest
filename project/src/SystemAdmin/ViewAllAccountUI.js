@@ -62,9 +62,8 @@ function ViewAllAccountUI()
                fontWeight: "bold"
            }}
      >
-        <input  type = "radio" value = "Test" onClick = {() => {window.location.href="/SysAdm/viewAllStaffAccount"}}/>All
-        <input  type = "radio" value = "Test" onClick = {() => {window.location.href="/SysAdm/viewAllStaffAccount"}}/>Staff
-        <input  type = "radio" value = "Test" onClick = {() => {window.location.href="/SysAdm/viewAllAccount"}}/>Normal User
+         <input  type = "radio" value = "Test" onClick = {() => {window.location.href="/SysAdm/viewAllStaffAccount"}}/>Staff
+         <input  type = "radio" value = "Test" onClick = {() => {window.location.href="/SysAdm/viewAllAccount"}}/>All Users
      </div>       
  
  
@@ -88,8 +87,7 @@ function ViewAllAccountUI()
             <table className = "table table-borderless table-stripped">
                <thead className = "thead-light" >
                   <tr>
-                     <th>First Name</th>
-                     <th>Last Name</th>
+                     <th>Name</th>
                      <th>NRIC</th>
                      <th>Address</th>
                      <th>Date Of Birth</th>
@@ -103,13 +101,13 @@ function ViewAllAccountUI()
                   
                      {filteredArray.map(users => (
                         <tr>
-                           <td>{users.FirstName}</td>
-                           <td>{users.LastName}</td>
-                           <td>{users.NRIC}</td>
-                           <td>{users.Address}</td>
-                           <td>{users.DOB}</td>
+                           {users.Name ? (<td>{users.Name}</td>):(<td>{users.FirstName} {users.LastName}</td>)} 
+                            
+                           {users.NRIC ? (<td>{users.NRIC}</td>):(<td>-</td>)}
+                           {users.Address ? (<td>{users.Address}</td>):(<td>-</td>)}
+                           {users.DOB ? (<td>{users.DOB}</td>):(<td>-</td>)}
                            <td>{users.Email}</td>
-                           <td>{users.Telephone}</td>
+                           {users.Telephone ? (<td>{users.Telephone}</td>):(<td>-</td>)}
                            <td>{users.Role}</td>
                            {/* <Link to = {{ */}
                               {/* pathname: '/SysAdm/viewIndvAcc', */}

@@ -1,10 +1,10 @@
 import React,{useState} from 'react'
 import { Route, Redirect } from "react-router-dom"
 
-function DoctorRoute({ component: Component, role, ...rest }) {
+function SystemAdminRoute({ component: Component, role, ...rest }) {
     return (
         <div>
-        {role === "Medical Doctor" && (
+        {role === "System Admin" && (
         <Route
         {...rest}
         render={props => {
@@ -14,25 +14,26 @@ function DoctorRoute({ component: Component, role, ...rest }) {
         )}
 
         {/* //route back to patient homepage */}
-        {role === "Patient" && (
+        {role === "Medical Doctor" && (
         <Route
         {...rest}
         render={props => {
-            return (<Redirect to="/Patient" />)
+            return (<Redirect to="/MedDoc" />)
         }}
         ></Route>
         )}
 
-      {role === "System Admin" && (
+       {role === "Patient" && (
        <Route
        {...rest}
        render={props => {
-           return (<Redirect to="/sysadm"/>)
+           return (<Redirect to="/Patient" />)
        }}
        ></Route>
        )}
+
         </div>
     )
 }
 
-export default DoctorRoute
+export default SystemAdminRoute
