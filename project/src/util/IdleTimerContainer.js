@@ -45,7 +45,7 @@ return (
         </Modal>
         </Container>
         <IdleTimer ref = {idleTimerRef}
-         timeout = {1000 * 4} //Session will time out within 15 minutes
+         timeout = {1000 * 60 * 15} //Session will time out within 15 minutes
           onIdle = {onIdle}>
         </IdleTimer>
     </div>
