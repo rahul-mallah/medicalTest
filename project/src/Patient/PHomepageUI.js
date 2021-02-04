@@ -3,8 +3,10 @@ import {firestore } from '../firebase';
 import { useAuth } from "../util/Auth"
 import IdleTimerContainer from '../util/IdleTimerContainer'
 
+
 function PHomepageUI() {
     const { currentUser } = useAuth();
+
     const [Users, setUsers] = useState([]); 
 
     React.useEffect(()=>{
@@ -26,6 +28,7 @@ function PHomepageUI() {
                 <React.Fragment>
                     <h1 className='text-center text-danger text text-capitalize my-5'
                     style={{fontSize: '2em'}}>
+                        {Users.map(user => <h1> Hello {user.FirstName } {user.LastName},</h1>)}
                         Welcome To MyAppointment System
                     </h1>
                     <div className="container col-sm-10">
