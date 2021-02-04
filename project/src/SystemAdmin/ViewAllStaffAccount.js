@@ -1,12 +1,10 @@
 import React,{useState}  from 'react'
-import {Link} from 'react-router-dom';
-//import {menuItems} from '../components/Sidebar/SASideBarData';
-import { useAuth } from '../util/Auth';
-import { auth, firestore } from '../firebase';
+import { firestore } from '../firebase';
 import { Form, Button, Card, Alert, Container } from "react-bootstrap"
 import {UserInput} from './UserInput'
 import SearchBar from './searchBar';
 import { useHistory } from "react-router-dom";
+import IdleTimerContainer from '../util/IdleTimerContainer'
 
 
 function ViewAllStaffAccount() 
@@ -40,6 +38,7 @@ function ViewAllStaffAccount()
    return(
       <>
       <div class = "jumbotron jumbotron-fluid">
+      <IdleTimerContainer></IdleTimerContainer>
          <div class = "container">
             <h1 class = "display-4 text-center">Staff Accounts</h1>
          </div>
@@ -55,11 +54,6 @@ function ViewAllStaffAccount()
             <SearchBar handleChange={(e) => setSearch(e.target.value)} placeholder = "Search for a user by Email..."/>
          </div>
                                                                                                                                    
-      
-      {/* <a onClick={() => {window.location.href="/SysAdm/viewAllStaffAccount"}} className="btn btn-primary">View / Edit Profile</a> */}
-
-    
-   
       <div
          style={{
                 display: "flex",
@@ -72,8 +66,6 @@ function ViewAllStaffAccount()
          <input  type = "radio" value = "Test" onClick = {() => {window.location.href="/SysAdm/viewAllStaffAccount"}}/>Staff
          <input  type = "radio" value = "Test" onClick = {() => {window.location.href="/SysAdm/viewAllAccount"}}/>All Users
       </div>       
-
-
        
       <div className = "row">
          <div className = "col-md-12">

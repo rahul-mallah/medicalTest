@@ -1,10 +1,11 @@
 import React from 'react';
-import { Link } from "react-router-dom"
+import IdleTimerContainer from '../util/IdleTimerContainer';
 
 function MDHomepageUI() {
     return (
         <div>
             <div>
+                <IdleTimerContainer></IdleTimerContainer>
                 <React.Fragment>
                     <h1 className='text-center text-danger text text-capitalize my-5'
                     style={{fontSize: '2em'}}>

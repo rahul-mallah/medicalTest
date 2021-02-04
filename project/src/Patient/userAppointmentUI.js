@@ -1,11 +1,12 @@
-import NavBar from '../components/navbarUI';
 import React, { Component, useState } from 'react';
-import {Nav, Container, Card, Button, Row} from "react-bootstrap";
+import {Container, Card, Button, Row} from "react-bootstrap";
 import { useAuth } from '../util/Auth';
-import {Link, withRouter} from "react-router-dom";
-import { auth, firestore } from '../firebase';
+import {Link} from "react-router-dom";
+import { firestore } from '../firebase';
 import './UserAppointmentUI.css';
 import moment from 'moment';
+import IdleTimerContainer from '../util/IdleTimerContainer';
+
 
 function UserAppointmentUI() {
 
@@ -68,6 +69,7 @@ function UserAppointmentUI() {
 
   return (
     <div>
+      <IdleTimerContainer></IdleTimerContainer>
       <Container className= "w-100">
         <Card>
           <Card.Title className = "my-3 px-5">{Users.map(user => <h4>{user.FirstName } {user.LastName}</h4>)}

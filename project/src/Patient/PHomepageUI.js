@@ -1,9 +1,7 @@
 import React,{useState} from 'react'
-import { Route, Redirect } from "react-router-dom"
 import {firestore } from '../firebase';
 import { useAuth } from "../util/Auth"
-import NavBar from '../components/navbarUI';
-import { Link } from "react-router-dom"
+import IdleTimerContainer from '../util/IdleTimerContainer'
 
 function PHomepageUI() {
     const { currentUser } = useAuth();
@@ -24,6 +22,7 @@ function PHomepageUI() {
     return (
         <div>
             <div>
+            <IdleTimerContainer></IdleTimerContainer>
                 <React.Fragment>
                     <h1 className='text-center text-danger text text-capitalize my-5'
                     style={{fontSize: '2em'}}>

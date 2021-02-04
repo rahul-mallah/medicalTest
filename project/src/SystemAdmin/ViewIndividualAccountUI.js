@@ -1,11 +1,11 @@
-import React, { useRef, useState } from "react"
+import React, { useState } from "react"
 import { Form, Button, Card, Alert, Container } from "react-bootstrap"
 import { useAuth } from '../util/Auth';
-import { auth, firestore } from '../firebase';
+import {firestore } from '../firebase';
 import moment from 'moment';
 import {useRouteMatch, useLocation} from 'react-router-dom';
-import SearchBar from './searchBar';
 import { useHistory } from "react-router-dom";
+import IdleTimerContainer from '../util/IdleTimerContainer'
 
 
 function ViewIndividualAccountUI() {
@@ -81,6 +81,7 @@ function ViewIndividualAccountUI() {
       <>
       
       <div>
+      <IdleTimerContainer></IdleTimerContainer>
             <Container className="d-flex align-items-center justify-content-center"
       style={{ minHeight: "100vh"}}>
           <div className="w-100" style={{Width: "60%"}}>

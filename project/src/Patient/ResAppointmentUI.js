@@ -1,10 +1,11 @@
-import React,{useState} from 'react'
+import React,{useState} from 'react';
 import moment from 'moment';
-import {Link, withRouter, useLocation, useHistory} from 'react-router-dom';
+import {Link, useLocation, useHistory} from 'react-router-dom';
 import { useAuth } from '../util/Auth';
 import { Form, Button, Card, Alert, Container } from "react-bootstrap";
-import { auth, firestore } from '../firebase';
+import { firestore } from '../firebase';
 import "./ScheduleAppointment.css";
+import IdleTimerContainer from '../util/IdleTimerContainer';
 
 function ResAppointmentUI() {
     const {state} = useLocation();  //access doctor passed from link router
@@ -128,6 +129,7 @@ function ResAppointmentUI() {
 
     return (
         <div>
+            <IdleTimerContainer></IdleTimerContainer>
             <div className="text-center">
                 <Container className="d-flex align-items-center justify-content-center">
                 <div className="w-100" style={{maxWidth: "400px"}}>

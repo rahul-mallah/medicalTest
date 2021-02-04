@@ -1,11 +1,15 @@
-import React,{useState} from 'react'
-import {Form, Button, Card, Container} from 'react-bootstrap'
+import React,{useState} from 'react';
+import {Button, Card, Container} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import { useAuth } from '../util/Auth';
-import { auth, firestore } from '../firebase';
-import "../Patient/UserAppointmentUI.css"
+import {firestore } from '../firebase';
+import "../Patient/UserAppointmentUI.css";
 import moment from 'moment';
 import Calendar from 'react-awesome-calendar';
+import IdleTimerContainer from '../util/IdleTimerContainer';
+
+
+
 const Moment = require('moment')
 
 const convertTime12to24 = (time12h) => {
@@ -103,6 +107,7 @@ function ViewAllocatedPatientUI() {
 
    return (
       <div>
+        <IdleTimerContainer></IdleTimerContainer>
         <Container>
           <Card>
             <div className="text-center">
