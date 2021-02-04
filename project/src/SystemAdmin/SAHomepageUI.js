@@ -1,11 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 import NavBar from '../components/navbarUI';
 import { Link } from "react-router-dom"
+import {useAuth} from '../util/Auth';
+import { firestore, auth } from '../firebase';
+import IdleTimerContainer from '../util/IdleTimerContainer'
 
 function SAHomePageUI() {
+
+    const {currentUser} = useAuth()
+    
     return (
         <div>
             <div>
+                <IdleTimerContainer></IdleTimerContainer>
                 <React.Fragment>
                     <h1 className='text-center text-danger text text-capitalize my-5'
                     style={{fontSize: '2em'}}>

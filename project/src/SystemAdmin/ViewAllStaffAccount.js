@@ -12,6 +12,7 @@ import { useHistory } from "react-router-dom";
 function ViewAllStaffAccount() 
 {
    const [users, setUsers] = useState([])
+   const [medicalDocUsers, setMedicalDocUsers] = useState([])
    const [search, setSearch] = useState("")
    const [loading, setLoading] = useState(false)
    const [filteredUsers, setFilteredUsers] = useState([]);
@@ -24,6 +25,10 @@ function ViewAllStaffAccount()
          const db = firestore
          const data = await db.collection('All Medical Staff').get()
          setUsers(data.docs.map(doc => ({...doc.data(), id: doc.id})))
+         
+         await firestore.collection('Medical Doctors').get()
+         setMedicalDocUsers(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
+         
       }
       fetchData()
    }, [])

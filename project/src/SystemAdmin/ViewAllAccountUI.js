@@ -33,10 +33,9 @@ function ViewAllAccountUI()
  )
 
 
-
-
    return(
       <>
+      
       <div class = "jumbotron jumbotron-fluid">
          <div class = "container">
             <h1 class = "display-4 text-center">User Accounts</h1>
@@ -81,9 +80,10 @@ function ViewAllAccountUI()
       
       {/* <a onClick={() => {window.location.href="/SysAdm/viewAllStaffAccount"}} className="btn btn-primary">View / Edit Profile</a> */}
 
-    
+      
       <div className = "row">
          <div className = "col-md-12">
+           
             <table className = "table table-borderless table-stripped">
                <thead className = "thead-light" >
                   <tr>
@@ -126,8 +126,11 @@ function ViewAllAccountUI()
                      ))}                                                                              
                </tbody>
             </table>
+            
          </div>
+         
       </div>
+     
 
 
 

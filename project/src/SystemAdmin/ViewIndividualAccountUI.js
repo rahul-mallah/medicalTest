@@ -86,7 +86,7 @@ function ViewIndividualAccountUI() {
           <div className="w-100" style={{Width: "60%"}}>
             <Card>
              <Card.Body>
-                 <h2 className= "text-center mb-4">My Profile</h2>
+                 <h2 className= "text-center mb-4">{user.Role} Account</h2>
                  {error && <Alert variant="danger">{error}</Alert>}
                  <Form onSubmit={handleSubmit}>
                      <Form.Group id = "FirstName">
@@ -160,10 +160,7 @@ function ViewIndividualAccountUI() {
             
                      <Button disabled = {updateEnabled} className="w-100 my-2" type="submit">Update</Button>
                   
-                     <Button href = {`${path}`} disabled = {updateEnabled} className="w-100 my-2">Cancel</Button>
-
-
-                     
+                     <Button href = {`${path}`} disabled = {updateEnabled} className="w-100 my-2">Cancel</Button>   
                  </Form>
              </Card.Body>
             </Card>
