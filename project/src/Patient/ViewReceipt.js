@@ -1,8 +1,10 @@
 import React,{useState} from 'react'
-import { Form, Button, Card, Alert, Container } from "react-bootstrap";
+import {Card, Container} from "react-bootstrap";
 import {useLocation} from "react-router-dom"
-import { auth, firestore } from '../firebase';
-import moment from 'moment';
+import {firestore } from '../firebase';
+import IdleTimerContainer from '../util/IdleTimerContainer';
+
+
 
 function ViewReceipt() {
     const {state} = useLocation();
@@ -25,6 +27,7 @@ function ViewReceipt() {
     const grandTotal = (document.consultFee+document.prescriptionFee+document.testFee+document.wardFee+document.miscFee)+gst
     return (
         <div>
+            <IdleTimerContainer></IdleTimerContainer>
             <Container className="my-5" style={{maxWidth:"800px"}}>
                 <Card>
                     <Card.Header as="h3" className="text-right" style ={{

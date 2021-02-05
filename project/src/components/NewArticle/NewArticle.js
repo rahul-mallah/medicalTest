@@ -1,12 +1,12 @@
-import React, {Component} from 'react'
-import {Container, Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button} from 'reactstrap'
-import classes from './NewArticle.module.css'
-import Compressor from 'compressorjs'
-import ReactQuill from 'react-quill'
-import 'react-quill/dist/quill.snow.css'
+import React, {Component} from 'react';
+import {Container, Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button} from 'reactstrap';
+import classes from './NewArticle.module.css';
+import Compressor from 'compressorjs';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 import { firestore, storageRef } from '../../firebase';
-import {v4 as uuidv4} from 'uuid'
-
+import {v4 as uuidv4} from 'uuid';
+import IdleTimerContainer from '../../util/IdleTimerContainer';
 
 const Quill = ReactQuill.Quill
 const BlockEmbed = Quill.import('blots/block/embed')
@@ -133,6 +133,7 @@ class NewArticle extends Component {
     render(){
         return (
             <div>
+                <IdleTimerContainer></IdleTimerContainer>
                 <Container>
                     <Row>
                         <Col xl={9} lg={9} md={8} sm={12} xs={12}>

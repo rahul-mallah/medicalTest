@@ -41,13 +41,22 @@ const NaviBar = () => {
    }, [])
    const user = {...users[0]}
 
+   function deleteUser(){
+    currentUser.delete().then(function() {
+        alert("Exit successfully")
+      }).catch(function(error) {
+        alert(error)
+      });  
+}
+
     return(
         <Styles>
         <Navbar>
             <Navbar.Brand>My Appointment</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav"/>
               <Nav className="ml-auto">
-              {user ? ( <Nav.Item><Nav.Link onClick={() => auth.signOut()}>Logout</Nav.Link></Nav.Item>): null}
+              {user.Role ? ( <Nav.Item><Nav.Link onClick={() => auth.signOut()}>Logout</Nav.Link></Nav.Item>): 
+              (<Nav.Item><Nav.Link onClick={() => deleteUser() }>Your Account has been deleted / disabled. Click here to exit</Nav.Link></Nav.Item>)}
               </Nav>
         </Navbar>
         </Styles>

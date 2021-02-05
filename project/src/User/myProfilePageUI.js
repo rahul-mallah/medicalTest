@@ -1,9 +1,10 @@
-import React, { useRef, useState } from "react"
+import React, { useState } from "react"
 import { Form, Button, Card, Alert, Container } from "react-bootstrap"
 import { useAuth } from '../util/Auth';
-import { auth, firestore } from '../firebase';
+import { firestore } from '../firebase';
 import moment from 'moment';
 import {useRouteMatch} from 'react-router-dom';
+import IdleTimerContainer from '../util/IdleTimerContainer'
 
 function MyProfilePageUI() {
 
@@ -86,6 +87,7 @@ function MyProfilePageUI() {
 
    return (
       <div>
+         <IdleTimerContainer></IdleTimerContainer>
             {Users.map(user => 
             <Container className="d-flex align-items-center justify-content-center"
       style={{ minHeight: "100vh"}}>

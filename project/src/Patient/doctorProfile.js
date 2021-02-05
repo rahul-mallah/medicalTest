@@ -1,11 +1,8 @@
 import React, { Component } from 'react'
 import {withRouter, Link} from "react-router-dom";
-import parse from "html-react-parser";
-import {Accordion, Card, Button, Row, Col, Image, Container} from "react-bootstrap"
-import { firestore } from '../firebase';
-import  classes from './doctorProfile.module.css';
+import {Accordion, Card, Button} from "react-bootstrap"
 import PatientComment from './PatientComment';
-
+import IdleTimerContainer from '../util/IdleTimerContainer';
 
 class DoctorProfile extends Component {
     constructor(props){
@@ -38,6 +35,7 @@ class DoctorProfile extends Component {
         if(this.state.isLoaded){
             return (      
               <div>
+                  <IdleTimerContainer></IdleTimerContainer>
                     <div className="card w-100">
                         <div className="row no-gutters">
                         <div className="col-auto">

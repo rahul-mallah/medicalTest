@@ -4,6 +4,7 @@ import ArticleCard from "../components/ArticleCard/ArticleCard";
 import {firestore} from '../firebase'
 import {Row, Col} from 'react-bootstrap'
 import SearchBar from '../Patient/searchBar';
+import IdleTimerContainer from '../util/IdleTimerContainer'
 
 class ViewHealthArticleUI extends Component{
     constructor(props){
@@ -48,6 +49,7 @@ class ViewHealthArticleUI extends Component{
 
         return(
             <div>
+            <IdleTimerContainer></IdleTimerContainer>
                 {/* search bar */}
                 <div
                 style={{

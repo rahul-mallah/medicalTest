@@ -1,7 +1,8 @@
-import React, { useRef, useState } from "react"
+import React, { useRef, useState } from "react";
 import { Form, Button, Card, Alert, Container } from "react-bootstrap"
 import { useAuth } from '../util/Auth';
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+import IdleTimerContainer from '../util/IdleTimerContainer';
 
 export default function ChangePasswordUI() {
     const emailRef = useRef("");
@@ -28,6 +29,7 @@ export default function ChangePasswordUI() {
   
     return (
       <>
+      <IdleTimerContainer></IdleTimerContainer>
       <div style={{backgroundImage: `url("https://i.ibb.co/yRDqQHh/pexels-karolina-grabowska-4021769.jpg")`,
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
