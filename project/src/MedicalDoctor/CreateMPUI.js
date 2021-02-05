@@ -86,7 +86,7 @@ function CreateMPUI() {
             <Container className="d-flex align-items-center justify-content-center">
           <div className="w-100" style={{Width: "60%"}}>
             <Card>
-            <h2 className= "text-center mb-4 mt-3">Create Medical Profile</h2>
+            <h2 className= "text-center mb-4 mt-3">Create Medical Document</h2>
              <Card.Body>
              {error && <Alert variant="danger">{error}</Alert>}
                 <Form onSubmit={handleSubmit}>

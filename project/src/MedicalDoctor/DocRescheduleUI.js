@@ -1,22 +1,21 @@
-import React,{useState} from 'react'
+import React,{useState} from 'react';
 import moment from 'moment';
-import {Link, withRouter, useLocation, useHistory} from 'react-router-dom';
-import { useAuth } from '../util/Auth';
-import { Form, Button, Card, Alert, Container } from "react-bootstrap";
-import { auth, firestore } from '../firebase';
-import "./ScheduleAppointment.css";
+import { Card, Container, Button, Form, Alert } from 'react-bootstrap';
+import {Link, useLocation, useHistory, useRouteMatch} from "react-router-dom";
+import {firestore } from '../firebase';
+import { useAuth } from "../util/Auth"
 
-function ResAppointmentUI() {
-    const {state} = useLocation();  //access doctor passed from link router
-    const {Appointment} = state;         // save appointment data from state
+function DocRescheduleUI() {
+    const {state} = useLocation()
+    const {appointment} = state
+    const history = useHistory();
+    const {currentUser} = useAuth();
+
     const [appointments, setAppointments] = useState([]);  // save Appointment data from firestore in this array 
     const [selectedSlot, setSelectedSlot] = useState("");  // to save patient selected time slot
     const [date, setDate] = useState("");                  // to save patient selected date
     const [error, setError] = useState("");                // store error message
-    const [Users, setUsers] = useState([]);                // store patient data
-    const [doctor, setDoctor] = useState([]);               // store doctor data
-    const { currentUser } = useAuth();
-    const history = useHistory();
+    const [doctor, setDoctor] = useState([]);
 
     React.useEffect(()=>{
         const fetchData = async () =>{
@@ -26,29 +25,21 @@ function ResAppointmentUI() {
               console.log(data)
               setAppointments(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
            }); 
-
-           firestore.collection("Users")
-           .where("Email", "==", String(currentUser.email))
+           firestore.collection("Medical Doctors")
+           .where("Email","==",String(currentUser.email))
            .get()
            .then(function(data){
-                console.log(data)
-                setUsers(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
-            });
-
-            firestore.collection("Medical Doctors")
-            .where("Name", "==", String(Appointment.Doctor))
-            .get()
-            .then(function(data){
-                console.log(data)
-                setDoctor(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
-            });
+              console.log(data)
+              setDoctor(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
+           }); 
         };
         fetchData();
      }, [])
 
-      //handle submit
-   const handleSubmit = async (e) => {
-      e.preventDefault();
+     const doct = {...doctor[0]}
+
+     const handleSubmit = async(e) => {
+        e.preventDefault();
       setError("");
       if(date === "" || selectedSlot === "")
       {
@@ -56,7 +47,7 @@ function ResAppointmentUI() {
       }
 
       try{
-         await firestore.collection("Appointment").doc(Appointment.id).update({
+         await firestore.collection("Appointment").doc(appointment.id).update({
             Date : date,
             Timeslot: selectedSlot,
         })
@@ -67,10 +58,10 @@ function ResAppointmentUI() {
         // Send email to user
         let details = {
             date: date,
-            doctor: doct.Name,
+            doctor: appointment.Doctor,
             timeslot: selectedSlot,
-            user: Users[0].FirstName + " " + Users[0].LastName,
-            email: currentUser.email,
+            user: appointment.Patient,
+            email: appointment.PatientEmail,
             department: doct.Department
         };
         let response = await fetch("http://localhost:5000/reschedule", {
@@ -83,7 +74,7 @@ function ResAppointmentUI() {
         let result = await response.json();
         console.log(result.status);
 
-        history.push("/Patient/Appointment");
+        history.push("/MedDoc/Schedule");
       }
       catch(error){
          return setError(error.message);
@@ -91,9 +82,9 @@ function ResAppointmentUI() {
 
       setSelectedSlot("");
       setDate("");
- }
+     }
 
-    // declare and initialize timeslot array for everyday
+     // declare and initialize timeslot array for everyday
     const times = ["08:00 AM - 09:00 AM",
     "09:00 AM - 10:00 AM",
     "10:00 AM - 11:00 AM",
@@ -105,8 +96,6 @@ function ResAppointmentUI() {
     "07:00 PM - 08:00 PM"
   ];
 
-    // to filter timeslots for the doctor selected in bookAppoinemntUI 
-    const doct = {...doctor[0]};
     const bookedTimeslots = [];
     
     for(var j = 0; j < appointments.length; j++)
@@ -114,13 +103,13 @@ function ResAppointmentUI() {
         //get booked timeslots for the doctor on that day
         if(date === appointments[j].Date)
         {
-            if(doct.Email === appointments[j].DocEmail)
+            if(currentUser.email === appointments[j].DocEmail)
             {
                 bookedTimeslots.push(appointments[j].Timeslot);
             }
         } 
     }
-    
+
     //remove booked timeslots from times array
     const filteredTimes = times.filter(function(x) { 
         return bookedTimeslots.indexOf(x) < 0;
@@ -128,23 +117,6 @@ function ResAppointmentUI() {
 
     return (
         <div>
-            <div className="text-center">
-                <Container className="d-flex align-items-center justify-content-center">
-                <div className="w-100" style={{maxWidth: "400px"}}>
-                <Card>
-                    <Card.Title>Reschedule Your Appointment</Card.Title>
-                    <Card.Title>Your Doctor</Card.Title>
-                    <Card.Img variant="top" src={doct.Image} />
-                    <Card.Body>
-                        <Card.Title>{doct.Name}</Card.Title>
-                        <Card.Text>
-                            {doct.Department}
-                        </Card.Text>
-                    </Card.Body>
-                </Card> 
-                </div>
-                </Container>
-            </div>
             <Container className="d-flex align-items-center justify-content-center"
       style={{ minHeight: "50vh"}}>
           <div className="w-100" style={{maxWidth: "400px"}}>
@@ -170,7 +142,7 @@ function ResAppointmentUI() {
                 </div>)}
                 </Form.Group>
                 <Button className="w-100 my-2" type="submit">Book</Button>
-                <Link to={'/Patient/Appointment'}>
+                <Link to={'/MedDoc/Schedule'}>
                     <Button className="w-100 my-2" type="submit">Return</Button></Link>
                 </Form>
                 </Card.Body>
@@ -181,4 +153,4 @@ function ResAppointmentUI() {
     )
 }
 
-export default ResAppointmentUI
+export default DocRescheduleUI
