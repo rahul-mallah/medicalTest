@@ -3,6 +3,7 @@ import { firestore } from '../firebase';
 import { Container } from "react-bootstrap"
 import {UserInput} from './UserInput'
 import SearchBar from './searchBar';
+import DropDown from './dropDownBar';
 import { useHistory } from "react-router-dom";
 import IdleTimerContainer from '../util/IdleTimerContainer'
 
@@ -13,7 +14,10 @@ function ViewAllAccountUI()
    const [search, setSearch] = useState("")
    const [loading, setLoading] = useState(false)
    const [filteredUsers, setFilteredUsers] = useState([]);
+   const [DropDownn, setDropDownn] = useState("All");
    let history = useHistory();
+
+   
    
 
    React.useEffect(() => {
@@ -29,6 +33,13 @@ function ViewAllAccountUI()
    const filteredArray =   users.filter((user) =>
    user.Email.toLowerCase().includes(search.toLowerCase())
  )
+
+   // const filteredArray = users.filter(user => {
+   //    if (DropDown === "All")
+   //       return user.FirstName.toLowerCase().includes(search.toLowerCase())
+   //    return user.Email.toLowerCase().includes(search.toLowerCase())
+   // })
+  
 
 
    return(
@@ -48,9 +59,17 @@ function ViewAllAccountUI()
                    alignItems: "center"
                }}
          >
-            <SearchBar handleChange={(e) => setSearch(e.target.value)} placeholder = "Search for a user by Email..."/>
+            <SearchBar handleChange={(e) => setSearch(e.target.value)} placeholder = "Enter a user name..."/>
          </div>
 
+         {/* drop down */}
+         <div style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                }}>
+                <DropDown handleChange={(e) => setDropDownn(e.target.value)} placeholder="Select an option" /> 
+         </div>       
          <div
         style={{
                display: "flex",
