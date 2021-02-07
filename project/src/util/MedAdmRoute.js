@@ -1,14 +1,10 @@
 import React,{useState} from 'react'
 import { Route, Redirect } from "react-router-dom"
-import {useAuth} from "../util/Auth"
 
-function PatientRoute({ component: Component, role, ...rest }) {
-
-
-
+function MedAdmRoute({ component: Component, role, ...rest }) {
     return (
         <div>
-        {role === "Patient" && (
+        {role === "Medical Admin" && (
         <Route
         {...rest}
         render={props => {
@@ -17,7 +13,7 @@ function PatientRoute({ component: Component, role, ...rest }) {
         ></Route>
         )}
 
-        {/* //route back to patient homepage */}
+        {/* //route back to respctive homepage */}
         {role === "Medical Doctor" && (
         <Route
         {...rest}
@@ -27,27 +23,26 @@ function PatientRoute({ component: Component, role, ...rest }) {
         ></Route>
         )}
 
+       {role === "Patient" && (
+       <Route
+       {...rest}
+       render={props => {
+           return (<Redirect to="/Patient" />)
+       }}
+       ></Route>
+       )}
+
         {role === "System Admin" && (
-       <Route
-       {...rest}
-       render={props => {
-           return (<Redirect to="/sysadm"/>)
-       }}
-       ></Route>
-       )}
+        <Route
+        {...rest}
+        render={props => {
+            return (<Redirect to="/sysadm" />)
+        }}
+        ></Route>
+        )}
 
-        {role === "Medical Admin" && (
-       <Route
-       {...rest}
-       render={props => {
-           return (<Redirect to="/MedAdm" />)
-       }}
-       ></Route>
-       )}
-
-       
         </div>
     )
 }
 
-export default PatientRoute
+export default MedAdmRoute

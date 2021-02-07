@@ -31,6 +31,15 @@ function DoctorRoute({ component: Component, role, ...rest }) {
        }}
        ></Route>
        )}
+
+        {role === "Medical Admin" && (
+       <Route
+       {...rest}
+       render={props => {
+           return (<Redirect to="/MedAdm" />)
+       }}
+       ></Route>
+       )}
         </div>
     )
 }
