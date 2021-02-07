@@ -8,6 +8,7 @@ import {Link, withRouter, useLocation, useHistory} from 'react-router-dom';
 import { useAuth } from '../util/Auth';
 import MC from "./MC";
 import { auth, firestore, storageRef } from '../firebase';
+import IdleTimerContainer from '../util/IdleTimerContainer';
 
 function CreateMC() {
     const{state} = useLocation();
@@ -39,6 +40,8 @@ function CreateMC() {
         fetchData()
     },[])
 
+    
+
     const doctor = {...doc[0]};
     const clear = () => sigCanvas.current.clear();
     let img = doctor.Signature
@@ -57,9 +60,10 @@ function CreateMC() {
             Signature: imageURL
         })
         .then(() =>{
-            alert("Signature Updated successfully");
+            alert('Signature has been updated successfully')
         })
         window.location.reload();
+        
     }
 
     const saveMC = async () => {
@@ -79,6 +83,7 @@ function CreateMC() {
 
     return (
         <div>
+            <IdleTimerContainer></IdleTimerContainer>
             <Container className="d-flex align-items-center justify-content-center">
             <div className="w-100" style={{maxWidth: "400px"}}>
                 <Card>

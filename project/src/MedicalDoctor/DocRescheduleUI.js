@@ -4,6 +4,9 @@ import { Card, Container, Button, Form, Alert } from 'react-bootstrap';
 import {Link, useLocation, useHistory, useRouteMatch} from "react-router-dom";
 import {firestore } from '../firebase';
 import { useAuth } from "../util/Auth"
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import IdleTimerContainer from '../util/IdleTimerContainer';
 
 function DocRescheduleUI() {
     const {state} = useLocation()
@@ -36,6 +39,18 @@ function DocRescheduleUI() {
         fetchData();
      }, [])
 
+     const resAppointmentAlert = () => {
+        confirmAlert({
+          title: 'Congratulations!',
+          message: 'Appointment has been rescheduled successfully.',
+          buttons: [
+            {
+              label: 'OK',
+            },
+          ]
+        });
+      };
+
      const doct = {...doctor[0]}
 
      const handleSubmit = async(e) => {
@@ -52,7 +67,7 @@ function DocRescheduleUI() {
             Timeslot: selectedSlot,
         })
         .then(() => {
-            alert("Appointment Rescheduled Successfully!");
+            resAppointmentAlert()
         })
 
         // Send email to user
@@ -117,6 +132,7 @@ function DocRescheduleUI() {
 
     return (
         <div>
+            <IdleTimerContainer></IdleTimerContainer>
             <Container className="d-flex align-items-center justify-content-center"
       style={{ minHeight: "50vh"}}>
           <div className="w-100" style={{maxWidth: "400px"}}>
