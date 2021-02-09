@@ -1,17 +1,16 @@
 import React,{useState}  from 'react'
-import {Link} from 'react-router-dom';
-//import {menuItems} from '../components/Sidebar/SASideBarData';
-import { useAuth } from '../util/Auth';
-import { auth, firestore } from '../firebase';
+import { firestore } from '../firebase';
 import { Form, Button, Card, Alert, Container } from "react-bootstrap"
 import {UserInput} from './UserInput'
 import SearchBar from './searchBar';
 import { useHistory } from "react-router-dom";
+import IdleTimerContainer from '../util/IdleTimerContainer'
 
 
 function ViewAllStaffAccount() 
 {
    const [users, setUsers] = useState([])
+   const [medicalDocUsers, setMedicalDocUsers] = useState([])
    const [search, setSearch] = useState("")
    const [loading, setLoading] = useState(false)
    const [filteredUsers, setFilteredUsers] = useState([]);
@@ -24,6 +23,10 @@ function ViewAllStaffAccount()
          const db = firestore
          const data = await db.collection('All Medical Staff').get()
          setUsers(data.docs.map(doc => ({...doc.data(), id: doc.id})))
+         
+         await firestore.collection('Medical Doctors').get()
+         setMedicalDocUsers(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
+         
       }
       fetchData()
    }, [])
@@ -35,6 +38,7 @@ function ViewAllStaffAccount()
    return(
       <>
       <div class = "jumbotron jumbotron-fluid">
+      <IdleTimerContainer></IdleTimerContainer>
          <div class = "container">
             <h1 class = "display-4 text-center">Staff Accounts</h1>
          </div>
@@ -50,11 +54,6 @@ function ViewAllStaffAccount()
             <SearchBar handleChange={(e) => setSearch(e.target.value)} placeholder = "Search for a user by Email..."/>
          </div>
                                                                                                                                    
-      
-      {/* <a onClick={() => {window.location.href="/SysAdm/viewAllStaffAccount"}} className="btn btn-primary">View / Edit Profile</a> */}
-
-    
-   
       <div
          style={{
                 display: "flex",
@@ -64,12 +63,9 @@ function ViewAllStaffAccount()
                 fontWeight: "bold"
             }}
       >
-         <input  type = "radio" value = "Test" onClick = {() => {window.location.href="/SysAdm/viewAllStaffAccount"}}/>All
          <input  type = "radio" value = "Test" onClick = {() => {window.location.href="/SysAdm/viewAllStaffAccount"}}/>Staff
-         <input  type = "radio" value = "Test" onClick = {() => {window.location.href="/SysAdm/viewAllAccount"}}/>Normal User
+         <input  type = "radio" value = "Test" onClick = {() => {window.location.href="/SysAdm/viewAllAccount"}}/>All Users
       </div>       
-
-
        
       <div className = "row">
          <div className = "col-md-12">

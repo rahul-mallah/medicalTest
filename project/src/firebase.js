@@ -3,6 +3,7 @@ import "firebase/firestore";
 import "firebase/auth";
 import 'firebase/storage'; 
 
+
 const firebaseConfig = {
     apiKey: "AIzaSyD2kW0OTo9IS7ImFWOQxK2lPaI8yp-N8Xs",
     authDomain: "myappointment-bb30e.firebaseapp.com",
@@ -16,10 +17,16 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
+
+export default firebase
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 export const storageRef = firebase.storage().ref();
 export const removeImageFromStorage = firebase.storage();
+
+
+
+
 
 
 

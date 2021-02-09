@@ -1,12 +1,11 @@
 import React,{useState}  from 'react'
-import {Link} from 'react-router-dom';
-//import {menuItems} from '../components/Sidebar/SASideBarData';
-import { useAuth } from '../util/Auth';
-import { auth, firestore } from '../firebase';
-import { Form, Button, Card, Alert, Container } from "react-bootstrap"
+import { firestore } from '../firebase';
+import { Container } from "react-bootstrap"
 import {UserInput} from './UserInput'
 import SearchBar from './searchBar';
+import DropDown from './dropDownBar';
 import { useHistory } from "react-router-dom";
+import IdleTimerContainer from '../util/IdleTimerContainer'
 
 
 function ViewAllAccountUI() 
@@ -15,7 +14,10 @@ function ViewAllAccountUI()
    const [search, setSearch] = useState("")
    const [loading, setLoading] = useState(false)
    const [filteredUsers, setFilteredUsers] = useState([]);
+   const [DropDownn, setDropDownn] = useState("All");
    let history = useHistory();
+
+   
    
 
    React.useEffect(() => {
@@ -32,12 +34,19 @@ function ViewAllAccountUI()
    user.Email.toLowerCase().includes(search.toLowerCase())
  )
 
-
+   // const filteredArray = users.filter(user => {
+   //    if (DropDown === "All")
+   //       return user.FirstName.toLowerCase().includes(search.toLowerCase())
+   //    return user.Email.toLowerCase().includes(search.toLowerCase())
+   // })
+  
 
 
    return(
       <>
+      
       <div class = "jumbotron jumbotron-fluid">
+      <IdleTimerContainer></IdleTimerContainer>
          <div class = "container">
             <h1 class = "display-4 text-center">User Accounts</h1>
          </div>
@@ -50,9 +59,17 @@ function ViewAllAccountUI()
                    alignItems: "center"
                }}
          >
-            <SearchBar handleChange={(e) => setSearch(e.target.value)} placeholder = "Search for a user by Email..."/>
+            <SearchBar handleChange={(e) => setSearch(e.target.value)} placeholder = "Enter a user name..."/>
          </div>
 
+         {/* drop down */}
+         <div style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                }}>
+                <DropDown handleChange={(e) => setDropDownn(e.target.value)} placeholder="Select an option" /> 
+         </div>       
          <div
         style={{
                display: "flex",
@@ -62,34 +79,17 @@ function ViewAllAccountUI()
                fontWeight: "bold"
            }}
      >
-        <input  type = "radio" value = "Test" onClick = {() => {window.location.href="/SysAdm/viewAllStaffAccount"}}/>All
-        <input  type = "radio" value = "Test" onClick = {() => {window.location.href="/SysAdm/viewAllStaffAccount"}}/>Staff
-        <input  type = "radio" value = "Test" onClick = {() => {window.location.href="/SysAdm/viewAllAccount"}}/>Normal User
+         <input  type = "radio" value = "Test" onClick = {() => {window.location.href="/SysAdm/viewAllStaffAccount"}}/>Staff
+         <input  type = "radio" value = "Test" onClick = {() => {window.location.href="/SysAdm/viewAllAccount"}}/>All Users
      </div>       
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-
- 
-                                                                                                                            
       
-      {/* <a onClick={() => {window.location.href="/SysAdm/viewAllStaffAccount"}} className="btn btn-primary">View / Edit Profile</a> */}
-
-    
       <div className = "row">
          <div className = "col-md-12">
+           
             <table className = "table table-borderless table-stripped">
                <thead className = "thead-light" >
                   <tr>
-                     <th>First Name</th>
-                     <th>Last Name</th>
+                     <th>Name</th>
                      <th>NRIC</th>
                      <th>Address</th>
                      <th>Date Of Birth</th>
@@ -103,13 +103,13 @@ function ViewAllAccountUI()
                   
                      {filteredArray.map(users => (
                         <tr>
-                           <td>{users.FirstName}</td>
-                           <td>{users.LastName}</td>
-                           <td>{users.NRIC}</td>
-                           <td>{users.Address}</td>
-                           <td>{users.DOB}</td>
+                           {users.Name ? (<td>{users.Name}</td>):(<td>{users.FirstName} {users.LastName}</td>)} 
+                            
+                           {users.NRIC ? (<td>{users.NRIC}</td>):(<td>-</td>)}
+                           {users.Address ? (<td>{users.Address}</td>):(<td>-</td>)}
+                           {users.DOB ? (<td>{users.DOB}</td>):(<td>-</td>)}
                            <td>{users.Email}</td>
-                           <td>{users.Telephone}</td>
+                           {users.Telephone ? (<td>{users.Telephone}</td>):(<td>-</td>)}
                            <td>{users.Role}</td>
                            {/* <Link to = {{ */}
                               {/* pathname: '/SysAdm/viewIndvAcc', */}
@@ -119,17 +119,15 @@ function ViewAllAccountUI()
 
                         <UserInput users = {users}/>
 
-
-
-
-
-
                            </tr>
                      ))}                                                                              
                </tbody>
             </table>
+            
          </div>
+         
       </div>
+     
 
 
 

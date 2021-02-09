@@ -4,7 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
-
+/src/myappointment-bb30e-6be71a3981a0.json
 # testing
 /coverage
 

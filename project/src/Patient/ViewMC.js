@@ -1,8 +1,9 @@
-import React,{useState} from 'react'
-import { Form, Button, Card, Alert, Container } from "react-bootstrap";
-import {useLocation} from "react-router-dom"
+import React,{useState} from 'react';
+import {Card, Container} from "react-bootstrap";
+import {useLocation} from "react-router-dom";
 import { auth, firestore } from '../firebase';
-import moment from 'moment';
+import IdleTimerContainer from '../util/IdleTimerContainer';
+
 
 function ViewMC() {
     const {state} = useLocation();
@@ -23,6 +24,7 @@ function ViewMC() {
     const doctor = {...doc[0]};
     return (
         <div className="text-center">
+            <IdleTimerContainer></IdleTimerContainer>
             {document.MedicalCertificate === "" ? <h1>NO MEDICAL CERTIFICATE</h1> : 
             <Container className="mb-5">
                 <Card style={{backgroundColor:"#f9ffe8"}}>

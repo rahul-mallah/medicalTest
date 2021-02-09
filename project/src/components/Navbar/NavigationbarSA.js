@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Navbar, Nav} from "react-bootstrap";
 import styled from 'styled-components';
-import { auth } from '../../firebase';
+import { firestore, auth } from '../../firebase';
+import {useAuth} from '../../util/Auth';
+
 
 const Styles = styled.div`
   .navbar { background-color: #2B3856; }
@@ -22,13 +24,39 @@ const Styles = styled.div`
 `;
 
 const NaviBar = () => {
+
+  const {currentUser} = useAuth()
+  const [users, setUsers] = useState([])
+  React.useEffect(()=>{
+      const fetchData = async () =>{
+         firestore.collection("Users")
+         .where("Email", "==", String(currentUser.email))
+         .get()
+         .then(function(data){
+            console.log(data)
+               setUsers(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
+         }); 
+      };
+      fetchData();
+   }, [])
+   const user = {...users[0]}
+
+   function deleteUser(){
+    currentUser.delete().then(function() {
+        alert("Exit successfully")
+      }).catch(function(error) {
+        alert(error)
+      });  
+}
+
     return(
         <Styles>
         <Navbar>
             <Navbar.Brand>My Appointment</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav"/>
               <Nav className="ml-auto">
-                <Nav.Item><Nav.Link onClick={() => auth.signOut()}>Logout</Nav.Link></Nav.Item>
+              {user.Role ? ( <Nav.Item><Nav.Link onClick={() => auth.signOut()}>Logout</Nav.Link></Nav.Item>): 
+              (<Nav.Item><Nav.Link onClick={() => deleteUser() }>Your Account has been deleted / disabled. Click here to exit</Nav.Link></Nav.Item>)}
               </Nav>
         </Navbar>
         </Styles>

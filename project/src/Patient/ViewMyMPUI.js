@@ -1,9 +1,9 @@
-import React,{useState} from 'react'
-import NavBar from '../components/navbarUI';
-import {Link, withRouter, useLocation, useHistory} from 'react-router-dom';
-import { Form, Button, Card, Alert, Container } from "react-bootstrap";
+import React,{useState} from 'react';
+import {Link} from 'react-router-dom';
+import { Button, Card,  Container } from "react-bootstrap";
 import { useAuth } from '../util/Auth';
-import { auth, firestore } from '../firebase';
+import { firestore } from '../firebase';
+import IdleTimerContainer from '../util/IdleTimerContainer';
 
 function ViewMyMPUI() {
    const {currentUser} = useAuth();
@@ -25,6 +25,7 @@ function ViewMyMPUI() {
 
     return (
        <div>
+         <IdleTimerContainer></IdleTimerContainer>
          <Container>
             <Card>
                <Card.Title className="text-center" style={{

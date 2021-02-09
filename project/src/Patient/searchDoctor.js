@@ -1,9 +1,10 @@
-import {Form, Button, Card, Container, Alert, Row, Col} from 'react-bootstrap'
+import {Container, Row, Col} from 'react-bootstrap';
 import {firestore} from '../firebase';
 import SearchBar from './searchBar';
 import DropDown from './dropDownBar';
-import React, {Component} from 'react'
-import DoctorCard from './doctorCard'
+import React, {Component} from 'react';
+import DoctorCard from './doctorCard';
+import IdleTimerContainer from '../util/IdleTimerContainer';
 
 class SearchDoctor extends Component{
     constructor(props){
@@ -83,44 +84,45 @@ class SearchDoctor extends Component{
 
         return (
             <div>
+                <IdleTimerContainer></IdleTimerContainer>
 
-    {/* search bar */}
-        <div
-    style={{
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center"
-    }}
-    >
-       <SearchBar handleChange={(e) => this.setState({searchValue: e.target.value})} placeholder = "Enter Doctor Name..."/>
-    </div>
+                {/* search bar */}
+                    <div
+                style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center"
+                }}
+                >
+                <SearchBar handleChange={(e) => this.setState({searchValue: e.target.value})} placeholder = "Enter Doctor Name..."/>
+                </div>
 
-    {/* drop down */}
-    <div style={{
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-    }}>
-    <DropDown handleChange={(e) => this.setState({DropDown: e.target.value})} placeholder="Select an option" />
-    </div>
-                <Container>
-                        <Row>
-                    {
-                        this.state.isLoaded?
-                        filteredDoctors.map((doc, index) => {
-                                return (
-                                    <Col md= "3" className="container-fluid mt-4 mx-3">
-                                    <DoctorCard
-                                        key={index}
-                                        data={doc}
-                                    />
-                                    </Col>
-                                )
-                            })
-                            : ''
-                    }
-                    </Row>
-                    </Container>
+                {/* drop down */}
+                <div style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                }}>
+                <DropDown handleChange={(e) => this.setState({DropDown: e.target.value})} placeholder="Select an option" />
+                </div>
+                            <Container>
+                                    <Row>
+                                {
+                                    this.state.isLoaded?
+                                    filteredDoctors.map((doc, index) => {
+                                            return (
+                                                <Col md= "3" className="container-fluid mt-4 mx-3">
+                                                <DoctorCard
+                                                    key={index}
+                                                    data={doc}
+                                                />
+                                                </Col>
+                                            )
+                                        })
+                                        : ''
+                                }
+                                </Row>
+                                </Container>
             </div>
         )
     }

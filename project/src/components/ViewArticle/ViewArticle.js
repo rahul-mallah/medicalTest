@@ -1,13 +1,10 @@
 import React, {Component} from 'react'
 import classes from './ViewArticle.module.css'
-import NavBarArticle from '../NavbarArticleUI'
-import {withRouter} from 'react-router-dom'
 import parse from 'html-react-parser'
 import {Container} from 'reactstrap'
-import {firestore, storageRef, removeImageFromStorage} from '../../firebase'
-import { Link } from 'react-router-dom'
-import {v4 as uuidv4} from 'uuid'
-//import EditArticle from '../EditArticle/EditArticle'
+import {firestore, removeImageFromStorage} from '../../firebase'
+import IdleTimerContainer from '../../util/IdleTimerContainer'
+
 
 
 let cross = document.createElement('div');
@@ -86,6 +83,7 @@ class ViewArticle extends Component {
         if(this.state.isLoaded){
             return (
                 <div>
+                <IdleTimerContainer></IdleTimerContainer>
                     <Container>
                         <div className={classes.Article}>
                             <div className={classes.ImageContainer}>

@@ -1,11 +1,15 @@
-import React,{useState} from 'react'
-import {Form, Button, Card, Container} from 'react-bootstrap'
+import React,{useState} from 'react';
+import {Button, Card, Container} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import { useAuth } from '../util/Auth';
-import { auth, firestore } from '../firebase';
-import "../Patient/UserAppointmentUI.css"
+import {firestore } from '../firebase';
+import "../Patient/UserAppointmentUI.css";
 import moment from 'moment';
 import Calendar from 'react-awesome-calendar';
+import IdleTimerContainer from '../util/IdleTimerContainer';
+
+
+
 const Moment = require('moment')
 
 const convertTime12to24 = (time12h) => {
@@ -103,6 +107,7 @@ function ViewAllocatedPatientUI() {
 
    return (
       <div>
+        <IdleTimerContainer></IdleTimerContainer>
         <Container>
           <Card>
             <div className="text-center">
@@ -146,8 +151,10 @@ function ViewAllocatedPatientUI() {
               <Card.Body>
                 <Card.Title>Patient : {app.Patient}</Card.Title>
                 <Card.Text>Booked Time : {app.Timeslot}</Card.Text>
-                <Button variant="primary">Patient Information</Button>
-                <Button className = "mx-3"variant="primary">Reschedule</Button>
+                <Link to={{
+                        pathname: '/MedDoc/Reschedule', 
+                        state:{appointment: app}
+            }}><Button className = "mt-2"variant="primary">Reschedule</Button></Link>
                 <div className="col text-right">
                   {!app.DocCreated ? <Link to={{
                         pathname: '/MedDoc/CreateMP', 
@@ -172,7 +179,16 @@ function ViewAllocatedPatientUI() {
               <Card.Body>
                 <Card.Title>Patient : {app.Patient}</Card.Title>
                 <Card.Text>Booked Time : {app.Timeslot}</Card.Text>
-                <Button variant="primary">Patient Information</Button>
+                <div className="col text-right">
+                  {!app.DocCreated ? <Link to={{
+                        pathname: '/MedDoc/CreateMP', 
+                        state:{appointment: app}
+            }}><Button>Create Medical Document</Button></Link> : null}
+            {app.DocCreated ? <Link to={{
+                        pathname: '/MedDoc/ViewMP', 
+                        state:{appointment: app}
+            }}><Button>View/Edit Medical Document</Button></Link> : null}
+                </div>
             </Card.Body>
           </Card>
           )}

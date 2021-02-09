@@ -16,6 +16,10 @@ import ViewHealthArticleUI from '../User/ViewHealthArticleUI';
 import EditArticle from "../components/EditArticle/EditArticle";
 import NewArticle from "../components/NewArticle/NewArticle";
 import CreateMPUI from "../MedicalDoctor/CreateMPUI";
+import ViewPatientProfileUI from "../MedicalDoctor/ViewPatientProfileUI";
+import CreateMedicalRecord from "../MedicalDoctor/CreateMedicalRecord";
+import EditMedicalRecord from "../MedicalDoctor/EditMedicalRecord";
+import TransferMedicalRecord from "../MedicalDoctor/TransferMedicalRecord";
 import PatientProfileUI from  "../MedicalStaff/PatientProfileUI";
 import ViewMPUI from "../MedicalDoctor/ViewMPUI";
 import TransferMPUI from "../MedicalStaff/TransferMPUI";
@@ -23,6 +27,7 @@ import ViewDoctorScheduleUI from "../MedicalStaff/ViewDoctorScheduleUI";
 import RequestEditApptUI from "../MedicalStaff/RequestEditApptUI";
 import CreateNewApptUI from "../MedicalStaff/CreateNewAppt";
 import ViewAllocatedPatientUI from "../MedicalDoctor/ViewAllocatedPatientUI"
+import DocRescheduleUI from "../MedicalDoctor/DocRescheduleUI";
 import UpdateMPUI from "../MedicalDoctor/UpdateMPUI"
 import RequestApprovalUI from "../MedicalDoctor/RequestApprovalUI"
 import CreateMC from "../MedicalDoctor/CreateMC"
@@ -61,9 +66,18 @@ const MDRoute = () =>
             <DoctorRoute exact path={`${path}/myProfile/changePW`} component={ChangePasswordUI} role={user.Role}/>
 
             {/* // View Patient Profile */}
-            <DoctorRoute exact path={`${path}/PatientProfile`} component={PatientProfileUI} role={user.Role}/>
+            <DoctorRoute exact path={`${path}/PatientProfile`} component={ViewPatientProfileUI} role={user.Role}/>
 
-            {/* // Create Patient Medical Record */}
+            {/* // craete medical record */}
+            <DoctorRoute exact path={`${path}/CreateMedicalRecord`} component={CreateMedicalRecord} role={user.Role}/>
+
+            {/* // edit medical record */}
+            <DoctorRoute exact path={`${path}/EditMedicalRecord`} component={EditMedicalRecord} role={user.Role}/>
+
+            {/* // transfer medical record */}
+            <DoctorRoute exact path={`${path}/TransferMedicalRecord`} component={TransferMedicalRecord} role={user.Role}/>
+
+            {/* // Create Patient Medical Document */}
             <DoctorRoute exact path={`${path}/CreateMP`} component={CreateMPUI} role={user.Role}/>
 
             {/* // Create Patient Medical Certificate */}
@@ -83,6 +97,9 @@ const MDRoute = () =>
 
             {/* // View Own Schedule */}
             <DoctorRoute exact path={`${path}/Schedule`} component={ViewAllocatedPatientUI} role={user.Role}/>
+
+            {/* // View Own Schedule */}
+            <DoctorRoute exact path={`${path}/Reschedule`} component={DocRescheduleUI} role={user.Role}/>
 
             {/* // Approve Appointment */}
             <DoctorRoute exact path={`${path}/Schedule/Approve`} component={RequestApprovalUI} role={user.Role}/>

@@ -4,6 +4,9 @@ import { useAuth } from '../util/Auth';
 import MC from "./MC"
 import { Form, Button, Card, Alert, Container } from "react-bootstrap";
 import { auth, firestore } from '../firebase';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import IdleTimerContainer from '../util/IdleTimerContainer';
 
 function CreateMPUI() {
     const {state} = useLocation();
@@ -35,6 +38,19 @@ function CreateMPUI() {
         fetchData();
     },[])
 
+    const MDAlert = () => {
+        confirmAlert({
+          title: 'Congratulations!',
+          message: 'Medical document has been created successfully.',
+          buttons: [
+            {
+              label: 'OK',
+            },
+          ]
+        });
+      };
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
@@ -65,7 +81,7 @@ function CreateMPUI() {
                 DocCreated : true
             })
             .then(() => {
-                alert("Medical Document Created Successfully!");
+                MDAlert()
             })
           } catch(error){
              return setError(error.message);
@@ -83,10 +99,11 @@ function CreateMPUI() {
     }
     return (
         <div>
+            <IdleTimerContainer></IdleTimerContainer>
             <Container className="d-flex align-items-center justify-content-center">
           <div className="w-100" style={{Width: "60%"}}>
             <Card>
-            <h2 className= "text-center mb-4 mt-3">Create Medical Profile</h2>
+            <h2 className= "text-center mb-4 mt-3">Create Medical Document</h2>
              <Card.Body>
              {error && <Alert variant="danger">{error}</Alert>}
                 <Form onSubmit={handleSubmit}>

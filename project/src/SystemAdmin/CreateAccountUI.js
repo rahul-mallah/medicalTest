@@ -4,6 +4,7 @@ import { Link, useHistory} from 'react-router-dom';
 import { auth, firestore, storageRef } from '../firebase';
 import moment from 'moment';
 import PasswordStrengthIndicator from '../components/PasswordStrengthIndicator';
+import IdleTimerContainer from '../util/IdleTimerContainer'
 
 function CreateAccountUI() {
 
@@ -164,6 +165,7 @@ function CreateAccountUI() {
             <Container className="d-flex align-items-center justify-content-center"
       style={{ minHeight: "100vh"}}>
           <div className="w-100" style={{maxWidth: "500px"}}>
+          <IdleTimerContainer></IdleTimerContainer>
             <Card>
              <Card.Body>
                  <h2 className= "text-center mb-4">Create Staff Account</h2>
