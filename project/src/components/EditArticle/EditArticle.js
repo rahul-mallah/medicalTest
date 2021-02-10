@@ -122,7 +122,7 @@ class EditArticle extends Component {
                  .set(article)
                  .then(res=>{
                      alert("Article has been created successfully!")
-                     this.props.history.push({pathname: '/SysAdm/ViewHealthArticle'})
+                     this.props.history.push({pathname: '/MedDoc/ViewHealthArticle'})
                  })
                  .catch(err => alert(err))
     }

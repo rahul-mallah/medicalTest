@@ -16,8 +16,6 @@ import ViewAllStaffAccount from "../SystemAdmin/ViewAllStaffAccount";
 import ViewArticle from "../components/ViewArticle/ViewArticle";
 import EditArticle from "../components/EditArticle/EditArticle";
 
-import NewArticle from "../components/NewArticle/NewArticle";
-
 import SystemAdminRoute from "../util/SystemAdminRoute";
 
 
@@ -71,12 +69,6 @@ const SARoute = () =>
 
             // View Individual Article
             <Route path={`${path}/article/:id`} component={ViewArticle}/>
-
-            // Create New Article
-            <SystemAdminRoute path={`${path}/ViewHealthArticle/new-article`} component={NewArticle} role={user.Role}/>
-
-            // Edit Article
-            <SystemAdminRoute path={`${path}/edit-article`} component={EditArticle} role={user.Role}/>
 
             //View All Staff
             <SystemAdminRoute path={`${path}/viewAllStaffAccount`} component={ViewAllStaffAccount} role={user.Role}/>
