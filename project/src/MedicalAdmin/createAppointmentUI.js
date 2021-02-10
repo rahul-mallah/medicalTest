@@ -3,7 +3,7 @@ import {Form, Button, Card, Container} from 'react-bootstrap'
 import {Link} from 'react-router-dom';
 
 
-class GenerateVisitDocumentUI extends React.Component
+class createAppointmentUI extends React.Component
 {
    // display UI
    render()
@@ -15,5 +15,5 @@ class GenerateVisitDocumentUI extends React.Component
 }
  
 
-export default GenerateVisitDocumentUI
+export default createAppointmentUI
 

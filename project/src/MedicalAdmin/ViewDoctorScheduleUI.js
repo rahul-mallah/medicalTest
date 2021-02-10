@@ -291,6 +291,7 @@ function ViewDoctorScheduleUI()
             selected={startDate} 
             onChange={date => setStartDate(date)}
             dateFormat="dd/MM/yyyy"
+            cursor= "pointer"
             />
          </div>
          <br/>
@@ -298,9 +299,6 @@ function ViewDoctorScheduleUI()
          {/* Send Reminder Button */}
          <s.newButton onClick={sendReminder}> Send Reminder </s.newButton>
          &nbsp;&nbsp;&nbsp;&nbsp;
-
-         {/* Create New Appointment Button */}
-         <s.newButton> Create New Appointment </s.newButton>
 
          <br/> <br/>
          <s.docSchedule>
