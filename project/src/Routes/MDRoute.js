@@ -1,10 +1,8 @@
 import React,{useState} from 'react'
 import {useRouteMatch, Switch, Route} from 'react-router-dom';
-import PrivateRoute from "../util/AuthRoute";
 import DoctorRoute from "../util/DoctorRoute";
 import {firestore } from '../firebase';
 import { useAuth } from "../util/Auth"
-import { AuthProvider } from '../util/Auth';
 
 import NoMatch from '../noMatch'
 

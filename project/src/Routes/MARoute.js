@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import {useRouteMatch, Switch, Route} from 'react-router-dom';
-import PrivateRoute from "../util/AuthRoute";
 import MedAdmRoute from "../util/MedAdmRoute"
 import {firestore} from "../firebase";
 import { useAuth } from "../util/Auth"
