@@ -1,7 +1,27 @@
-import React from 'react';
+import React,{useState} from 'react'
 import IdleTimerContainer from '../util/IdleTimerContainer';
+import {firestore } from '../firebase';
+import { useAuth } from "../util/Auth"
 
 function MDHomepageUI() {
+
+    const { currentUser } = useAuth();
+
+    const [Doctors, setDoctors] = useState([]); 
+
+    React.useEffect(()=>{
+        const fetchData = async () =>{
+           firestore.collection("Medical Doctors")
+           .where("Email", "==", String(currentUser.email))
+           .get()
+           .then(function(data){
+                console.log(data)
+                setDoctors(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
+            })
+        };
+        fetchData();
+     }, [])
+
     return (
         <div>
             <div>
@@ -9,6 +29,7 @@ function MDHomepageUI() {
                 <React.Fragment>
                     <h1 className='text-center text-danger text text-capitalize my-5'
                     style={{fontSize: '2em'}}>
+                        {Doctors.map(doc => <h1> Hello {doc.Name},</h1>)}
                         Welcome To MyAppointment System
                     </h1>
                     <div className="container col-sm-10">

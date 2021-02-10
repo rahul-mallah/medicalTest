@@ -9,13 +9,8 @@ export const menuItems = [
             {name: 'Change Password', to: '/changePW'}
         ]},
 
-    {name: 'Patient Profile', to: '/PatientProfile', icon: '/icons/patient.svg', 
-        subMenuItems: []},
-
     {name: 'Schedule', to: '/Schedule', icon: '/icons/appointment.svg', 
-        subMenuItems: [
-            {name: 'Doctor Schedule', to: '/docSchedule'}
-        ]},
+        subMenuItems:[]},
 
     {name: 'Educational', to: '/ViewHealthArticle', icon: '/icons/healthArticle.svg', 
        subMenuItems: [

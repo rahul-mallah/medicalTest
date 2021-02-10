@@ -5,6 +5,9 @@ import MC from "./MC"
 import { Form, Button, Card, Alert, Container } from "react-bootstrap";
 import { auth, firestore } from '../firebase';
 import {useRouteMatch} from 'react-router-dom';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import IdleTimerContainer from '../util/IdleTimerContainer';
 
 function ViewMPUI() {
     const {state} = useLocation();
@@ -37,6 +40,18 @@ function ViewMPUI() {
         };
         fetchData();
     },[])
+
+    const MPAlert = () => {
+        confirmAlert({
+          title: 'Congratulations!',
+          message: 'Medical profile has been updated successfully.',
+          buttons: [
+            {
+              label: 'OK',
+            },
+          ]
+        });
+      };
 
     const document = {...medDocs[0]};
     
@@ -77,7 +92,7 @@ function ViewMPUI() {
                 miscFee: parseFloat(MiscFee)
          })
          .then(() => {
-            alert("Updated Successfully!");
+            MPAlert()
          })
         }
         catch(error){
@@ -90,6 +105,7 @@ function ViewMPUI() {
 
     return (
         <div>
+            <IdleTimerContainer></IdleTimerContainer>
             <Container className="d-flex align-items-center justify-content-center">
           <div className="w-100" style={{Width: "60%"}}>
             <Card>

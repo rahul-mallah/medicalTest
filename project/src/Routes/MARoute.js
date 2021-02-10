@@ -14,17 +14,8 @@ import ViewHealthArticleUI from '../User/ViewHealthArticleUI';
 import ViewArticle from "../components/ViewArticle/ViewArticle";
 import EditArticle from "../components/EditArticle/EditArticle";
 import NewArticle from "../components/NewArticle/NewArticle";
-import CreateMPUI from "../MedicalStaff/CreateMPUI";
-import PatientProfileUI from  "../MedicalStaff/PatientProfileUI";
-import ViewMPUI from "../MedicalStaff/ViewMPUI";
-import TransferMPUI from "../MedicalStaff/TransferMPUI";
-import ViewDoctorScheduleUI from "../MedicalStaff/ViewDoctorScheduleUI";
-import RequestEditApptUI from "../MedicalStaff/RequestEditApptUI";
-import CreateNewApptUI from "../MedicalStaff/CreateNewAppt";
+import ViewDoctorScheduleUI from "../MedicalAdmin/ViewDoctorScheduleUI";
 import GenerateVisitDocumentUI from "../MedicalAdmin/GenerateVisitDocumentUI";
-import AssignDoctorUI from "../MedicalAdmin/AssignDoctorUI";
-import SendReminderUI from "../MedicalAdmin/SendReminderUI";
-
 
 const MARoute = () =>
 {
@@ -59,35 +50,11 @@ const MARoute = () =>
             // Change Password
             <MedAdmRoute exact path={`${path}/myProfile/changePW`} component={ChangePasswordUI} role={user.Role}/>
 
-            // View Patient Profile
-            <MedAdmRoute exact path={`${path}/PatientProfile`} component={PatientProfileUI} role={user.Role}/>
-
-            // Create Patient Medical Record
-            <MedAdmRoute exact path={`${path}/CreateMP`} component={CreateMPUI} role={user.Role}/>
-
-            // View Patient Medical Record
-            <MedAdmRoute exact path={`${path}/ViewMP`} component={ViewMPUI} role={user.Role}/>
-
-            // Transfer Medical Record
-            <MedAdmRoute exact path={`${path}/TransferMP`} component={TransferMPUI} role={user.Role}/>
-
             // Generate Relevent Document for Patients
             <MedAdmRoute exact path={`${path}/GenerateDocument`} component={GenerateVisitDocumentUI} role={user.Role}/>
 
             // Assign Doctor to Patient
-            <MedAdmRoute exact path={`${path}/Schedule`} component={AssignDoctorUI} role={user.Role}/>
-
-            // View Doctor Schedule
-            <MedAdmRoute exact path={`${path}/Schedule/DocSchedule`} component={ViewDoctorScheduleUI} role={user.Role}/>
-
-            // Edit Doctor Schedule
-            <MedAdmRoute exact path={`${path}/Schedule/Edit`} component={RequestEditApptUI} role={user.Role}/>
-
-            // Create New Schedule
-            <MedAdmRoute exact path={`${path}/Schedule/Create`} component={CreateNewApptUI} role={user.Role}/>
-
-            // Send Reminder to Patient
-            <MedAdmRoute exact path={`${path}/Schedule/SendReminder`} component={SendReminderUI} role={user.Role}/>
+            <MedAdmRoute exact path={`${path}/Schedule`} component={ViewDoctorScheduleUI} role={user.Role}/>
 
             // View Health Article
             <Route exact path={`${path}/ViewHealthArticle`} component={ViewHealthArticleUI}/>

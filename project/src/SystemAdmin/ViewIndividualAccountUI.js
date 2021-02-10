@@ -6,6 +6,8 @@ import moment from 'moment';
 import {useRouteMatch, useLocation} from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import IdleTimerContainer from '../util/IdleTimerContainer'
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
 
 function ViewIndividualAccountUI() {
@@ -45,6 +47,18 @@ function ViewIndividualAccountUI() {
       setTelephone(user.Telephone);
    }
 
+   const submitUpdateAlert = () => {
+      confirmAlert({
+        title: 'Congratulations!',
+        message: user.Role + ' account has been updated successfully.',
+        buttons: [
+          {
+            label: 'OK',
+          },
+        ]
+      });
+    };
+
    //handle submit
    const handleSubmit = async (e) => {
       e.preventDefault();
@@ -63,8 +77,7 @@ function ViewIndividualAccountUI() {
                Telephone: Telephone
             })
             .then(() => {
-               alert("Updated Successfully!");
-               history.push({pathname: '/SysAdm/viewAllAccount'})
+               submitUpdateAlert()
             })
       }catch(error){
          setError(error.message);
@@ -156,8 +169,6 @@ function ViewIndividualAccountUI() {
                         type="invalid" required/>
                      </Form.Group>
                      <Button onClick={onEdit} disabled = {editEnabled} className="w-100 my-2">Edit</Button>
-            
-            
             
                      <Button disabled = {updateEnabled} className="w-100 my-2" type="submit">Update</Button>
                   

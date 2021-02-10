@@ -5,6 +5,8 @@ import { useAuth } from '../util/Auth';
 import { Form, Button, Card, Alert, Container } from "react-bootstrap";
 import { auth, firestore } from '../firebase';
 import "./ScheduleAppointment.css";
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
 function ScheduleAppointmentUI() {
 
@@ -49,6 +51,18 @@ function ScheduleAppointmentUI() {
         fetchData();
      }, [])
 
+     const confirmScheduleAlert = () => {
+        confirmAlert({
+          title: 'Congratulations!',
+          message: 'Your appointment has been booked successfully.',
+          buttons: [
+            {
+              label: 'OK',
+            },
+          ]
+        });
+      };
+
      //handle submit
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -73,7 +87,7 @@ function ScheduleAppointmentUI() {
                 DocCreated : false
             })
             .then(() => {
-                alert("Appointment Booked Successfully!");
+                confirmScheduleAlert()
             })
             
             // Send email to user

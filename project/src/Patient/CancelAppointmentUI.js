@@ -5,6 +5,8 @@ import { useAuth } from '../util/Auth';
 import { Form, Button, Card, Alert, Container } from "react-bootstrap";
 import { auth, firestore } from '../firebase';
 import "./ScheduleAppointment.css";
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 function CancelAppointmentUI() {
    const {state} = useLocation();              // access appointment passed from link router
@@ -12,6 +14,18 @@ function CancelAppointmentUI() {
    const [error, setError] = useState("");     // store error message
    const { currentUser } = useAuth();
    const history = useHistory();
+
+   const cancelAppointmentAlert = () => {
+      confirmAlert({
+        title: 'Congratulations!',
+        message: 'Your appointment has been cancelled successfully.',
+        buttons: [
+          {
+            label: 'OK',
+          },
+        ]
+      });
+    };
 
    //handle submit
    const handleSubmit = async (e) => {
@@ -21,7 +35,7 @@ function CancelAppointmentUI() {
       try{
          await firestore.collection("Appointment").doc(Appointment.id).delete()
          .then(() => {
-            alert("Appointment Cancelled Successfully!");
+            cancelAppointmentAlert()
          })
 
          // Send email to user
