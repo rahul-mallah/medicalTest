@@ -13,8 +13,7 @@ import ChangePasswordUI from "../SystemAdmin/changePwUI";
 import CreateAccountUI from "../SystemAdmin/CreateAccountUI";
 import ViewIndividualAccountUI from "../SystemAdmin/ViewIndividualAccountUI";
 import ViewAllStaffAccount from "../SystemAdmin/ViewAllStaffAccount";
-import ViewArticle from "../components/ViewArticle/ViewArticle";
-import EditArticle from "../components/EditArticle/EditArticle";
+import ViewArticle from "../components/ViewArticle/PatientViewArticle";
 
 import SystemAdminRoute from "../util/SystemAdminRoute";
 
@@ -54,9 +53,6 @@ const SARoute = () =>
 
             // View All Account
             <SystemAdminRoute exact path= {`${path}/viewAllAccount`} component={ViewAllAccountUI} role={user.Role} />
-
-            // View Individual User Account
-            <SystemAdminRoute path={`${path}/viewIndividualAccount`} component={EditArticle} role={user.Role}/>
 
             // Create New Account
             <SystemAdminRoute exact path={`${path}/viewAllAccount/createAccount`} component={CreateAccountUI} role={user.Role}/>
