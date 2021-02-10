@@ -7,7 +7,22 @@ import IdleTimerContainer from '../util/IdleTimerContainer'
 
 function SAHomePageUI() {
 
-    const {currentUser} = useAuth()
+    const { currentUser } = useAuth();
+
+    const [Users, setUsers] = useState([]); 
+
+    React.useEffect(()=>{
+        const fetchData = async () =>{
+           firestore.collection("Users")
+           .where("Email", "==", String(currentUser.email))
+           .get()
+           .then(function(data){
+                console.log(data)
+                setUsers(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
+            })
+        };
+        fetchData();
+     }, [])
     
     return (
         <div>
@@ -16,6 +31,7 @@ function SAHomePageUI() {
                 <React.Fragment>
                     <h1 className='text-center text-danger text text-capitalize my-5'
                     style={{fontSize: '2em'}}>
+                        {Users.map(user => <h1> Hello {user.Name},</h1>)}
                         Welcome To MyAppointment System
                     </h1>
                     <div className="container col-sm-10">

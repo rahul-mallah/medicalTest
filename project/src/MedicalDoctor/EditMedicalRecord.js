@@ -1,9 +1,10 @@
 import React,{useState} from 'react';
 import { Card, Container, Button, Form, Alert } from 'react-bootstrap';
-import {Link, useLocation, useHistory, useRouteMatch} from "react-router-dom";
-import SearchBar from '../Patient/searchBar';
+import { useLocation, useHistory, useRouteMatch} from "react-router-dom";
 import {firestore } from '../firebase';
-import { useAuth } from "../util/Auth"
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import IdleTimerContainer from '../util/IdleTimerContainer';
 
 function EditMedicalRecord() {
     const {state} = useLocation()
@@ -34,6 +35,18 @@ function EditMedicalRecord() {
         setVitals(md.Vitals);
     }
 
+    const medicalRecordUpdatedAlert = () => {
+        confirmAlert({
+          title: 'Congratulations!',
+          message: 'Patient medical record has been updated successfully.',
+          buttons: [
+            {
+              label: 'OK',
+            },
+          ]
+        });
+      };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try{
@@ -48,7 +61,7 @@ function EditMedicalRecord() {
                 Vitals : vitals,
             })
             .then(() => {
-                alert("Updated Successfully!");
+                medicalRecordUpdatedAlert()
                 history.push("/MedDoc/PatientProfile");
              })
         }
@@ -59,6 +72,7 @@ function EditMedicalRecord() {
 
     return (
         <div>
+            <IdleTimerContainer></IdleTimerContainer>
             <Container className="d-flex align-items-center justify-content-center">
                 <div className="w-100" style={{Width: "60%"}}>
                     <Card>

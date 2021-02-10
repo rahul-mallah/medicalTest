@@ -6,6 +6,8 @@ import { Form, Button, Card, Alert, Container } from "react-bootstrap";
 import { firestore } from '../firebase';
 import "./ScheduleAppointment.css";
 import IdleTimerContainer from '../util/IdleTimerContainer';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
 function ResAppointmentUI() {
     const {state} = useLocation();  //access doctor passed from link router
@@ -47,6 +49,18 @@ function ResAppointmentUI() {
         fetchData();
      }, [])
 
+     const confirmReScheduleAlert = () => {
+        confirmAlert({
+          title: 'Congratulations!',
+          message: 'Your appointment has been rescheduled successfully.',
+          buttons: [
+            {
+              label: 'OK',
+            },
+          ]
+        });
+      };
+
       //handle submit
    const handleSubmit = async (e) => {
       e.preventDefault();
@@ -62,7 +76,7 @@ function ResAppointmentUI() {
             Timeslot: selectedSlot,
         })
         .then(() => {
-            alert("Appointment Rescheduled Successfully!");
+            confirmReScheduleAlert()
         })
 
         // Send email to user

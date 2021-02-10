@@ -5,6 +5,8 @@ import { firestore } from '../firebase';
 import moment from 'moment';
 import {useRouteMatch} from 'react-router-dom';
 import IdleTimerContainer from '../util/IdleTimerContainer'
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
 function MyProfilePageUI() {
 
@@ -15,6 +17,7 @@ function MyProfilePageUI() {
    const [DOB, setDOB] = useState(""); 
    const [Email, setEmail] = useState(""); 
    const [Telephone, setTelephone] = useState(""); 
+   const [Role] = useState(""); 
    const [error, setError] = useState("");
 
    const [enableFields, setEnableFields] = useState(true);
@@ -52,6 +55,20 @@ function MyProfilePageUI() {
       setTelephone(Users[0].Telephone);
    }
 
+  
+
+   const submitUpdate = () => {
+      confirmAlert({
+        title: 'Congratulations!',
+        message: 'Your ' + Users.map(user => user.Role.toLowerCase()) + ' account has been updated successfully.',
+        buttons: [
+          {
+            label: 'OK',
+          },
+        ]
+      });
+    };
+
    //handle submit
    const handleSubmit = async (e) => {
       e.preventDefault();
@@ -75,7 +92,7 @@ function MyProfilePageUI() {
                Telephone: Telephone
             })
             .then(() => {
-               alert("Updated Successfully!");
+               submitUpdate()
             })
       }catch(error){
          setError(error.message);

@@ -1,9 +1,10 @@
-import React,{useState} from 'react'
+import React,{useState} from 'react';
 import { Card, Container, Button, Form, Alert } from 'react-bootstrap';
-import {Link, useLocation, useHistory} from "react-router-dom";
-import SearchBar from '../Patient/searchBar';
+import {useLocation, useHistory} from "react-router-dom";
 import {firestore } from '../firebase';
-import { useAuth } from "../util/Auth"
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import IdleTimerContainer from '../util/IdleTimerContainer';
 
 function CreateMedicalRecord() {
     const {state} = useLocation()
@@ -32,6 +33,18 @@ function CreateMedicalRecord() {
         };
         fetchData();
     },[])
+    
+    const cancelAppointmentAlert = () => {
+        confirmAlert({
+          title: 'Congratulations!',
+          message: 'Your appointment has been cancelled successfully.',
+          buttons: [
+            {
+              label: 'OK',
+            },
+          ]
+        });
+      };
 
     const rec = {...medRec[0]};
 
@@ -51,7 +64,7 @@ function CreateMedicalRecord() {
                 AssignedDoc : md.DocEmail
             })
             .then(() => {
-                alert("Medical Record Created Successfully!");
+                cancelAppointmentAlert()
                 history.push("/MedDoc/PatientProfile");
             })
         }
@@ -62,6 +75,7 @@ function CreateMedicalRecord() {
 
     return (
         <div>
+            <IdleTimerContainer></IdleTimerContainer>
             {!rec.PatientEmail ? (
             <Container className="d-flex align-items-center justify-content-center">
                 <div className="w-100" style={{Width: "60%"}}>
