@@ -15,7 +15,7 @@ import ViewArticle from "../components/ViewArticle/ViewArticle";
 import EditArticle from "../components/EditArticle/EditArticle";
 import NewArticle from "../components/NewArticle/NewArticle";
 import ViewDoctorScheduleUI from "../MedicalAdmin/ViewDoctorScheduleUI";
-import GenerateVisitDocumentUI from "../MedicalAdmin/GenerateVisitDocumentUI";
+import createAppointmentUI from "../MedicalAdmin/createAppointmentUI";
 
 const MARoute = () =>
 {
@@ -50,11 +50,11 @@ const MARoute = () =>
             // Change Password
             <MedAdmRoute exact path={`${path}/myProfile/changePW`} component={ChangePasswordUI} role={user.Role}/>
 
-            // Generate Relevent Document for Patients
-            <MedAdmRoute exact path={`${path}/GenerateDocument`} component={GenerateVisitDocumentUI} role={user.Role}/>
-
-            // Assign Doctor to Patient
+            // View Doctor to Patient
             <MedAdmRoute exact path={`${path}/Schedule`} component={ViewDoctorScheduleUI} role={user.Role}/>
+
+            // Create New Appointment
+            <MedAdmRoute exact path={`${path}/Schedule/createAppt`} component={createAppointmentUI} role={user.Role}/>
 
             // View Health Article
             <Route exact path={`${path}/ViewHealthArticle`} component={ViewHealthArticleUI}/>
