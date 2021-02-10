@@ -8,6 +8,8 @@ import { useAuth } from "../util/Auth"
 import NoMatch from '../noMatch'
 
 import MAHomepageUI from "../MedicalAdmin/MAHomepageUI";
+import ResAppointmentUI from "../MedicalAdmin/ResAppointmentUI";
+import CancelAppointmentUI from "../MedicalAdmin/CancelAppointmentUI";
 import MyProfilePageUI from "../User/myProfilePageUI";
 import ChangePasswordUI from "../MedicalAdmin/changePwUI";
 import ViewHealthArticleUI from '../User/ViewHealthArticleUI';
@@ -52,6 +54,12 @@ const MARoute = () =>
 
             // Generate Relevent Document for Patients
             <MedAdmRoute exact path={`${path}/GenerateDocument`} component={GenerateVisitDocumentUI} role={user.Role}/>
+
+            {/* // Reschedule Appointment */}
+            <MedAdmRoute exact path={`${path}/Reschedule`} component={ResAppointmentUI} role={user.Role}/>
+
+            {/* // Cancel Appointment */}
+            <MedAdmRoute exact path={`${path}/Cancel`} component={CancelAppointmentUI} role={user.Role}/>
 
             // Assign Doctor to Patient
             <MedAdmRoute exact path={`${path}/Schedule`} component={ViewDoctorScheduleUI} role={user.Role}/>

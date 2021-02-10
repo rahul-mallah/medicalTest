@@ -199,9 +199,11 @@ function ViewDoctorScheduleUI()
                appList.push(<s.appCard>
                               <h5> Patient: {tempAppointment[b].Patient} </h5>
                               <p> Time Slot: {tempAppointment[b].Timeslot} </p>
-                              <s.resButton> Reschedule </s.resButton>
+                              <Link to = {{pathname: '/MedAdm/Reschedule/', state:{appointment: tempAppointment[b]}}}>
+                              <s.resButton> Reschedule </s.resButton></Link>
                               &nbsp; &nbsp; &nbsp; 
-                              <s.resButton> Cancel </s.resButton>
+                              <Link to = {{pathname: '/MedAdm/Cancel/', state:{appointment: tempAppointment[b]}}}>
+                              <s.resButton> Cancel </s.resButton></Link>
                            </s.appCard>
                            )
             }
