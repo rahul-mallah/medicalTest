@@ -15,7 +15,5 @@ export const menuItems = [
       ]},
 
    {name: 'Educational', to: '/ViewHealthArticle', icon: '/icons/healthArticle.svg', 
-      subMenuItems: [
-         {name: 'Create New Post', to: '/new-article'}
-      ]}
+      subMenuItems: []}
 ];

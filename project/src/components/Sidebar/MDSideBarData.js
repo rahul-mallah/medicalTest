@@ -13,9 +13,7 @@ export const menuItems = [
         subMenuItems: []},
 
     {name: 'Schedule', to: '/Schedule', icon: '/icons/appointment.svg', 
-        subMenuItems: [
-            {name: 'Create New Schedule', to: '/Create'}
-        ]},
+        subMenuItems: []},
 
     {name: 'Educational', to: '/ViewHealthArticle', icon: '/icons/healthArticle.svg', 
        subMenuItems: [
