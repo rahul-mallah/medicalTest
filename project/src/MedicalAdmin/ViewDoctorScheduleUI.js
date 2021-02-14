@@ -196,16 +196,28 @@ function ViewDoctorScheduleUI()
             
             for (var b = 0; b < tempAppointment.length; b++)
             {
-               appList.push(<s.appCard>
-                              <h5> Patient: {tempAppointment[b].Patient} </h5>
-                              <p> Time Slot: {tempAppointment[b].Timeslot} </p>
-                              <Link to = {{pathname: '/MedAdm/Reschedule/', state:{appointment: tempAppointment[b]}}}>
-                              <s.resButton> Reschedule </s.resButton></Link>
-                              &nbsp; &nbsp; &nbsp; 
-                              <Link to = {{pathname: '/MedAdm/Cancel/', state:{appointment: tempAppointment[b]}}}>
-                              <s.resButton> Cancel </s.resButton></Link>
-                           </s.appCard>
-                           )
+               if (Date.parse(startDate) - Date.parse(currentDate) > 0)
+               {
+                  appList.push(<s.appCard>
+                                 <h5> Patient: {tempAppointment[b].Patient} </h5>
+                                 <p> Time Slot: {tempAppointment[b].Timeslot} </p>
+                                 <Link to = {{pathname: '/MedAdm/Reschedule/', state:{appointment: tempAppointment[b]}}}>
+                                 <s.resButton> Reschedule </s.resButton></Link>
+                                 &nbsp; &nbsp; &nbsp; 
+                                 <Link to = {{pathname: '/MedAdm/Cancel/', state:{appointment: tempAppointment[b]}}}>
+                                 <s.resButton> Cancel </s.resButton></Link>
+                              </s.appCard>
+                              )
+               }
+
+               else 
+               {
+                  appList.push(<s.appCard>
+                     <h5> Patient: {tempAppointment[b].Patient} </h5>
+                     <p> Time Slot: {tempAppointment[b].Timeslot} </p>
+                  </s.appCard>
+                  )
+               }
             }
             
             appList.push(<br />)
