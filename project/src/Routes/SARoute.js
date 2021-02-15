@@ -13,10 +13,7 @@ import ChangePasswordUI from "../SystemAdmin/changePwUI";
 import CreateAccountUI from "../SystemAdmin/CreateAccountUI";
 import ViewIndividualAccountUI from "../SystemAdmin/ViewIndividualAccountUI";
 import ViewAllStaffAccount from "../SystemAdmin/ViewAllStaffAccount";
-import ViewArticle from "../components/ViewArticle/ViewArticle";
-import EditArticle from "../components/EditArticle/EditArticle";
-
-import NewArticle from "../components/NewArticle/NewArticle";
+import ViewArticle from "../components/ViewArticle/PatientViewArticle";
 
 import SystemAdminRoute from "../util/SystemAdminRoute";
 
@@ -57,9 +54,6 @@ const SARoute = () =>
             // View All Account
             <SystemAdminRoute exact path= {`${path}/viewAllAccount`} component={ViewAllAccountUI} role={user.Role} />
 
-            // View Individual User Account
-            <SystemAdminRoute path={`${path}/viewIndividualAccount`} component={EditArticle} role={user.Role}/>
-
             // Create New Account
             <SystemAdminRoute exact path={`${path}/viewAllAccount/createAccount`} component={CreateAccountUI} role={user.Role}/>
 
@@ -71,12 +65,6 @@ const SARoute = () =>
 
             // View Individual Article
             <Route path={`${path}/article/:id`} component={ViewArticle}/>
-
-            // Create New Article
-            <SystemAdminRoute path={`${path}/ViewHealthArticle/new-article`} component={NewArticle} role={user.Role}/>
-
-            // Edit Article
-            <SystemAdminRoute path={`${path}/edit-article`} component={EditArticle} role={user.Role}/>
 
             //View All Staff
             <SystemAdminRoute path={`${path}/viewAllStaffAccount`} component={ViewAllStaffAccount} role={user.Role}/>

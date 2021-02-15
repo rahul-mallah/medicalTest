@@ -1,10 +1,8 @@
 import React,{useState} from 'react'
 import {useRouteMatch, Switch, Route} from 'react-router-dom';
-import PrivateRoute from "../util/AuthRoute";
 import DoctorRoute from "../util/DoctorRoute";
 import {firestore } from '../firebase';
 import { useAuth } from "../util/Auth"
-import { AuthProvider } from '../util/Auth';
 
 import NoMatch from '../noMatch'
 
@@ -20,16 +18,9 @@ import ViewPatientProfileUI from "../MedicalDoctor/ViewPatientProfileUI";
 import CreateMedicalRecord from "../MedicalDoctor/CreateMedicalRecord";
 import EditMedicalRecord from "../MedicalDoctor/EditMedicalRecord";
 import TransferMedicalRecord from "../MedicalDoctor/TransferMedicalRecord";
-import PatientProfileUI from  "../MedicalStaff/PatientProfileUI";
 import ViewMPUI from "../MedicalDoctor/ViewMPUI";
-import TransferMPUI from "../MedicalStaff/TransferMPUI";
-import ViewDoctorScheduleUI from "../MedicalStaff/ViewDoctorScheduleUI";
-import RequestEditApptUI from "../MedicalStaff/RequestEditApptUI";
-import CreateNewApptUI from "../MedicalStaff/CreateNewAppt";
 import ViewAllocatedPatientUI from "../MedicalDoctor/ViewAllocatedPatientUI"
 import DocRescheduleUI from "../MedicalDoctor/DocRescheduleUI";
-import UpdateMPUI from "../MedicalDoctor/UpdateMPUI"
-import RequestApprovalUI from "../MedicalDoctor/RequestApprovalUI"
 import CreateMC from "../MedicalDoctor/CreateMC"
 import ViewMedicalCertificate from "../MedicalDoctor/ViewMedicalCertificate"
 
@@ -89,29 +80,11 @@ const MDRoute = () =>
             {/* // View Patient Medical Certicficate */}
             <DoctorRoute exact path={`${path}/ViewMC`} component={ViewMedicalCertificate} role={user.Role}/>
 
-            {/* // Update Patient Medical Record */}
-            <DoctorRoute exact path={`${path}/UpdateMP`} component={UpdateMPUI} role={user.Role}/>
-
-            {/* // Transfer Medical Record */}
-            <DoctorRoute exact path={`${path}/TransferMP`} component={TransferMPUI} role={user.Role}/>
-
             {/* // View Own Schedule */}
             <DoctorRoute exact path={`${path}/Schedule`} component={ViewAllocatedPatientUI} role={user.Role}/>
 
             {/* // View Own Schedule */}
             <DoctorRoute exact path={`${path}/Reschedule`} component={DocRescheduleUI} role={user.Role}/>
-
-            {/* // Approve Appointment */}
-            <DoctorRoute exact path={`${path}/Schedule/Approve`} component={RequestApprovalUI} role={user.Role}/>
-
-            {/* // View Doctor Schedule */}
-            <DoctorRoute exact path={`${path}/Schedule/DocSchedule`} component={ViewDoctorScheduleUI} role={user.Role}/>
-
-            {/* // Edit Doctor Schedule */}
-            <DoctorRoute exact path={`${path}/Schedule/Edit`} component={RequestEditApptUI} role={user.Role}/>
-
-            {/* // Create New Schedule */}
-            <DoctorRoute exact path={`${path}/Schedule/Create`} component={CreateNewApptUI} role={user.Role}/>
 
             {/* // View Health Article */}
             <Route exact path={`${path}/ViewHealthArticle`} component={ViewHealthArticleUI} />

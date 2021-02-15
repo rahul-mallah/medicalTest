@@ -64,7 +64,7 @@ class ViewArticle extends Component {
     deleteArticle(aid){
         var desertRef = removeImageFromStorage.refFromURL(this.state.article.featureImage)
         firestore.collection('HealthArticles').doc(aid).delete().then(()=>{
-            this.props.history.push({pathname: '/SysAdm/ViewHealthArticle'})
+            this.props.history.push({pathname: '/MedDoc/ViewHealthArticle'})
             alert("Article has been deleted successfully!")
         }).catch(err => alert(err))
         desertRef.delete().then(function(){
@@ -103,7 +103,7 @@ class ViewArticle extends Component {
                             <div className={classes.ArticleMain}>
                                 {parse(this.state.article.content)}
                             </div>
-                            <a onClick={() => {window.location.href="/SysAdm/edit-article"}} className="btn btn-success">Edit</a>
+                            <a onClick={() => {window.location.href="/MedDoc/edit-article"}} className="btn btn-success">Edit</a>
                             <button onClick = {this.deleteArticle.bind(this, this.state.article.id)}class = "btn btn-danger">Delete</button>
                         </div>
                     </Container>
