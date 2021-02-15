@@ -1,4 +1,5 @@
 import React,{useState} from 'react';
+import Select from "react-select";
 import {Link, withRouter, useLocation, useHistory} from 'react-router-dom';
 import { useAuth } from '../util/Auth';
 import { Form, Button, Card, Alert, Container } from "react-bootstrap";
@@ -13,7 +14,7 @@ function ViewIndividualMPUI() {
             <Container className="d-flex align-items-center justify-content-center">
           <div className="w-100" style={{Width: "60%"}}>
             <Card>
-            <h2 className= "text-center mb-4 mt-3">Medical Profile</h2>
+            <h2 className= "text-center mb-4 mt-3">Medical Document</h2>
              <Card.Body>
                 <Form>
                     <Form.Group id = "Name">
@@ -40,15 +41,73 @@ function ViewIndividualMPUI() {
                         required
                     />
                     </Form.Group>
-                    <Form.Group id = "Prescription">
-                    <Form.Label>Medical Prescriptions</Form.Label>
-                    <Form.Control
-                        as="textarea"
-                        defaultValue = {document.MedicalPrescription}
-                        disabled = {true}
-                        rows = {3}
-                        required
-                    />
+                    <Form.Group>
+                        <Form.Label>Medical Prescriptions</Form.Label>
+                        <Select 
+                        value = {document.prescriptions}
+                        isDisabled = {true}
+                        isMulti/>
+                        <div style={{
+                                marginTop: "1%",
+                                maxHeight: "50vh",
+                                overflowY: "scroll",
+                            }}>
+                            <table className="table table-bordered">
+                        <thead>
+                                <tr style={{
+                                    backgroundColor:"#808080",
+                                    color: "white",
+                                    fontStyle : "italic",
+                                    fontSize: "1.1rem"
+                                }}>
+                                <th scope="col" colSpan="3" width="78%">Prescription(s)</th>
+                                <th scope="col" className="text-center">Price ($)</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                        {document.prescriptions.map(md => 
+                            <tr>
+                                <td colSpan="3">{md.value}</td>
+                                <td className="text-center">{md.price}</td>
+                            </tr>
+                        )}
+                        </tbody>
+                        </table>
+                        </div>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Medical Tests</Form.Label>
+                        <Select 
+                        value = {document.LabTests}
+                        isDisabled = {true}
+                        isMulti/>
+                        <div style={{
+                                marginTop: "1%",
+                                maxHeight: "50vh",
+                                overflowY: "scroll",
+                            }}>
+                            <table className="table table-bordered">
+                        <thead>
+                                <tr style={{
+                                    backgroundColor:"#808080",
+                                    color: "white",
+                                    fontStyle : "italic",
+                                    fontSize: "1.1rem"
+                                }}>
+                                <th scope="col" colSpan="3" width="78%">Medical Test(s)</th>
+                                <th scope="col" className="text-center">Price ($)</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                        {document.LabTests.map(md => 
+                            <tr>
+                                <td colSpan="3">{md.value}</td>
+                                <td className="text-center">{md.price}</td>
+                            </tr>
+                        )}
+                        </tbody>
+                        </table>
+                        </div>
                     </Form.Group>
                     <Form.Group id = "LabResult">
                     <Form.Label>Lab Results</Form.Label>
