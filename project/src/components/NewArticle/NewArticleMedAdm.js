@@ -86,7 +86,7 @@ class NewArticle extends Component {
                  .add(article)
                  .then(res=>{
                      alert("Article has been created successfully!")
-                     this.props.history.push({pathname: '/MedDoc/ViewHealthArticle'})
+                     this.props.history.push({pathname: '/MedAdm/ViewHealthArticle'})
                  })
                  .catch(err => alert(err))
     }
