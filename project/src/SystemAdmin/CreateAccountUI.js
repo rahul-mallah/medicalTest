@@ -1,8 +1,7 @@
 import React, { useState, useRef } from 'react'
 import {Form, Button, Card, Container, Alert} from 'react-bootstrap'
-import { Link, useHistory} from 'react-router-dom';
+import { useHistory} from 'react-router-dom';
 import { auth, firestore, storageRef } from '../firebase';
-import moment from 'moment';
 import PasswordStrengthIndicator from '../components/PasswordStrengthIndicator';
 import IdleTimerContainer from '../util/IdleTimerContainer'
 
@@ -117,7 +116,7 @@ function CreateAccountUI() {
          }
 
          if (Role === "Medical Admin"){
-            await firestore.collection('All Medical Staff').add({
+            await firestore.collection('Medical Administrator').add({
                Image: fileUrl,
                Name: FirstName + " " + LastName,
                Email: Email.toLowerCase(),
@@ -168,7 +167,7 @@ function CreateAccountUI() {
           <IdleTimerContainer></IdleTimerContainer>
             <Card>
              <Card.Body>
-                 <h2 className= "text-center mb-4">Create Staff Account</h2>
+                 <h2 className= "text-center mb-4">Create Medical Staff Account</h2>
                  {error && <Alert variant="danger">{error}</Alert>}
                  <Form onSubmit={handleSubmit}>
                  <Form.Group id = "Avatar">

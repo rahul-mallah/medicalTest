@@ -30,7 +30,7 @@ function ViewAllAccountUI()
       fetchData()
    }, [])
 
-   const filteredArray =   users.filter((user) =>
+   const filteredUserSearch =   users.filter((user) =>
    user.Email.toLowerCase().includes(search.toLowerCase())
  )
 
@@ -101,7 +101,7 @@ function ViewAllAccountUI()
                </thead>
                <tbody>
                   
-                     {filteredArray.map(users => (
+                     {filteredUserSearch.map(users => (
                         <tr>
                            {users.Name ? (<td>{users.Name}</td>):(<td>{users.FirstName} {users.LastName}</td>)} 
                             
