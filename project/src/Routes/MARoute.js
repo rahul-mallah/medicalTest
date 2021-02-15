@@ -12,9 +12,9 @@ import CancelAppointmentUI from "../MedicalAdmin/CancelAppointmentUI";
 import MyProfilePageUI from "../User/myProfilePageUI";
 import ChangePasswordUI from "../MedicalAdmin/changePwUI";
 import ViewHealthArticleUI from '../User/ViewHealthArticleUI';
-import ViewArticle from "../components/ViewArticle/ViewArticle";
+import ViewArticle from "../components/ViewArticle/ViewArticleMedAdm";
 import EditArticle from "../components/EditArticle/EditArticle";
-import NewArticle from "../components/NewArticle/NewArticle";
+import NewArticle from "../components/NewArticle/NewArticleMedAdm";
 import ViewDoctorScheduleUI from "../MedicalAdmin/ViewDoctorScheduleUI";
 import createAppointmentUI from "../MedicalAdmin/createAppointmentUI";
 
