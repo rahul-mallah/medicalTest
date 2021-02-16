@@ -1,10 +1,11 @@
 import React, { useState, useRef } from 'react'
 import {Form, Button, Card, Container, Alert} from 'react-bootstrap'
-import { Link, useHistory} from 'react-router-dom';
+import { useHistory} from 'react-router-dom';
 import { auth, firestore, storageRef } from '../firebase';
-import moment from 'moment';
 import PasswordStrengthIndicator from '../components/PasswordStrengthIndicator';
 import IdleTimerContainer from '../util/IdleTimerContainer'
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
 function CreateAccountUI() {
 
@@ -72,6 +73,18 @@ function CreateAccountUI() {
       })
    }
 
+   const submitCreateAlert = () => {
+      confirmAlert({
+        title: 'Congratulations!',
+        message: 'Account has been created successfully.',
+        buttons: [
+          {
+            label: 'OK',
+          },
+        ]
+      });
+    };
+
    //handle submit
    const handleSubmit = async (e) => {
       e.preventDefault();
@@ -104,6 +117,13 @@ function CreateAccountUI() {
             Role: Role
          })
 
+         await firestore.collection('Medical Staff').add({
+            FirstName: FirstName,
+            LastName: LastName,
+            Email: Email.toLowerCase(),
+            Role: Role
+         })
+
          if (Role === "Medical Doctor"){
             await firestore.collection('Medical Doctors').add({
                Image: fileUrl,
@@ -112,19 +132,19 @@ function CreateAccountUI() {
                Role: Role
             })
             .then(() => {
-               alert("Account Registered Successfully!");
+               submitCreateAlert()
             })
          }
 
          if (Role === "Medical Admin"){
-            await firestore.collection('All Medical Staff').add({
+            await firestore.collection('Medical Administrator').add({
                Image: fileUrl,
                Name: FirstName + " " + LastName,
                Email: Email.toLowerCase(),
                Role: Role
             })
             .then(() => {
-               alert("Account Registered Successfully!");
+               submitCreateAlert()
             })
          }
 
@@ -168,14 +188,14 @@ function CreateAccountUI() {
           <IdleTimerContainer></IdleTimerContainer>
             <Card>
              <Card.Body>
-                 <h2 className= "text-center mb-4">Create Staff Account</h2>
+                 <h2 className= "text-center mb-4">Create Medical Staff Account</h2>
                  {error && <Alert variant="danger">{error}</Alert>}
                  <Form onSubmit={handleSubmit}>
                  <Form.Group id = "Avatar">
                   <Form.Label>Upload Image</Form.Label>
                         <Form.Control 
                        onChange = {onFileChange}        
-                     type="file" required/>
+                     type="file"/>
                      </Form.Group>
                      <Form.Group id = "FirstName">
                         <Form.Label>First Name</Form.Label>
@@ -183,7 +203,7 @@ function CreateAccountUI() {
                         ref={FNameRef}
                         value={FirstName}
                         onChange={(e) => setFirstName(e.target.value)}
-                        pattern = "^[a-z A-Z]+$"
+                        pattern = "^[a-z A-Z .]+$"
                         title = "Please enter character in the range a-z OR A-Z"
                         type="text" required/>
                      </Form.Group>

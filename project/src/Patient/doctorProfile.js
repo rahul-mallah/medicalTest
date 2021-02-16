@@ -36,7 +36,7 @@ class DoctorProfile extends Component {
             return (      
               <div>
                   <IdleTimerContainer></IdleTimerContainer>
-                    <div className="card w-100">
+                    <div className="card w-150">
                         <div className="row no-gutters">
                         <div className="col-auto">
                             <img src={this.state.doctor.Image} width={300} heigth={250} className="img-fluid" alt=""/>

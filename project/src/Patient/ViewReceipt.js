@@ -4,8 +4,6 @@ import {useLocation} from "react-router-dom"
 import {firestore } from '../firebase';
 import IdleTimerContainer from '../util/IdleTimerContainer';
 
-
-
 function ViewReceipt() {
     const {state} = useLocation();
     const {document} = state;
@@ -23,8 +21,8 @@ function ViewReceipt() {
         fetchData();
     },[])
     const doctor = {...doc[0]};
-    const gst = (document.consultFee+document.prescriptionFee+document.testFee+document.wardFee+document.miscFee)*0.07
-    const grandTotal = (document.consultFee+document.prescriptionFee+document.testFee+document.wardFee+document.miscFee)+gst
+    const gst = (document.consultFee+document.prescriptionFee+document.testFee)*0.07
+    const grandTotal = (document.consultFee+document.prescriptionFee+document.testFee)+gst
     return (
         <div>
             <IdleTimerContainer></IdleTimerContainer>
@@ -66,23 +64,15 @@ function ViewReceipt() {
                                 </tr>): null}
                                 {document.prescriptionFee!==0 ? (
                                 <tr>
-                                <td colSpan="3">Prescriptions Fees</td>
+                                <td colSpan="3">Prescriptions Fees<br/><ul>{document.prescriptions.map(md=>
+                                    <li className="ml-4">{md.label} - ${md.price}</li>)}</ul></td>
                                 <td className="text-center">{document.prescriptionFee}</td>
                                 </tr>): null}
                                 {document.testFee!==0 ? (
                                 <tr>
-                                <td colSpan="3">Test Fees</td>
+                                <td colSpan="3">Test Fees<br/><ul>{document.LabTests.map(md=>
+                                    <li className="ml-4">{md.label} - ${md.price}</li>)}</ul></td>
                                 <td className="text-center">{document.testFee}</td>
-                                </tr>): null}
-                                {document.wardFee!==0 ? (
-                                <tr>
-                                <td colSpan="3">Ward Fees</td>
-                                <td className="text-center">{document.wardFee}</td>
-                                </tr>): null}
-                                {document.miscFee!==0 ? (
-                                <tr>
-                                <td colSpan="3">Miscellenous Fees</td>
-                                <td className="text-center">{document.miscFee}</td>
                                 </tr>): null}
                                 <tr>
                                 <td colSpan="3"style={{fontWeight:"bolder"}}>GST 7 %</td>
