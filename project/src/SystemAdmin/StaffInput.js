@@ -8,7 +8,7 @@ export const StaffInput = (props) => {
 
     const onDelete = async () => {
         await firestore.collection("Medical Staff").doc(props.medicalStaff.id).delete()
-        await firestore.collection("Medical Doctors").doc(props.medicalStaff.id).delete()
+        await firestore.collection("Medical Doctors").doc(props.id).delete()
          .then(() => {
             alert("User has been deleted Successfully!");
             window.location.reload();
