@@ -1,13 +1,12 @@
-import React, {useEffect, useState} from 'react'
-import {Form, Button, Card, Container} from 'react-bootstrap'
+import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import * as s from './ViewDoctorSchedule.styles';
 import ReactMultiSelectCheckboxes from "react-multiselect-checkboxes";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useAuth } from '../util/Auth';
 import {firestore } from '../firebase';
 import moment from 'moment';
+import IdleTimerContainer from '../util/IdleTimerContainer';
 
 function ViewDoctorScheduleUI()
 {
@@ -305,6 +304,7 @@ function ViewDoctorScheduleUI()
 
    return (
       <div>
+         <IdleTimerContainer></IdleTimerContainer>
          {/* department selection*/}
          <div style={{display:'inline-flex'}}>
             <s.headerLabel>Department:</s.headerLabel>
