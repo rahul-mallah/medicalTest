@@ -52,6 +52,7 @@ function MAHomepageUI() {
                                     <div className="card-body">
                                         <h5 className="card-title">Schedule</h5>
                                         <p className="card-text">You can view and edit the schedule here</p>
+                                        <br/>
                                         <a onClick={() => {window.location.href="/MedAdm/Schedule"}} className="btn btn-primary">View / Edit Schedule</a>
                                     </div>
                                 </div>

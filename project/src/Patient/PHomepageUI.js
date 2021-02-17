@@ -51,6 +51,7 @@ function PHomepageUI() {
                             <div className="card-body">
                                 <h5 className="card-title">Appointment</h5>
                                 <p className="card-text">View all our appointment records here! You can Book a new appointment, Reschedule or Cancel any existing appointments here.</p>
+                                <br/>
                                 <a onClick={() => {window.location.href="/Patient/Appointment"}} className="btn btn-primary">View / Amend Appointments</a>
                             </div>
                         </div>
@@ -90,6 +91,7 @@ function PHomepageUI() {
                             <div className="card-body">
                                 <h5 className="card-title">Doctor Profile</h5>
                                 <p className="card-text">Search from a list of our healthcare doctors to learn more about them to help plan for your next appointments!</p>
+                                <br/>
                                 <a onClick={() => {window.location.href="/Patient/searchDoctor"}} className="btn btn-primary">Search Doctors</a>
                             </div>
                         </div>
