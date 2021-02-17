@@ -83,7 +83,7 @@ function ViewAllAccountUI()
       
       <div className = "row">
          <div className = "col-md-12">
-           <Card>
+
             <table className = "table table-borderless table-stripped">
                <thead className = "thead-light" >
                   <tr>
@@ -121,7 +121,6 @@ function ViewAllAccountUI()
                      ))}                                                                              
                </tbody>
             </table>
-            </Card>
          </div>
          
       </div>

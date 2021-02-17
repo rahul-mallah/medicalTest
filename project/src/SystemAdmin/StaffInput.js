@@ -50,10 +50,11 @@ export const StaffInput = (props) => {
             pathname: '/SysAdm/viewIndvAcc',
             state: {user: props.medicalStaff}
         }}>
-        
-        
         <Button className = "btn btn-success">Edit</Button></Link>
-        <button onClick={(e) => onDelete(doc.id, u.id)} class = "btn btn-danger">Delete</button>
+        <Link to = {{
+            pathname: '/SysAdm/confirmDel',
+            state: {user: props.medicalStaff}
+        }}><button class = "btn btn-danger">Delete</button></Link>
         </div>
     </>
     )

@@ -76,7 +76,6 @@ function CancelAppointmentUI() {
                  <Form onSubmit={handleSubmit} className="my-4">
                  <Form.Group id = "date">
                         <Form.Label className="my-2">Appointment Date</Form.Label>
-                        {error && <Alert variant="danger">{error}</Alert>}
                         <Form.Control 
                         disabled = {true}
                         defaultValue={Appointment.Date}
