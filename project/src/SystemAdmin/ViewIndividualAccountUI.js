@@ -47,7 +47,7 @@ function ViewIndividualAccountUI() {
 
    React.useEffect(()=>{
       const fetchData = async () =>{
-         firestore.collection("Medical Doctors")
+         firestore.collection("Medical Doctors").limit(1)
          .where("Email", "==", String(user.Email))
          .get()
          .then(function(data){
@@ -55,7 +55,7 @@ function ViewIndividualAccountUI() {
                setDoctor(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
          }); 
 
-         firestore.collection("Medical Admin")
+         firestore.collection("Medical Admin").limit(1)
          .where("Email", "==", String(user.Email))
          .get()
          .then(function(data){
@@ -64,7 +64,7 @@ function ViewIndividualAccountUI() {
          }); 
 
 
-         firestore.collection("Medical Staff")
+         firestore.collection("Medical Staff").limit(1)
          .where("Email", "==", String(user.Email))
          .get()
          .then(function(data){

@@ -11,7 +11,7 @@ function MDHomepageUI() {
 
     React.useEffect(()=>{
         const fetchData = async () =>{
-           firestore.collection("Medical Doctors")
+           firestore.collection("Medical Doctors").limit(1)
            .where("Email", "==", String(currentUser.email))
            .get()
            .then(function(data){

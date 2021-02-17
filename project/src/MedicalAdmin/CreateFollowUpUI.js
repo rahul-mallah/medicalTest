@@ -31,14 +31,14 @@ function CreateFollowUPUI() {
            }); 
 
            firestore.collection("Users")
-           .where("Email", "==", String(appointment.PatientEmail))
+           .where("Email", "==", String(appointment.PatientEmail)).limit(1)
            .get()
            .then(function(data){
                 console.log(data)
                 setUsers(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
             });
 
-            firestore.collection("Medical Doctors")
+            firestore.collection("Medical Doctors").limit(1)
             .where("Email", "==", String(appointment.DocEmail))
             .get()
             .then(function(data){

@@ -4,8 +4,6 @@ import {useAuth} from "../util/Auth"
 
 function PatientRoute({ component: Component, role, ...rest }) {
 
-
-
     return (
         <div>
         {role === "Patient" && (

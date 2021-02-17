@@ -27,7 +27,7 @@ function AppointmentFormUI() {
 
    React.useEffect(()=>{
       const fetchData = async () =>{
-         firestore.collection("Users")
+         firestore.collection("Users").limit(1)
          .where("Email", "==", String(currentUser.email))
          .get()
          .then(function(data){

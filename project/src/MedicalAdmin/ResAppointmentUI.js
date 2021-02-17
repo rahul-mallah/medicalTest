@@ -30,7 +30,7 @@ function ResAppointmentUI() {
               setAppointments(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
            }); 
 
-           firestore.collection("Users")
+           firestore.collection("Users").limit(1)
            .where("Email", "==", String(currentUser.email))
            .get()
            .then(function(data){
@@ -38,7 +38,7 @@ function ResAppointmentUI() {
                 setUsers(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
             });
 
-            firestore.collection("Medical Doctors")
+            firestore.collection("Medical Doctors").limit(1)
             .where("Email", "==", String(appointment.DocEmail))
             .get()
             .then(function(data){

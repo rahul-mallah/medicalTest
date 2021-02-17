@@ -11,7 +11,7 @@ export const UserInput = (props) => {
 
     React.useEffect(()=>{
         const fetchData = async () =>{
-           firestore.collection("Medical Doctors")
+           firestore.collection("Medical Doctors").limit(1)
            .where("Email", "==", String(props.users.Email))
            .get()
            .then(function(data){
@@ -19,7 +19,7 @@ export const UserInput = (props) => {
                  setDoctor(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
            }); 
 
-           firestore.collection("Users")
+           firestore.collection("Users").limit(1)
            .where("Email", "==", String(props.users.Email))
            .get()
            .then(function(data){
