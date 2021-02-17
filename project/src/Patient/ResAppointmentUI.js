@@ -39,7 +39,7 @@ function ResAppointmentUI() {
             });
 
             firestore.collection("Medical Doctors")
-            .where("Name", "==", String(Appointment.DocEmail))
+            .where("Email", "==", String(Appointment.DocEmail))
             .get()
             .then(function(data){
                 console.log(data)

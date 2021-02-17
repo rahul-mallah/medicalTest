@@ -103,7 +103,6 @@ class ViewArticle extends Component {
                             <div className={classes.ArticleMain}>
                                 {parse(this.state.article.content)}
                             </div>
-                            <a onClick={() => {window.location.href="/MedAdm/edit-article"}} className="btn btn-success">Edit</a>
                             <button onClick = {this.deleteArticle.bind(this, this.state.article.id)}class = "btn btn-danger">Delete</button>
                         </div>
                     </Container>

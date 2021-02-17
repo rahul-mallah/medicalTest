@@ -14,6 +14,7 @@ import CreateAccountUI from "../SystemAdmin/CreateAccountUI";
 import ViewIndividualAccountUI from "../SystemAdmin/ViewIndividualAccountUI";
 import ViewAllStaffAccount from "../SystemAdmin/ViewAllStaffAccount";
 import ViewArticle from "../components/ViewArticle/PatientViewArticle";
+import ConfirmDelete from "../SystemAdmin/confirmDelete";
 
 import SystemAdminRoute from "../util/SystemAdminRoute";
 
@@ -59,6 +60,9 @@ const SARoute = () =>
 
             // View Individual Account
             <SystemAdminRoute exact path={`${path}/viewIndvAcc`} component={ViewIndividualAccountUI} role={user.Role}/>
+
+            // View Individual Account
+            <SystemAdminRoute exact path={`${path}/confirmDel`} component={ConfirmDelete} role={user.Role}/>
 
             // View Health Article
             <Route exact path={`${path}/ViewHealthArticle`} component={ViewHealthArticleUI}/>
