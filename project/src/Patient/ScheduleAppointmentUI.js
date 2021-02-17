@@ -31,7 +31,7 @@ function ScheduleAppointmentUI() {
               setAppointments(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
            }); 
 
-           firestore.collection("Users")
+           firestore.collection("Users").limit(1)
            .where("Email", "==", String(currentUser.email))
            .get()
            .then(function(data){

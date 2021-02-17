@@ -14,6 +14,7 @@ function CancelAppointmentUI() {
     const [error, setError] = useState("");     // store error message
     const { currentUser } = useAuth();
     const history = useHistory();
+    const [patient, setPatient] = useState([]);
 
     const cancelAppointmentAlert = () => {
         confirmAlert({
@@ -94,6 +95,13 @@ function CancelAppointmentUI() {
                      <Form.Control className = "mb-4"
                         disabled = {true}
                         defaultValue={appointment.Doctor}
+                        type="text" required/>
+                </Form.Group>
+                <Form.Group id = "text">
+                     <Form.Label>Patient Name</Form.Label>
+                     <Form.Control className = "mb-4"
+                        disabled = {true}
+                        defaultValue={appointment.Patient}
                         type="text" required/>
                 </Form.Group>
                 <Button className="w-100 my-2" type="submit">Cancel Appointment</Button>

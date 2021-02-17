@@ -11,7 +11,7 @@ function ViewMC() {
     const [doc, setDoc] = useState([]);
     React.useEffect(()=>{
         const fetchData = async () =>{
-            firestore.collection("Medical Doctors")
+            firestore.collection("Medical Doctors").limit(1)
             .where("Email","==",document.DocEmail)
             .get()
             .then(function(data){

@@ -8,7 +8,20 @@ import { auth, firestore } from '../firebase';
 function ViewIndividualMPUI() {
     const {state} = useLocation();
     const {document} = state;
-
+    const [doc, setDoc] = useState([]);
+    React.useEffect(()=>{
+        const fetchData = async () =>{
+            firestore.collection("Medical Doctors").limit(1)
+            .where("Email","==",document.DocEmail)
+            .get()
+            .then(function(data){
+               console.log(data)
+               setDoc(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
+            }); 
+        };
+        fetchData();
+    },[])
+    const rec = {...doc[0]}
     return (
         <div>
             <Container className="d-flex align-items-center justify-content-center">
@@ -30,6 +43,13 @@ function ViewIndividualMPUI() {
                         defaultValue = {document.DateOfVisit} 
                         disabled = {true} 
                         type="date" required/>
+                    </Form.Group>
+                    <Form.Group id = "VisitDate">
+                    <Form.Label>Doctor Name</Form.Label>
+                    <Form.Control 
+                        defaultValue = {rec.Name} 
+                        disabled = {true} 
+                        type="text" required/>
                     </Form.Group>
                     <Form.Group id = "reason">
                     <Form.Label>Reason for Visit</Form.Label>

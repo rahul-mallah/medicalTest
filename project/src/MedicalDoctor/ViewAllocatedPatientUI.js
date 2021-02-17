@@ -47,7 +47,7 @@ function ViewAllocatedPatientUI() {
               console.log(data)
               setAppointments(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
           })
-          firestore.collection("Medical Doctors")
+          firestore.collection("Medical Doctors").limit(1)
          .where("Email", "==", String(currentUser.email))
          .get()
          .then(function(data){

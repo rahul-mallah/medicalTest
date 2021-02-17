@@ -11,7 +11,7 @@ function MAHomepageUI() {
     
     React.useEffect(()=>{
         const fetchData = async () =>{
-           firestore.collection("Medical Administrator")
+           firestore.collection("Medical Administrator").limit(1)
            .where("Email", "==", String(currentUser.email))
            .get()
            .then(function(data){
