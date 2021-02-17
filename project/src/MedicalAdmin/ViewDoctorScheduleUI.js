@@ -1,13 +1,12 @@
-import React, {useEffect, useState} from 'react'
-import {Form, Button, Card, Container} from 'react-bootstrap'
+import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import * as s from './ViewDoctorSchedule.styles';
 import ReactMultiSelectCheckboxes from "react-multiselect-checkboxes";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useAuth } from '../util/Auth';
 import {firestore } from '../firebase';
 import moment from 'moment';
+import IdleTimerContainer from '../util/IdleTimerContainer';
 
 function ViewDoctorScheduleUI()
 {
@@ -210,11 +209,32 @@ function ViewDoctorScheduleUI()
                               )
                }
 
+               else if (Date.parse(startDate) == Date.parse(currentDate))
+               {
+                  appList.push(<s.appCard>
+                     <h5> Patient: {tempAppointment[b].Patient} </h5>
+                     <p> Time Slot: {tempAppointment[b].Timeslot} </p>
+                     <Link to = {{pathname: '/MedAdm/Reschedule/', state:{appointment: tempAppointment[b]}}}>
+                     <s.resButton> Reschedule </s.resButton></Link>
+                     &nbsp; &nbsp; &nbsp; 
+
+                     <Link to = {{pathname: '/MedAdm/Cancel/', state:{appointment: tempAppointment[b]}}}>
+                     <s.resButton> Cancel </s.resButton></Link>
+                     &nbsp; &nbsp; &nbsp; 
+                     
+                     <Link to = {{pathname: '/MedAdm/Create/', state:{appointment: tempAppointment[b]}}}>
+                                 <s.resButton> Create Follow Up Appointment </s.resButton></Link>
+                  </s.appCard>
+                  )
+               }
+
                else 
                {
                   appList.push(<s.appCard>
                      <h5> Patient: {tempAppointment[b].Patient} </h5>
                      <p> Time Slot: {tempAppointment[b].Timeslot} </p>
+                     <Link to = {{pathname: '/MedAdm/Create/', state:{appointment: tempAppointment[b]}}}>
+                                 <s.resButton> Create Follow Up Appointment </s.resButton></Link>
                   </s.appCard>
                   )
                }
@@ -284,6 +304,7 @@ function ViewDoctorScheduleUI()
 
    return (
       <div>
+         <IdleTimerContainer></IdleTimerContainer>
          {/* department selection*/}
          <div style={{display:'inline-flex'}}>
             <s.headerLabel>Department:</s.headerLabel>

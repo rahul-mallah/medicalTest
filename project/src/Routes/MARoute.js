@@ -12,11 +12,11 @@ import CancelAppointmentUI from "../MedicalAdmin/CancelAppointmentUI";
 import MyProfilePageUI from "../User/myProfilePageUI";
 import ChangePasswordUI from "../MedicalAdmin/changePwUI";
 import ViewHealthArticleUI from '../User/ViewHealthArticleUI';
-import ViewArticle from "../components/ViewArticle/ViewArticle";
+import ViewArticle from "../components/ViewArticle/ViewArticleMedAdm";
 import EditArticle from "../components/EditArticle/EditArticle";
-import NewArticle from "../components/NewArticle/NewArticle";
+import NewArticle from "../components/NewArticle/NewArticleMedAdm";
 import ViewDoctorScheduleUI from "../MedicalAdmin/ViewDoctorScheduleUI";
-import createAppointmentUI from "../MedicalAdmin/createAppointmentUI";
+import CreateFollowUpUI from "../MedicalAdmin/CreateFollowUpUI"
 
 const MARoute = () =>
 {
@@ -57,11 +57,11 @@ const MARoute = () =>
             {/* // Cancel Appointment */}
             <MedAdmRoute exact path={`${path}/Cancel`} component={CancelAppointmentUI} role={user.Role}/>
 
-            // View Doctor to Patient
+            // View Doctor schedule
             <MedAdmRoute exact path={`${path}/Schedule`} component={ViewDoctorScheduleUI} role={user.Role}/>
 
-            // Create New Appointment
-            <MedAdmRoute exact path={`${path}/Schedule/createAppt`} component={createAppointmentUI} role={user.Role}/>
+            // Create Follow Up Appointment
+            <MedAdmRoute exact path={`${path}/Create`} component={CreateFollowUpUI} role={user.Role}/>
 
             // View Health Article
             <Route exact path={`${path}/ViewHealthArticle`} component={ViewHealthArticleUI}/>

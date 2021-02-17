@@ -5,6 +5,8 @@ import { auth, firestore } from '../firebase';
 import moment from 'moment';
 import PasswordStrengthIndicator from '../components/PasswordStrengthIndicator';
 import {useAuth} from '../util/Auth'
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
 function RegisterUI() {
 
@@ -50,6 +52,18 @@ function RegisterUI() {
       specialChar: null
    });
 
+   const submitCreateAlert = () => {
+      confirmAlert({
+        title: 'Congratulations!',
+        message: 'Your account has been created successfully.',
+        buttons: [
+          {
+            label: 'OK',
+          },
+        ]
+      });
+    };
+
    const onChangePassword = password =>
    {
       setPassword(password);
@@ -81,9 +95,6 @@ function RegisterUI() {
          setLoading(true);
          await signup(Email, Password) 
 
-         
-              
-
          firestore.collection('Users').add({
             FirstName: FirstName,
             LastName: LastName,
@@ -95,7 +106,7 @@ function RegisterUI() {
             Role: "Patient",
          })
          .then(() => {
-            alert("Account Registered Successfully!");
+            submitCreateAlert()
          })
 
          // send email to user

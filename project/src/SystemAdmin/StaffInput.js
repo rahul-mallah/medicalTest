@@ -4,15 +4,15 @@ import { Form, Button, Card, Alert, Container } from "react-bootstrap"
 import {Link, BrowserRouter} from 'react-router-dom';
 import * as admin from "firebase-admin";
 
-export const UserInput = (props) => {
-    
+export const StaffInput = (props) => {
+
     const [doctor, setDoctor] = useState([])
     const [user, setUser] = useState([])
 
     React.useEffect(()=>{
         const fetchData = async () =>{
            firestore.collection("Medical Doctors")
-           .where("Email", "==", String(props.users.Email))
+           .where("Email", "==", String(props.medicalStaff.Email))
            .get()
            .then(function(data){
               console.log(data)
@@ -20,7 +20,7 @@ export const UserInput = (props) => {
            }); 
 
            firestore.collection("Users")
-           .where("Email", "==", String(props.users.Email))
+           .where("Email", "==", String(props.medicalStaff.Email))
            .get()
            .then(function(data){
               console.log(data)
@@ -33,8 +33,8 @@ export const UserInput = (props) => {
      const doc = {...doctor[0]}
      const u = {...user[0]}
 
-     const onDelete = async (id1, id2) => {
-        await firestore.collection("Medical Staff").doc(props.users.id).delete()
+    const onDelete = async (id1, id2) => {
+        await firestore.collection("Medical Staff").doc(props.medicalStaff.id).delete()
         await firestore.collection("Medical Doctors").doc(id1).delete()
         await firestore.collection("Users").doc(id2).delete()
          .then(() => {
@@ -45,15 +45,13 @@ export const UserInput = (props) => {
 
 
     return (<>
-        {/* {<button onClick={onUpdateFirstName}>Update</button>} */}
         <div>
         <Link to = {{
             pathname: '/SysAdm/viewIndvAcc',
-            state: {user: props.users}
+            state: {user: props.medicalStaff}
         }}>
         
         
-
         <Button className = "btn btn-success">Edit</Button></Link>
         <button onClick={(e) => onDelete(doc.id, u.id)} class = "btn btn-danger">Delete</button>
         </div>

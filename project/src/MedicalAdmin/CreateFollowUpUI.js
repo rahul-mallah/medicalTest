@@ -9,7 +9,7 @@ import IdleTimerContainer from '../util/IdleTimerContainer';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
-function ResAppointmentUI() {
+function CreateFollowUPUI() {
     const {state} = useLocation();  //access doctor passed from link router
     const {appointment} = state;         // save appointment data from state
     const [appointments, setAppointments] = useState([]);  // save Appointment data from firestore in this array 
@@ -31,7 +31,7 @@ function ResAppointmentUI() {
            }); 
 
            firestore.collection("Users")
-           .where("Email", "==", String(currentUser.email))
+           .where("Email", "==", String(appointment.PatientEmail))
            .get()
            .then(function(data){
                 console.log(data)
@@ -59,9 +59,14 @@ function ResAppointmentUI() {
     }
 
     try{
-       await firestore.collection("Appointment").doc(appointment.id).update({
+        await firestore.collection("Appointment").add({
           Date : date,
           Timeslot: selectedSlot,
+          Doctor: doct.Name,
+          Patient: Users[0].FirstName + " " + Users[0].LastName,
+          PatientEmail: patient.Email,
+          DocEmail: doct.Email,
+          DocCreated: true
       })
       .then(() => {
           confirmReScheduleAlert()
@@ -76,7 +81,7 @@ function ResAppointmentUI() {
           email: currentUser.email,
           department: doct.Department
       };
-      let response = await fetch("http://localhost:5000/docReschedule", {
+      let response = await fetch("http://localhost:5000/book", {
           method: "POST",
           headers: {
               "Content-Type": "application/json;charset=utf-8"
@@ -111,6 +116,7 @@ function ResAppointmentUI() {
   // to filter timeslots for the doctor selected in bookAppoinemntUI 
   const doct = {...doctor[0]};
   const bookedTimeslots = [];
+  const patient = {...Users[0]};
   
   for(var j = 0; j < appointments.length; j++)
   {
@@ -133,7 +139,7 @@ function ResAppointmentUI() {
      const confirmReScheduleAlert = () => {
         confirmAlert({
           title: 'Congratulations!',
-          message: 'The appointment has been rescheduled successfully.',
+          message: 'The appointment has been scheduled successfully.',
           buttons: [
             {
               label: 'OK',
@@ -146,11 +152,12 @@ function ResAppointmentUI() {
         <div>
             <IdleTimerContainer></IdleTimerContainer>
             <div className="text-center">
+                <h2>Create Follow Up Appointment</h2>
+                <br/>
                 <Container className="d-flex align-items-center justify-content-center">
                 <div className="w-100" style={{maxWidth: "400px"}}>
                 <Card>
-                    <Card.Title>Reschedule Appointment</Card.Title>
-                    <Card.Title>Doctor</Card.Title>
+                    <Card.Title><br/>Doctor</Card.Title>
                     <Card.Img variant="top" src={doct.Image} />
                     <Card.Body>
                         <Card.Title>{doct.Name}</Card.Title>
@@ -162,6 +169,31 @@ function ResAppointmentUI() {
                 </div>
                 </Container>
             </div>
+
+            <br/>
+            <div className="text-center">
+                <Container className="d-flex align-items-center justify-content-center">
+                <div className="w-100" style={{maxWidth: "400px"}}>
+                <Card>
+                    <Card.Title><br/>Patient</Card.Title>
+                    <Card.Body>
+                        <Card.Title>{patient.FirstName + " " + patient.LastName}</Card.Title>
+                        <Card.Text>
+                            <b>Email: </b>
+                            {patient.Email}
+                            <br/>
+                            <b>Date of Birth: </b>
+                            {patient.DOB}
+                            <br/>
+                            <b>Telephone: </b>
+                            {patient.Telephone}
+                        </Card.Text>
+                    </Card.Body>
+                </Card> 
+                </div>
+                </Container>
+            </div>
+
             <Container className="d-flex align-items-center justify-content-center"
       style={{ minHeight: "50vh"}}>
           <div className="w-100 mt-3" style={{maxWidth: "400px"}}>
@@ -169,7 +201,6 @@ function ResAppointmentUI() {
              <Card.Body>
                  <Form onSubmit={handleSubmit}>
                  <Form.Group id = "date">
-                        <label class="note">Note: You will not be able to reschedule an appointment from the same day</label>
                         <Form.Label>Select A Date</Form.Label>
                         {error && <Alert variant="danger">{error}</Alert>}
                         <Form.Control 
@@ -193,9 +224,9 @@ function ResAppointmentUI() {
                 </Card.Body>
                 </Card>
                 </div>
-                </Container>
+            </Container>
         </div>
     )
 }
 
-export default ResAppointmentUI
+export default CreateFollowUPUI
