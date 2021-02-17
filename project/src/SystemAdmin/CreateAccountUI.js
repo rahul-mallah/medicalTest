@@ -5,7 +5,8 @@ import { auth, firestore, storageRef } from '../firebase';
 import PasswordStrengthIndicator from '../components/PasswordStrengthIndicator';
 import IdleTimerContainer from '../util/IdleTimerContainer'
 import { confirmAlert } from 'react-confirm-alert'; // Import
-import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import Select from 'react-select';
 
 function CreateAccountUI() {
 
@@ -14,64 +15,33 @@ function CreateAccountUI() {
    const [FirstName, setFirstName] = useState(""); 
    const [LastName, setLastName] = useState(""); 
    const [NRIC, setNRIC] = useState(""); 
-   const [Address, setAddress] = useState(""); 
-   const [DOB, setDOB] = useState(""); 
    const [Email, setEmail] = useState(""); 
-   const [Telephone, setTelephone] = useState(""); 
    const [Role, setRole] = useState("");
-   const [Password, setPassword] = useState(""); 
-   const [ConfirmPassword, setConfirmPassword] = useState(""); 
+   const [specialist, setSpecialist] = useState(""); 
+   const [information, setInformation] = useState(""); 
+   const [education, setEducation] = useState(""); 
+   const [department, setDepartment] = useState("");
+   const [disabled, setDisabled] = useState(true) 
+
+
    const [error, setError] = useState("");
    const [loading, setLoading] = useState(false);
-   const history = useHistory();
-
    const FNameRef = useRef();
    const LNameRef = useRef();
-   const NRICRef = useRef();
-   const AddressRef = useRef();
-   const DOBRef = useRef();
    const EmailRef = useRef();
-   const TelephoneRef = useRef();
-   const PasswordRef = useRef();
-   const ConfirmPasswordRef = useRef();
 
-   const RoleRef = useRef();
-
-   // Check Validity
-   const isNumber = /\d/;
-   const isSpecChar = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
-   const isLower = /[a-z]/;
-   const isUpper = /[A-Z]/;
-
-   const [passwordFocused, setPasswordFocused] = useState(false);
-   const [passwordValidity, setPasswordValidity] = useState ({
-      minChar: null,
-      lower: null,
-      upper: null,
-      number: null,
-      specialChar: null
-   });
+ 
+   
 
    const onFileChange = async (e) => {
       const file = e.target.files[0];
       const sRef = storageRef
-      const fileRef = sRef.child(file.name);
+      const fileRef = sRef.child("MedicalStaff/" + file.name);
       await fileRef.put(file);
       setFileUrl(await fileRef.getDownloadURL());
     };
     
 
-   const onChangePassword = password =>
-   {
-      setPassword(password);
-      setPasswordValidity({
-         minChar: password.length >=8 ? true : false,
-         lower: isLower.test(password) ? true : false,
-         upper: isUpper.test(password) ? true : false,
-         number: isNumber.test(password) ? true : false,
-         specialChar: isSpecChar.test(password) ? true : false
-      })
-   }
 
    const submitCreateAlert = () => {
       confirmAlert({
@@ -92,23 +62,10 @@ function CreateAccountUI() {
       if (Role === "" || Role === "Select A Role") {
          return setError("Not A Valid Role")
       }
-      
-      if(Password !== ConfirmPassword)
-      {
-         return setError("Passwords do not match")
-      }
-
-      if (passwordValidity.minChar == false || passwordValidity.lower == false || passwordValidity.upper == false || passwordValidity.number == false || passwordValidity.specialChar == false)
-      {
-         return setError("Password do not meet the requirement");
-      }
 
       try{
          setError("");
          setLoading(true);
-         await auth.createUserWithEmailAndPassword(Email, Password)
-
-         
          
          await firestore.collection('Users').add({
             FirstName: FirstName,
@@ -129,7 +86,11 @@ function CreateAccountUI() {
                Image: fileUrl,
                Name: FirstName + " " + LastName,
                Email: Email.toLowerCase(),
-               Role: Role
+               Role: Role,
+               Specialist: specialist,
+               Education: education,
+               Information: information,
+               Department: department
             })
             .then(() => {
                submitCreateAlert()
@@ -138,7 +99,6 @@ function CreateAccountUI() {
 
          if (Role === "Medical Admin"){
             await firestore.collection('Medical Administrator').add({
-               Image: fileUrl,
                Name: FirstName + " " + LastName,
                Email: Email.toLowerCase(),
                Role: Role
@@ -169,17 +129,30 @@ function CreateAccountUI() {
       setFirstName("");
       setLastName("");
       setNRIC("");
-      setAddress("");
-      setDOB("");
       setEmail("");
-      setTelephone("");
-      setPassword("");
-      setConfirmPassword("");
       setError("");
       setLoading(false);
-      setPasswordFocused(false);
       setRole("");
+      setDisabled(false);
       };
+
+      const departmentList = [
+         { label: 'General Practitioner (Non-specialist)', value: 'General Practitioner (Non-specialist)'},
+         { label: 'Anesthesiology', value: 'Anesthesiology' },
+         { label: 'Cardiology', value: 'Cardiology' },
+         { label: 'Dermatology', value: 'Dermatology'},
+         { label: 'Endocrinology', value: 'Endocrinology'},
+         { label: 'Gastroenterology', value: 'Gastroenterology'},
+         { label: 'Haematology', value: 'Haematology' },
+         { label: 'Immunology', value: 'Immunology'},
+         { label: 'Infectious Diseases', value: 'Infectious Diseases'},
+         { label: 'Neurology', value: 'Neurology'},
+         { label: 'Oncology', value: 'Oncology'},
+         { label: 'Orthopaedic', value: 'Orthopaedic'},
+         { label: 'Psychiatry', value: 'Psychiatry'},
+         { label: 'Rheumatology', value: 'Rheumatology'},
+         { label: 'Urology', value: 'Urology'},
+       ];
 
    return (
             <Container className="d-flex align-items-center justify-content-center"
@@ -225,16 +198,7 @@ function CreateAccountUI() {
                         onChange={(e) => setEmail(e.target.value)} 
                         type="email" required/>
                      </Form.Group>
-                     <Form.Group id = "Telephone">
-                        <Form.Label>Telephone</Form.Label>
-                        <Form.Control 
-                        ref={TelephoneRef}
-                        value={Telephone}
-                        onChange={(e) => setTelephone(e.target.value)}
-                        pattern = "[0-9]{8}"
-                        title = "Please enter 8 digits"
-                        type="invalid" required/>
-                     </Form.Group>
+               
 
                      <Form.Group id = "AccountType">
                         <Form.Label>Role</Form.Label>
@@ -245,32 +209,43 @@ function CreateAccountUI() {
                         <option>Medical Doctor</option>
                         <option>Medical Admin</option>
                      </select>
+                     {Role==="Medical Doctor"?(
+                        <div>
+                     <Form.Group id = "Specialist">
+                     <Form.Label>Specialist</Form.Label>
+                     <Form.Control 
+                     onChange={(e) => setSpecialist(e.target.value)}
+                     type="text" required/>
+                     </Form.Group>
+
+                     <Form.Group id = "Education">
+                     <Form.Label>Education</Form.Label>
+                     <Form.Control 
+                     onChange={(e) => setEducation(e.target.value)}
+                     type="text" required/>
+
+                     </Form.Group>
+                     <Form.Group id = "Information">
+                        <Form.Label>Information</Form.Label>
+                        <Form.Control 
+                        onChange={(e) => setInformation(e.target.value)}
+                        type="text" required/>
+                     </Form.Group>
+
+                     <Select options={departmentList}
+                     onChange = {(e)=> setDepartment(e.value)}
+                        />
+                     </div> 
+                                                              
+                     ):null}
+                    
 
                      <hr  style={{
                                 borderColor : '#000000',
                                 marginTop : '50px'
                             }}/>
-                     <Form.Group id = "Password">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control 
-                        ref={PasswordRef}
-                        value={Password}
-                        onFocus = {() => setPasswordFocused(true)}
-                        onChange={(e) => onChangePassword(e.target.value)} 
-                        type="password" required/>
-                     </Form.Group>
-                     <Form.Group id = "ConfirmPassword">
-                        <Form.Label>Confirm Password</Form.Label>
-                        <Form.Control 
-                        ref={ConfirmPasswordRef}
-                        value={ConfirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)} 
-                        type="password" required/>
-                     </Form.Group>
-
-                     { passwordFocused && <PasswordStrengthIndicator validity={passwordValidity}/>}
-
-                     <Button className="w-100" type="submit">Sign Up</Button>
+                     <Button className="w-100" type="submit">Create Account</Button>
+                     <Button disabled = {disabled} className="w-100 my-2" type="submit" target="_blank" href="https://console.firebase.google.com/u/0/project/myappointment-bb30e/authentication/users">Set Up Authentication</Button>
                  </Form>
              </Card.Body>
             </Card>
