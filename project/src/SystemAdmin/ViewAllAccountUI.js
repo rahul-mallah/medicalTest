@@ -1,6 +1,6 @@
 import React,{useState}  from 'react'
 import { firestore } from '../firebase';
-import { Container } from "react-bootstrap"
+import { Container, Card } from "react-bootstrap"
 import {UserInput} from './UserInput'
 import SearchBar from './searchBar';
 import DropDown from './dropDownBar';
@@ -85,7 +85,7 @@ function ViewAllAccountUI()
       
       <div className = "row">
          <div className = "col-md-12">
-           
+           <Card>
             <table className = "table table-borderless table-stripped">
                <thead className = "thead-light" >
                   <tr>
@@ -123,7 +123,7 @@ function ViewAllAccountUI()
                      ))}                                                                              
                </tbody>
             </table>
-            
+            </Card>
          </div>
          
       </div>

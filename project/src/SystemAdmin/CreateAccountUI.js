@@ -85,7 +85,7 @@ function CreateAccountUI() {
          return setError("Passwords do not match")
       }
 
-      if (passwordValidity.minChar == false || passwordValidity.lower == false || passwordValidity.upper == false || passwordValidity.number == false || passwordValidity.specialChar == false)
+      if (passwordValidity.minChar === false || passwordValidity.lower === false || passwordValidity.upper === false || passwordValidity.number === false || passwordValidity.specialChar === false)
       {
          return setError("Password do not meet the requirement");
       }
@@ -95,8 +95,6 @@ function CreateAccountUI() {
          setLoading(true);
          await auth.createUserWithEmailAndPassword(Email, Password)
 
-         
-         
          await firestore.collection('Users').add({
             FirstName: FirstName,
             LastName: LastName,
