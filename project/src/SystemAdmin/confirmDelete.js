@@ -104,18 +104,26 @@ function ConfirmDelete() {
           <div className="w-100" style={{maxWidth: "400px"}}>
           <Card>
              <Card.Body>
-                <Card.Title className= "text-center">Cancel Appointment</Card.Title>
+                <Card.Title className= "text-center">Confirm Delete</Card.Title>
                 <label class="note">The following account will be deleted from Database:</label>
                 {error && <Alert variant="danger">{error}</Alert>}
                  <Form onSubmit={handleSubmit} className="my-4">
-                 <Form.Group id = "date">
+                 <Form.Group id = "email">
                         <Form.Label className="my-2">Email</Form.Label>
                         <Form.Control 
                         defaultValue ={user.Email}
                         disabled = {true}
                         type="text" required/>
                   </Form.Group>
+                  <Form.Group id = "role">
+                        <Form.Label className="my-2">Role</Form.Label>
+                        <Form.Control 
+                        defaultValue ={user.Role}
+                        disabled = {true}
+                        type="text" required/>
+                  </Form.Group>
                 <Button className="w-100 my-2" type="submit">Delete</Button>
+                <Button className="w-100 my-2" type="submit" target="_blank" href="https://console.firebase.google.com/u/0/project/myappointment-bb30e/authentication/users">Delete Authentication</Button>
                 <Link to={'/SysAdm/viewAllAccount'}>
                     <Button className="w-100 my-2">Return</Button></Link>
                 </Form>
