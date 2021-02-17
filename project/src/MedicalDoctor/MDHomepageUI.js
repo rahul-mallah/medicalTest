@@ -67,6 +67,7 @@ function MDHomepageUI() {
                                 <div className="card-body">
                                     <h5 className="card-title">Educational</h5>
                                     <p className="card-text">Get your hands on the latest health educational materials and health promotions!</p>
+                                    <br/>
                                     <a onClick={() => {window.location.href="/MedDoc/ViewHealthArticle"}} className="btn btn-primary">View Post</a>
                                 </div>
                         </div>
