@@ -126,13 +126,7 @@ function CreateAccountUI() {
          return setError(error.message);
          
       }
-      setFirstName("");
-      setLastName("");
-      setNRIC("");
-      setEmail("");
-      setError("");
       setLoading(false);
-      setRole("");
       setDisabled(false);
       };
 
