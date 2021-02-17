@@ -59,11 +59,7 @@ function ViewAllAccountUI()
                    alignItems: "center"
                }}
          >
-<<<<<<< HEAD
-            <SearchBar handleChange={(e) => setSearch(e.target.value)} placeholder = "Enter E-mail address..."/>
-=======
             <SearchBar handleChange={(e) => setSearch(e.target.value)} placeholder = "Enter a user by Email..."/>
->>>>>>> 96cfe15183c18d349c78fd727643c74aeeec0d9b
          </div>
 
          {/* drop down */}
