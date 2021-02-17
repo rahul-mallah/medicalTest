@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const SidebarContainer = styled.div`
-    width: ${p => p.isSidebarClose ? '5%' : '50%'};
+    width: ${p => p.isSidebarClose ? '5%' : '15%'};
     min-width: 50px;
     color: #98AFC7;
     background-image: linear-gradient(

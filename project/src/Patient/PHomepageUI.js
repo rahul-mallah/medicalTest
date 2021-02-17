@@ -39,6 +39,7 @@ function PHomepageUI() {
                                 <div className="card-body">
                                     <h5 className="card-title">Medical Profile</h5>
                                     <p className="card-text">View your past medical visits, medical reports, bill receipts, medical prescriptions, Medical certificates and more!</p>
+                                    <br/>
                                     <a onClick={() => {window.location.href="/Patient/MedicalProfile"}} className="btn btn-primary">View Medical Profiles</a>
                                 </div>
                         </div>
@@ -61,6 +62,7 @@ function PHomepageUI() {
                             <div className="card-body">
                                 <h5 className="card-title">My Profile</h5>
                                 <p className="card-text">You can see all your profile details here. You may choose to edit your address and telephone number.</p>
+                                <br/>
                                 <a onClick={() => {window.location.href="/Patient/myProfile"}} className="btn btn-primary">View / Edit profile</a>
                             </div>
                         </div>
@@ -76,6 +78,7 @@ function PHomepageUI() {
                                 <div className="card-body">
                                     <h5 className="card-title">Educational</h5>
                                     <p className="card-text">Get your hands on the latest health educational materials and health promotions!</p>
+                                    <br/>
                                     <a onClick={() => {window.location.href="/Patient/ViewHealthArticle"}} className="btn btn-primary">View Post</a>
                                 </div>
                         </div>
