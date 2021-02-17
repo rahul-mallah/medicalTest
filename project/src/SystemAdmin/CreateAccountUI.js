@@ -126,32 +126,26 @@ function CreateAccountUI() {
          return setError(error.message);
          
       }
-      setFirstName("");
-      setLastName("");
-      setNRIC("");
-      setEmail("");
-      setError("");
       setLoading(false);
-      setRole("");
       setDisabled(false);
       };
 
       const departmentList = [
-         { label: 'General Practitioner (Non-specialist)', value: 'General Practitioner (Non-specialist)'},
-         { label: 'Anesthesiology', value: 'Anesthesiology' },
-         { label: 'Cardiology', value: 'Cardiology' },
-         { label: 'Dermatology', value: 'Dermatology'},
-         { label: 'Endocrinology', value: 'Endocrinology'},
-         { label: 'Gastroenterology', value: 'Gastroenterology'},
-         { label: 'Haematology', value: 'Haematology' },
-         { label: 'Immunology', value: 'Immunology'},
-         { label: 'Infectious Diseases', value: 'Infectious Diseases'},
-         { label: 'Neurology', value: 'Neurology'},
-         { label: 'Oncology', value: 'Oncology'},
-         { label: 'Orthopaedic', value: 'Orthopaedic'},
-         { label: 'Psychiatry', value: 'Psychiatry'},
-         { label: 'Rheumatology', value: 'Rheumatology'},
-         { label: 'Urology', value: 'Urology'},
+         { label: 'General Practitioner (Non-specialist) Level 1 Unit 01-1', value: 'General Practitioner (Non-specialist) Level 1 01-1'},
+         { label: 'Anesthesiology Level 2 Unit 02-1', value: 'Anesthesiology Level 1 Unit 02-1'},
+         { label: 'Cardiology Level 3 Unit 03-1', value: 'Cardiology Level 3 Unit 03-1' },
+         { label: 'Dermatology Level 4 Unit 04-1', value: 'Dermatology Level 4 Unit 04-1'},
+         { label: 'Endocrinology Level 5 Unit 05-1', value: 'Endocrinology Level 5 Unit 05-1'},
+         { label: 'Gastroenterology Level 6 Unit 06-1', value: 'Gastroenterology Level 6 Unit 06-1'},
+         { label: 'Haematology Level 7 Unit 07-1', value: 'Haematology Level 7 Unit 07-1' },
+         { label: 'Immunology Level 8 Unit 08-1', value: 'Immunology Level 8 Unit 08-1'},
+         { label: 'Infectious Diseases Level 9 Unit 09-1', value: 'Infectious Diseases Level 9 Unit 09-1'},
+         { label: 'Neurology Level 10 Unit 10-1', value: 'Neurology Level 10 Unit 10-1'},
+         { label: 'Oncology Level 11 Unit 11-1', value: 'Oncology Level 11 Unit 11-1'},
+         { label: 'Orthopaedic Level 12 Unit 12-1', value: 'Orthopaedic Level 12 Unit 12-1'},
+         { label: 'Psychiatry Level 13 Unit 13-1', value: 'Psychiatry Level 13 Unit 13-1'},
+         { label: 'Rheumatology Level 14 Unit 14-1', value: 'Rheumatology Level 14 Unit 14-1'},
+         { label: 'Urology Level 15 Unit 15-1', value: 'Urology Level 15 Unit 15-1'},
        ];
 
    return (
@@ -200,11 +194,13 @@ function CreateAccountUI() {
                      </Form.Group>
                
 
-                     <Form.Group id = "AccountType">
+                     <Form.Group className = "mb-0" id = "AccountType" style = {{
+                           marginTop: "1%",
+                     }}>
                         <Form.Label>Role</Form.Label>
                      </Form.Group>
 
-                     <select placeholder = "Select A Role" onChange = {(e)=> setRole(e.target.value)}>
+                     <select className = "my-3" placeholder = "Select A Role" onChange = {(e)=> setRole(e.target.value)}>
                         <option disabled = "disabled" selected = "selected">Select A Role</option>
                         <option>Medical Doctor</option>
                         <option>Medical Admin</option>
@@ -221,6 +217,8 @@ function CreateAccountUI() {
                      <Form.Group id = "Education">
                      <Form.Label>Education</Form.Label>
                      <Form.Control 
+                     as = "textarea"
+                     rows = {3}
                      onChange={(e) => setEducation(e.target.value)}
                      type="text" required/>
 
@@ -228,6 +226,8 @@ function CreateAccountUI() {
                      <Form.Group id = "Information">
                         <Form.Label>Information</Form.Label>
                         <Form.Control 
+                        as = "textarea"
+                        rows = {3}
                         onChange={(e) => setInformation(e.target.value)}
                         type="text" required/>
                      </Form.Group>
@@ -239,7 +239,6 @@ function CreateAccountUI() {
                                                               
                      ):null}
                     
-
                      <hr  style={{
                                 borderColor : '#000000',
                                 marginTop : '50px'

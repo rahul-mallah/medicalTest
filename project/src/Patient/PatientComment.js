@@ -96,7 +96,7 @@ function PatientComment(props) {
                 
                 <h1 className = "font" style = {{
                     fontSize: "70px"
-                }}>{avg.toFixed(1)}</h1>
+                }}>{avg?avg.toFixed(1):0}</h1>
 
             <div className = "star" style = {{
                 marginTop: "-1%"
@@ -110,8 +110,8 @@ function PatientComment(props) {
             </div>
             
             <div className = "row">
-            <img src = "https://www.flaticon.com/svg/vstatic/svg/3358/3358902.svg?token=exp=1612171347~hmac=e27f444ac60e2ba54cd07f70b1392594" style = {{
-                width: "20px",
+            <img src = "https://cdn2.iconfinder.com/data/icons/font-awesome/1792/user-512.png" style = {{
+                width: "40px",
                 colorAdjust: "#0069d9",
                 marginLeft: "1%"
                 

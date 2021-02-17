@@ -178,7 +178,7 @@ function ViewIndividualAccountUI() {
       { label: 'General Practitioner (Non-specialist) Level 1 Unit 01-1', value: 'General Practitioner (Non-specialist) Level 1 01-1'},
       { label: 'Anesthesiology Level 2 Unit 02-1', value: 'Anesthesiology Level 1 Unit 02-1'},
       { label: 'Cardiology Level 3 Unit 03-1', value: 'Cardiology Level 3 Unit 03-1' },
-      { label: 'Dermatology Level 4 Unit 04-1', value: 'Dermatology Level 4 Unit 01-1'},
+      { label: 'Dermatology Level 4 Unit 04-1', value: 'Dermatology Level 4 Unit 04-1'},
       { label: 'Endocrinology Level 5 Unit 05-1', value: 'Endocrinology Level 5 Unit 05-1'},
       { label: 'Gastroenterology Level 6 Unit 06-1', value: 'Gastroenterology Level 6 Unit 06-1'},
       { label: 'Haematology Level 7 Unit 07-1', value: 'Haematology Level 7 Unit 07-1' },
@@ -194,7 +194,6 @@ function ViewIndividualAccountUI() {
 
    return (
       <>
-      
       <div>
       <IdleTimerContainer></IdleTimerContainer>
             <Container className="d-flex align-items-center justify-content-center"
@@ -268,8 +267,6 @@ function ViewIndividualAccountUI() {
                         type="invalid" required/>
                      </Form.Group>
                      </div>
-                     
-                     
                      :null}
                      <Form.Group id = "Email">
                         <Form.Label>Email Address</Form.Label>
