@@ -51,7 +51,7 @@ function ViewPatientProfileUI() {
     })
 
     return (
-        <div>``
+        <div>
             <Container>
                 <Card>
                     <Card.Title as = "h3" className="text-center mt-3">Create Medical Records For Patient Seen</Card.Title>
