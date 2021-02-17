@@ -93,7 +93,7 @@ const MDRoute = () =>
             <Route path={`${path}/article/:id`} component={ViewArticle}/>
 
             {/* // Create New Health Post */}
-            <DoctorRoute path={`${path}/ViewHealthArticle/new-article`} component={NewArticle}/>
+            <DoctorRoute path={`${path}/ViewHealthArticle/new-article`} component={NewArticle} role = {user.Role}/>
 
             {/* // Edit Article */}
             <DoctorRoute path={`${path}/edit-article`} component={EditArticle}/>
