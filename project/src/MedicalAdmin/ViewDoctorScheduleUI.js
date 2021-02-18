@@ -7,6 +7,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import {firestore } from '../firebase';
 import moment from 'moment';
 import IdleTimerContainer from '../util/IdleTimerContainer';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
 function ViewDoctorScheduleUI()
 {
@@ -247,6 +249,18 @@ function ViewDoctorScheduleUI()
       appList.push(<hr/>)
    }
 
+   const submitReminderAlert = () => {
+      confirmAlert({
+        title: 'Congratulations!',
+        message: 'Reminder has been sent successfully.',
+        buttons: [
+          {
+            label: 'OK',
+          },
+        ]
+      });
+    };
+
 
    const sendReminder = async (e) =>
    {
@@ -292,7 +306,7 @@ function ViewDoctorScheduleUI()
                }
             }
          }
-         alert ("Reminder Send");
+         submitReminderAlert()
       }
 
       else
