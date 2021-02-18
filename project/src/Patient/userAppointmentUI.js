@@ -65,10 +65,8 @@ function UserAppointmentUI() {
     fetchData();
  }, [])
 
- const filteredAppointments = appointments.filter(app =>{
-    if(app.PatientEmail === currentUser.email)
-        return app;
- })
+ const filteredAppointments = appointments.filter(app => app.PatientEmail === currentUser.email)
+                                          .sort((a,b) => Date.parse(a.Date) > Date.parse(b.Date) ? 1 : -1)
 
  //filter upcoming
  const filterUpcoming = filteredAppointments.filter(app =>{
