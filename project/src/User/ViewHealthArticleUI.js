@@ -20,8 +20,9 @@ class ViewHealthArticleUI extends Component{
         this.getMyArticles()
     }
 
+
     getMyArticles = () =>{
-        firestore.collection("HealthArticles").limit(10).get().then(docs =>{
+        firestore.collection("HealthArticles").get().then(docs =>{
             if(!docs.empty){
                 let allArticles = []
                 docs.forEach(function(doc){
@@ -43,7 +44,11 @@ class ViewHealthArticleUI extends Component{
     }
 
     render() {
-        let filteredArticles = this.state.articles.filter(doc => {
+        
+        let sortedArticles = this.state.articles.sort((a, b) =>
+            new Date(b.createDate.toDate()) - new Date(a.createDate.toDate())
+        )
+        let filteredArticles = sortedArticles.filter(doc => {
             return doc.title.toLowerCase().includes(this.state.searchValue.toLowerCase())
         })
 
