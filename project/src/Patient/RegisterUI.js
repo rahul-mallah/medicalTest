@@ -7,6 +7,7 @@ import PasswordStrengthIndicator from '../components/PasswordStrengthIndicator';
 import {useAuth} from '../util/Auth'
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
+import IdleTimerContainer from '../util/IdleTimerContainer'
 
 function RegisterUI() {
 
@@ -148,6 +149,7 @@ function RegisterUI() {
             <Container className="d-flex align-items-center justify-content-center"
       style={{ minHeight: "100vh"}}>
           <div className="w-100" style={{maxWidth: "500px"}}>
+          <IdleTimerContainer></IdleTimerContainer>
             <Card>
              <Card.Body>
                  <h2 className= "text-center mb-4">Create your Account</h2>

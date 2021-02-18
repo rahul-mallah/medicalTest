@@ -1,9 +1,12 @@
 import React, {useState} from 'react'
+import { Form, Button, Card, Alert, Container } from "react-bootstrap"
 import './comment.css'
 import { useAuth } from '../util/Auth';
 import { firestore} from '../firebase';
 import StarRatings from 'react-star-ratings';
 import moment from 'moment';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
 function PatientComment(props) {
     const [comments, setComments] = useState([])
@@ -11,6 +14,18 @@ function PatientComment(props) {
     const {currentUser} = useAuth()
     const [users, setUsers] = useState([])
     const [rating, setRating] = useState(1)
+
+    const submitCommentAlert = () => {
+        confirmAlert({
+          title: 'Congratulations!',
+          message: 'Your comment has been posted successfully.',
+          buttons: [
+            {
+              label: 'OK',
+            },
+          ]
+        });
+      };
 
     React.useEffect(()=>{
         const fetchData = async () =>{
@@ -58,7 +73,7 @@ function PatientComment(props) {
                 date: moment(new Date()).format('MMMM Do YYYY')
             }
         ).then(() => {
-            alert("Posted successfully")
+            submitCommentAlert()
         })
         await firestore.collection("comments")
         .where("Email", "==", String(props.email))
@@ -90,6 +105,7 @@ function PatientComment(props) {
    
     return (
         <div className="d-flex align-items-center justify-content-center">
+            {users.map(user => 
             <div className = "comment-box">
                 
                 <h5>REVIEWS</h5>
@@ -119,24 +135,49 @@ function PatientComment(props) {
             <h5 className = "mt-2 ml-1">{comments.length} total</h5>
             </div>
             
-            
-
-                <form className = "comment-form">
+                <Form className = "comment-form" onSubmit = {submitComment}>
                     <div className = "comment-form-fields">
-                        <input placeholder = "Name" value = {user.FirstName + " " + user.LastName} disabled = {true } required>
-                        </input>
-                        <input placeholder = "Email" value = {currentUser.email} disabled = {true } required>
-                        </input>
-                        <textarea placeholder="Write a review here" rows = "4" onChange={(e) => setCurrentComments(e.target.value)} required>
-                        </textarea>
-                        <input placeholder = "Leave a rating here" type = "number" min = "1" max = "5" onChange={(e) => setRating(e.target.value)} required></input>
-                        <div className = "comment-form-actions">
-                            <button type = "submit" onClick = {submitComment}>
-                                Post Review
-                            </button>
-                        </div>
-                    </div>
-                </form>
+                    
+                    <Form.Group id = "Name">
+                        <Form.Control 
+                        defaultValue = {user.FirstName + " " + user.LastName} 
+                        disabled = {true} 
+                        required/>
+                     </Form.Group>
+                    
+                     <Form.Group id = "Email">
+                        <Form.Control 
+                        defaultValue = {currentUser.email} 
+                        disabled = {true} 
+                        required/>
+                     </Form.Group>
+
+                     <Form.Group id = "Write a review here">
+                        <Form.Control 
+                        as = "textarea"
+                        placeholder = "Write a review here"
+                        rows = {3}
+                        onChange={(e) => setCurrentComments(e.target.value)}
+                        disabled = {false} 
+                        required/>
+                     </Form.Group>
+
+                     <Form.Group id = "Leave a rating here">
+                        <Form.Control 
+                        placeholder = "Leave a rating here"
+                        type = "number"
+                        min = "1" 
+                        max = "5"
+                        pattern = "[1-5]"
+                        onChange={(e) => setRating(e.target.value)}
+                        disabled = {false} 
+                        required/>
+                     </Form.Group>
+                     
+                     <Button className="w-100" type="submit">Post Review</Button>
+                     </div>
+                </Form>
+
                 <h3>Reviews</h3>
                     {comments.length === 0 && (<h4 className = "comment-count"> No reviews yet </h4>)}
                     {comments.length !== 0 && (<h4 className = "comment-count"> {comments.length} reviews </h4> 
@@ -174,6 +215,7 @@ function PatientComment(props) {
                         </div>
                     </div>)}                            
             </div> 
+            )}
         </div>
     )
 }

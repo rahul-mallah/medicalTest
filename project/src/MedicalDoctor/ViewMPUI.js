@@ -55,19 +55,7 @@ function ViewMPUI() {
             assignedMedTests.push({...medDocs[i].LabTests[j]});
         }
     }
-
-    const MPAlert = () => {
-        confirmAlert({
-          title: 'Congratulations!',
-          message: 'Medical profile has been updated successfully.',
-          buttons: [
-            {
-              label: 'OK',
-            },
-          ]
-        });
-      };
-    
+  
     function onEdit(){
         setEditDisabled(true);
         setFieldsDisabled(false);

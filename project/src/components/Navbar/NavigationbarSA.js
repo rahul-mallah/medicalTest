@@ -55,8 +55,7 @@ const NaviBar = () => {
             <Navbar.Brand>My Appointment</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav"/>
               <Nav className="ml-auto">
-              {user.Role ? ( <Nav.Item><Nav.Link onClick={() => auth.signOut()}>Logout</Nav.Link></Nav.Item>): 
-              (<Nav.Item><Nav.Link onClick={() => deleteUser() }>Your Account has been deleted / disabled. Click here to exit</Nav.Link></Nav.Item>)}
+               <Nav.Item><Nav.Link onClick={() => auth.signOut()}>Logout</Nav.Link></Nav.Item>
               </Nav>
         </Navbar>
         </Styles>
