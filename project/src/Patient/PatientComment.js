@@ -5,6 +5,8 @@ import { useAuth } from '../util/Auth';
 import { firestore} from '../firebase';
 import StarRatings from 'react-star-ratings';
 import moment from 'moment';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
 function PatientComment(props) {
     const [comments, setComments] = useState([])
@@ -12,6 +14,18 @@ function PatientComment(props) {
     const {currentUser} = useAuth()
     const [users, setUsers] = useState([])
     const [rating, setRating] = useState(1)
+
+    const submitCommentAlert = () => {
+        confirmAlert({
+          title: 'Congratulations!',
+          message: 'Your comment has been posted successfully.',
+          buttons: [
+            {
+              label: 'OK',
+            },
+          ]
+        });
+      };
 
     React.useEffect(()=>{
         const fetchData = async () =>{
@@ -59,7 +73,7 @@ function PatientComment(props) {
                 date: moment(new Date()).format('MMMM Do YYYY')
             }
         ).then(() => {
-            alert("Posted successfully")
+            submitCommentAlert()
         })
         await firestore.collection("comments")
         .where("Email", "==", String(props.email))
@@ -91,6 +105,7 @@ function PatientComment(props) {
    
     return (
         <div className="d-flex align-items-center justify-content-center">
+            {users.map(user => 
             <div className = "comment-box">
                 
                 <h5>REVIEWS</h5>
@@ -122,6 +137,7 @@ function PatientComment(props) {
             
                 <Form className = "comment-form" onSubmit = {submitComment}>
                     <div className = "comment-form-fields">
+                    
                     <Form.Group id = "Name">
                         <Form.Control 
                         defaultValue = {user.FirstName + " " + user.LastName} 
@@ -199,6 +215,7 @@ function PatientComment(props) {
                         </div>
                     </div>)}                            
             </div> 
+            )}
         </div>
     )
 }
