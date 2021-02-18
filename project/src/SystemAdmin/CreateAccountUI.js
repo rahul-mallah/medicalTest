@@ -158,12 +158,14 @@ function CreateAccountUI() {
                  <h2 className= "text-center mb-4">Create Medical Staff Account</h2>
                  {error && <Alert variant="danger">{error}</Alert>}
                  <Form onSubmit={handleSubmit}>
+                 {Role==="Medical Doctor"?(
                  <Form.Group id = "Avatar">
                   <Form.Label>Upload Image</Form.Label>
                         <Form.Control 
                        onChange = {onFileChange}        
                      type="file"/>
                      </Form.Group>
+                 ):null}
                      <Form.Group id = "FirstName">
                         <Form.Label>First Name</Form.Label>
                         <Form.Control 
