@@ -21,7 +21,7 @@ class ViewHealthArticleUI extends Component{
     }
 
     getMyArticles = () =>{
-        firestore.collection("HealthArticles").get().then(docs =>{
+        firestore.collection("HealthArticles").limit(10).get().then(docs =>{
             if(!docs.empty){
                 let allArticles = []
                 docs.forEach(function(doc){

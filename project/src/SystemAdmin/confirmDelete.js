@@ -16,7 +16,7 @@ function ConfirmDelete() {
 
     React.useEffect(()=>{
         const fetchData = async () =>{
-           firestore.collection("Medical Doctors")
+           firestore.collection("Medical Doctors").limit(1)
            .where("Email", "==", String(user.Email))
            .get()
            .then(function(data){
@@ -24,7 +24,7 @@ function ConfirmDelete() {
                  setDoctor(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
            }); 
 
-           firestore.collection("Medical Staff")
+           firestore.collection("Medical Staff").limit(1)
            .where("Email", "==", String(user.Email))
            .get()
            .then(function(data){
@@ -32,7 +32,7 @@ function ConfirmDelete() {
               setMedStaff(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
            }); 
 
-           firestore.collection("Medical Administrator")
+           firestore.collection("Medical Administrator").limit(1)
            .where("Email", "==", String(user.Email))
            .get()
            .then(function(data){
@@ -90,7 +90,6 @@ function ConfirmDelete() {
                     deleteAccountAlert();
                 })
             }
-            history.push("/SysAdm/viewAllAccount");
         }
         catch(error)
         {

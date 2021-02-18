@@ -37,7 +37,7 @@ function CreateMedicalRecord() {
     const cancelAppointmentAlert = () => {
         confirmAlert({
           title: 'Congratulations!',
-          message: 'Your appointment has been cancelled successfully.',
+          message: 'Medical Record Successfully Created.',
           buttons: [
             {
               label: 'OK',
