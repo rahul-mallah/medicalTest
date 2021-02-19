@@ -122,6 +122,7 @@ function ViewDoctorScheduleUI()
 
    // Retrieve Data from Firebase
    useEffect(() => {
+      //data is fetched on render
       const fetchData = async () => {
          firestore.collection("Appointment")
          .get()

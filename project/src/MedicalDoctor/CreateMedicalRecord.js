@@ -22,6 +22,7 @@ function CreateMedicalRecord() {
     const [medRec, setMedRec] = useState([]);
 
     React.useEffect(()=>{
+        //fetch this data on render
         const fetchData = async () =>{
             firestore.collection("Medical Records")
             .where("PatientEmail","==",String(md.PatientEmail))
@@ -34,6 +35,7 @@ function CreateMedicalRecord() {
         fetchData();
     },[])
     
+    //alert message
     const cancelAppointmentAlert = () => {
         confirmAlert({
           title: 'Congratulations!',
@@ -48,6 +50,7 @@ function CreateMedicalRecord() {
 
     const rec = {...medRec[0]};
 
+    //function creates and saves medical record data in firebase
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");

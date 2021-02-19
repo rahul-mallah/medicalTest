@@ -16,6 +16,7 @@ function CancelAppointmentUI() {
     const history = useHistory();
     const [patient, setPatient] = useState([]);
 
+    // alert message
     const cancelAppointmentAlert = () => {
         confirmAlert({
           title: 'Congratulations!',
@@ -34,6 +35,7 @@ function CancelAppointmentUI() {
     setError("");
 
     try{
+       //delete document from firebase
        await firestore.collection("Appointment").doc(appointment.id).delete()
        .then(() => {
           cancelAppointmentAlert()

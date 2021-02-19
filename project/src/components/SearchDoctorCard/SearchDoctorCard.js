@@ -9,6 +9,7 @@ export function timeStampToString(ts) {
 }
 
 const ArticleCard = (props) => { 
+   // display doctor card
    return(
       <Card className={classes.ArticleCard}>
          <Link to = {{

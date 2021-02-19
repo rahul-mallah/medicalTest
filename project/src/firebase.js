@@ -5,13 +5,13 @@ import 'firebase/storage';
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyD2kW0OTo9IS7ImFWOQxK2lPaI8yp-N8Xs",
-    authDomain: "myappointment-bb30e.firebaseapp.com",
-    projectId: "myappointment-bb30e",
-    storageBucket: "myappointment-bb30e.appspot.com",
-    messagingSenderId: "1043169572852",
-    appId: "1:1043169572852:web:c41f169fd7b310a9602ba1",
-    measurementId: "G-FKX22C5QHR"
+    apiKey: process.env.REACT_APP_api_key,
+    authDomain: process.env.REACT_APP_auth_domain,
+    projectId: process.env.REACT_APP_project_Id,
+    storageBucket: process.env.REACT_APP_storage_Bucket,
+    messagingSenderId: process.env.REACT_APP_messagingSender_Id,
+    appId: process.env.REACT_APP_app_Id,
+    measurementId: process.env.REACT_APP_measurement_Id
   };
 
 

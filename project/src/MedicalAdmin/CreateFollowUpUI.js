@@ -22,6 +22,7 @@ function CreateFollowUPUI() {
     const history = useHistory();
 
     React.useEffect(()=>{
+        //fetch all data from firebase
         const fetchData = async () =>{
            firestore.collection("Appointment")
            .get()

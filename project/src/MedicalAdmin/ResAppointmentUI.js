@@ -22,6 +22,7 @@ function ResAppointmentUI() {
     const history = useHistory();
 
     React.useEffect(()=>{
+        //data is fetched on render
         const fetchData = async () =>{
            firestore.collection("Appointment")
            .get()

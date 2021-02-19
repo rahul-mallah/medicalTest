@@ -21,6 +21,7 @@ function CreateMC() {
     const sigCanvas = useRef({});
     
     React.useEffect(()=>{
+        //data is fetched here on render
         const fetchData = async () =>{
             firestore.collection("Medical Doctors").limit(1)
             .where("Email","==",appointment.DocEmail)
@@ -40,13 +41,12 @@ function CreateMC() {
         fetchData()
     },[])
 
-    
-
     const doctor = {...doc[0]};
-    const clear = () => sigCanvas.current.clear();
-    let img = doctor.Signature
+    const clear = () => sigCanvas.current.clear();  // clear signature on canvas
+    let img = doctor.Signature                      // store current signature if it exists
 
     const save = () => {
+        // saves signature signed on canvas
         setImageURL(sigCanvas.current.getTrimmedCanvas().toDataURL("image/png"));
         img = imageURL
     }
@@ -56,6 +56,7 @@ function CreateMC() {
     endDate.setDate(endDate.getDate() + (noOfDays-1));
 
     const saveToDataBase = async () => {
+        //updates signature in the database
         await firestore.collection("Medical Doctors").doc(doctor.id).update({
             Signature: imageURL
         })
@@ -67,6 +68,7 @@ function CreateMC() {
     }
 
     const saveMC = async () => {
+        // saves MC data in the database 
         await firestore.collection("Medical Documents").doc(document[0].id).update({
             MedicalCertificate : noOfDays,
             MCStartDate : moment(startDate).format("DD/MM/YYYY"),

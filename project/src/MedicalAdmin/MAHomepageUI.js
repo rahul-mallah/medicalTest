@@ -8,6 +8,7 @@ function MAHomepageUI() {
     const { currentUser } = useAuth();
 
     const [medAdmin, setMedAdmin] = useState([]); 
+    //upon logging in user data is fecthed in React.useEffect and displayed in return 
     
     React.useEffect(()=>{
         const fetchData = async () =>{

@@ -27,6 +27,7 @@ const NaviBar = () => {
 
   const {currentUser} = useAuth()
   const [users, setUsers] = useState([])
+  //fetch user data
   React.useEffect(()=>{
       const fetchData = async () =>{
          firestore.collection("Users")
