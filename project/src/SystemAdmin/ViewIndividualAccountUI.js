@@ -150,21 +150,6 @@ function ViewIndividualAccountUI() {
                submitUpdateAlert()
             })
          }
-
-         // send email to user
-         let details = {
-            email: Email.toLowerCase(),
-            user: FirstName + " " + LastName
-         };
-         let response = await fetch("http://localhost:5000/createAcc", {
-            method: "POST",
-            headers: {
-               "Content-Type": "application/json;charset=utf-8"
-            },
-            body: JSON.stringify(details)
-         });
-         let result = await response.json();
-         console.log(result.status);
       } catch(error){
          return setError(error.message); 
       }
