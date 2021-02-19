@@ -9,6 +9,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import IdleTimerContainer from '../util/IdleTimerContainer';
 
 function DocRescheduleUI() {
+    // react hooks
     const {state} = useLocation()
     const {appointment} = state
     const history = useHistory();
@@ -19,7 +20,9 @@ function DocRescheduleUI() {
     const [date, setDate] = useState("");                  // to save patient selected date
     const [error, setError] = useState("");                // store error message
     const [doctor, setDoctor] = useState([]);
+    let URI = process.env.NODE_ENV === 'development' ? process.env.REACT_APP_DEV_URI : process.env.REACT_APP_PROD_URI;
 
+    // feteches data on render
     React.useEffect(()=>{
         const fetchData = async () =>{
            firestore.collection("Appointment")
@@ -39,6 +42,7 @@ function DocRescheduleUI() {
         fetchData();
      }, [])
 
+     // alert box
      const resAppointmentAlert = () => {
         confirmAlert({
           title: 'Congratulations!',
@@ -53,6 +57,8 @@ function DocRescheduleUI() {
 
      const doct = {...doctor[0]}
 
+     // handle submit function updates reschedule in firebase and
+     // sends email to user
      const handleSubmit = async(e) => {
         e.preventDefault();
       setError("");
@@ -79,7 +85,7 @@ function DocRescheduleUI() {
             email: appointment.PatientEmail,
             department: doct.Department
         };
-        let response = await fetch("http://localhost:5000/docReschedule", {
+        let response = await fetch(URI+"/docReschedule", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json;charset=utf-8"

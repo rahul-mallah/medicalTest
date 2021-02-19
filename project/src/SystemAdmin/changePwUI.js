@@ -4,12 +4,14 @@ import { useAuth } from '../util/Auth';
 import { Link } from "react-router-dom"
 
 export default function ChangePasswordUI() {
+  // react hooks
     const emailRef = useRef("");
     const { resetPassword } = useAuth("")
     const [error, setError] = useState("")
     const [message, setMessage] = useState("")
     const [loading, setLoading] = useState(false)
   
+    //handle submit function resets password by calling firestore reset function
     async function handleSubmit(e) {
       e.preventDefault()
   

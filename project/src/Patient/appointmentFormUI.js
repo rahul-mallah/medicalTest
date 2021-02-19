@@ -7,6 +7,7 @@ import {useRouteMatch} from 'react-router-dom';
 
 function AppointmentFormUI() {
 
+   // usestates
    const [FirstName, setFirstName] = useState(""); 
    const [LastName, setLastName] = useState(""); 
    const [NRIC, setNRIC] = useState(""); 
@@ -25,6 +26,7 @@ function AppointmentFormUI() {
 
    const {path} = useRouteMatch();
 
+   //fetch data upon rendering
    React.useEffect(()=>{
       const fetchData = async () =>{
          firestore.collection("Users").limit(1)

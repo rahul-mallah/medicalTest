@@ -11,6 +11,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import IdleTimerContainer from '../util/IdleTimerContainer';
 
 function ViewMPUI() {
+    //react hooks
     const {state} = useLocation();
     const {appointment} = state;
     //usestates
@@ -27,6 +28,7 @@ function ViewMPUI() {
 
     const {path} = useRouteMatch();
 
+    // fetches data on render
     React.useEffect(()=>{
         const fetchData = async () =>{
             firestore.collection("Medical Documents")
@@ -44,6 +46,8 @@ function ViewMPUI() {
     const assignedMed = [];
     const assignedMedTests = []
 
+    // loops through array of prescriptions and medical test set by doctor
+    // and store it in array declared above
     for(var i = 0; i < medDocs.length; i++)
     {
         for(var j = 0; j < medDocs[i].prescriptions.length; j++)
@@ -67,6 +71,8 @@ function ViewMPUI() {
         setMedTests(document.LabTests.map(md => ({...md})));
     }
 
+    // handle submit function has patient document to firebase
+    // also calculates receipt data on before submitting data
     const handleSubmit = async (e) => {
         e.preventDefault();
         let pFees = 0, tFees = 0;

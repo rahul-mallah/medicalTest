@@ -5,6 +5,7 @@ import { useAuth } from '../util/Auth';
 
 export const CommentInput = (props) => {
 
+    //react hooks
     const history = useHistory()
     const {currentUser} = useAuth()
 

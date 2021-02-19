@@ -2,6 +2,7 @@ import React from 'react'
 import { Form, Button, Card, Alert, Container } from "react-bootstrap";
 import moment from 'moment';
 
+// displays real time MC by receiving props 
 function MC(props) {
     return (
         <div className="text-center">

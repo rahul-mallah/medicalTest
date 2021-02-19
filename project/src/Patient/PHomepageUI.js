@@ -5,10 +5,11 @@ import IdleTimerContainer from '../util/IdleTimerContainer'
 
 
 function PHomepageUI() {
+    //react hooks
     const { currentUser } = useAuth();
-
     const [Users, setUsers] = useState([]); 
 
+    //fetches data on render
     React.useEffect(()=>{
         const fetchData = async () =>{
            firestore.collection("Users").limit(1)

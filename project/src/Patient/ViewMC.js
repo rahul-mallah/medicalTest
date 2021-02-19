@@ -6,9 +6,12 @@ import IdleTimerContainer from '../util/IdleTimerContainer';
 
 
 function ViewMC() {
+    //react hooks
     const {state} = useLocation();
     const {document} = state;
     const [doc, setDoc] = useState([]);
+
+    //fetches data on render
     React.useEffect(()=>{
         const fetchData = async () =>{
             firestore.collection("Medical Doctors").limit(1)
@@ -21,6 +24,7 @@ function ViewMC() {
         };
         fetchData();
     },[])
+
     const doctor = {...doc[0]};
     return (
         <div className="text-center">

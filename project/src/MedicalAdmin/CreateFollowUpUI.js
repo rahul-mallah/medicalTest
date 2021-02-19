@@ -10,6 +10,7 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
 function CreateFollowUPUI() {
+    //react hooks
     const {state} = useLocation();  //access doctor passed from link router
     const {appointment} = state;         // save appointment data from state
     const [appointments, setAppointments] = useState([]);  // save Appointment data from firestore in this array 
@@ -20,7 +21,9 @@ function CreateFollowUPUI() {
     const [doctor, setDoctor] = useState([]);               // store doctor data
     const { currentUser } = useAuth();
     const history = useHistory();
+    let URI = process.env.NODE_ENV === 'development' ? process.env.REACT_APP_DEV_URI : process.env.REACT_APP_PROD_URI;
 
+    // fetches data on render
     React.useEffect(()=>{
         //fetch all data from firebase
         const fetchData = async () =>{
@@ -50,7 +53,7 @@ function CreateFollowUPUI() {
         fetchData();
      }, [])
 
-      //handle submit
+      //handle submit function add booked appointment data to firebase
    const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -82,7 +85,7 @@ function CreateFollowUPUI() {
           email: currentUser.email,
           department: doct.Department
       };
-      let response = await fetch("http://localhost:5000/book", {
+      let response = await fetch(URI+"/book", {
           method: "POST",
           headers: {
               "Content-Type": "application/json;charset=utf-8"

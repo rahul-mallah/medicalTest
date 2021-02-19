@@ -5,12 +5,14 @@ import { Link } from "react-router-dom";
 import IdleTimerContainer from '../util/IdleTimerContainer';
 
 export default function ChangePasswordUI() {
+    //react hooks
     const emailRef = useRef("");
     const { resetPassword } = useAuth("")
     const [error, setError] = useState("")
     const [message, setMessage] = useState("")
     const [loading, setLoading] = useState(false)
   
+    // handle submit function calls reset password function of firebase
     async function handleSubmit(e) {
       e.preventDefault()
   

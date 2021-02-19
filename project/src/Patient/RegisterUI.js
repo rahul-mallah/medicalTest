@@ -24,6 +24,7 @@ function RegisterUI() {
    const [error, setError] = useState("");
    const [loading, setLoading] = useState(false);
    const history = useHistory();
+   let URI = process.env.NODE_ENV === 'development' ? process.env.REACT_APP_DEV_URI : process.env.REACT_APP_PROD_URI;
 
    const FNameRef = useRef();
    const LNameRef = useRef();
@@ -115,7 +116,7 @@ function RegisterUI() {
             email: Email.toLowerCase(),
             user: FirstName + " " + LastName
          };
-         let response = await fetch("http://localhost:5000/createAcc", {
+         let response = await fetch(URI+"/createAcc", {
             method: "POST",
             headers: {
                "Content-Type": "application/json;charset=utf-8"

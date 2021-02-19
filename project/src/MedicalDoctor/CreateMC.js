@@ -11,6 +11,7 @@ import { auth, firestore, storageRef } from '../firebase';
 import IdleTimerContainer from '../util/IdleTimerContainer';
 
 function CreateMC() {
+    // react hooks
     const{state} = useLocation();
     const{appointment} = state;
     const[noOfDays, setNoOfDays] = useState(1);
@@ -20,6 +21,7 @@ function CreateMC() {
     const history = useHistory();
     const sigCanvas = useRef({});
     
+    // fetches data on render
     React.useEffect(()=>{
         //data is fetched here on render
         const fetchData = async () =>{
@@ -51,6 +53,7 @@ function CreateMC() {
         img = imageURL
     }
     
+    // setup mc data
     const startDate = new Date();
     const endDate = new Date(startDate);
     endDate.setDate(endDate.getDate() + (noOfDays-1));

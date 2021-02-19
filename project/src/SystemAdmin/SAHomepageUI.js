@@ -6,11 +6,11 @@ import { firestore, auth } from '../firebase';
 import IdleTimerContainer from '../util/IdleTimerContainer'
 
 function SAHomePageUI() {
-
+    //react hooks
     const { currentUser } = useAuth();
-
     const [Users, setUsers] = useState([]); 
 
+    //fecthes data on render
     React.useEffect(()=>{
         const fetchData = async () =>{
            firestore.collection("Users").limit(1)

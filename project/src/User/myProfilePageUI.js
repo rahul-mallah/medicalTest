@@ -10,6 +10,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
 function MyProfilePageUI() {
 
+   // react hooks
    const [FirstName, setFirstName] = useState(""); 
    const [LastName, setLastName] = useState(""); 
    const [NRIC, setNRIC] = useState(""); 
@@ -29,6 +30,7 @@ function MyProfilePageUI() {
 
    const {path} = useRouteMatch();
 
+   //fetches data on render
    React.useEffect(()=>{
       const fetchData = async () =>{
          firestore.collection("Users").limit(1)
@@ -56,7 +58,7 @@ function MyProfilePageUI() {
    }
 
   
-
+   //alert message
    const submitUpdate = () => {
       confirmAlert({
         title: 'Congratulations!',
@@ -69,7 +71,7 @@ function MyProfilePageUI() {
       });
     };
 
-   //handle submit
+   //handle submit function updates use profile data in the database
    const handleSubmit = async (e) => {
       e.preventDefault();
       

@@ -6,6 +6,8 @@ import {Container} from 'react-bootstrap'
 
 Modal.setAppElement('#root')
 
+// this is count down timer to monitor users activity
+// if user stays idle while logged in the counter automatically logs the user out
 function IdleTimerContainer(){
     const [modalIsOpen, setModalIsOpen] = useState(false) 
     const idleTimerRef = useRef(null)

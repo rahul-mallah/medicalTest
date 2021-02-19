@@ -4,7 +4,7 @@ import { auth, firestore } from '../firebase';
 import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../util/Auth';
 function LoginUI() {
-    //useStates
+    //useStates react hooks
     const [Email, setEmail] = useState("");
     const [Password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -14,6 +14,7 @@ function LoginUI() {
     const [users, setUsers] = useState([]);
     const {currentUser} = useAuth();
 
+    //handle submit function logs user in by calling the firebase login function
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {

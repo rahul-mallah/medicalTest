@@ -5,9 +5,12 @@ import {firestore } from '../firebase';
 import IdleTimerContainer from '../util/IdleTimerContainer';
 
 function ViewReceipt() {
+    //react hooks
     const {state} = useLocation();
     const {document} = state;
     const [doc, setDoc] = useState([]);
+
+    //fetches data on render
     React.useEffect(()=>{
         const fetchData = async () =>{
             firestore.collection("Medical Doctors").limit(1)
@@ -20,9 +23,12 @@ function ViewReceipt() {
         };
         fetchData();
     },[])
+
     const doctor = {...doc[0]};
+    // perform receipt calculation
     const gst = (document.consultFee+document.prescriptionFee+document.testFee)*0.07
     const grandTotal = (document.consultFee+document.prescriptionFee+document.testFee)+gst
+
     return (
         <div>
             <IdleTimerContainer></IdleTimerContainer>

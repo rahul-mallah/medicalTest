@@ -9,12 +9,14 @@ import IdleTimerContainer from '../util/IdleTimerContainer';
 
 function BookAppointmentUI() {
 
+   //usestates
     const {state} = useLocation();
     const {doctor} = state;
     const {currentUser} = useAuth();
     const [Users, setUsers] = useState([]);
     const [error, setError] = useState("");
 
+    //fetch data upon rendering
     React.useEffect(()=>{
         const fetchData = async () =>{
            firestore.collection("Users").limit(1)

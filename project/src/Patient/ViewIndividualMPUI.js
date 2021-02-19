@@ -9,6 +9,7 @@ function ViewIndividualMPUI() {
     const {state} = useLocation();
     const {document} = state;
     const [doc, setDoc] = useState([]);
+    
     React.useEffect(()=>{
         const fetchData = async () =>{
             firestore.collection("Medical Doctors").limit(1)

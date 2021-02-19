@@ -6,9 +6,11 @@ import { firestore } from '../firebase';
 import IdleTimerContainer from '../util/IdleTimerContainer';
 
 function ViewMyMPUI() {
+   //react hooks
    const {currentUser} = useAuth();
    const [medDocs, setMedDocs] = useState([]);
 
+   //fetches data on render
    React.useEffect(()=>{
       const fetchData = async () =>{
          firestore.collection("Medical Documents")

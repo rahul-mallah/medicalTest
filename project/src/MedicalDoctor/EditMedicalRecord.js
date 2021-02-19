@@ -7,6 +7,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import IdleTimerContainer from '../util/IdleTimerContainer';
 
 function EditMedicalRecord() {
+    //react hooks
     const {state} = useLocation()
     const {md} = state
     const history = useHistory();
@@ -35,6 +36,7 @@ function EditMedicalRecord() {
         setVitals(md.Vitals);
     }
 
+    // alert box
     const medicalRecordUpdatedAlert = () => {
         confirmAlert({
           title: 'Congratulations!',
@@ -47,6 +49,7 @@ function EditMedicalRecord() {
         });
       };
 
+      // handle submit function updates medical records data in the firebase
     const handleSubmit = async (e) => {
         e.preventDefault();
         try{

@@ -6,6 +6,7 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 function ConfirmDelete() {
+    //react hooks
     const [error, setError] = useState("");     // store error message
     const {state} = useLocation();              // access appointment passed from link router
     const {user} = state;                // save appointment data from state
@@ -14,6 +15,7 @@ function ConfirmDelete() {
     const [medStaff, setMedStaff] = useState([])
     const [medAdm, setMedAdm] = useState([]);
 
+    //fetches data on render
     React.useEffect(()=>{
         const fetchData = async () =>{
            firestore.collection("Medical Doctors").limit(1)
@@ -43,6 +45,7 @@ function ConfirmDelete() {
         fetchData();
      }, [])
 
+     //alert message
      const deleteAccountAlert = () => {
         confirmAlert({
           title: 'Deleted!',
@@ -59,7 +62,7 @@ function ConfirmDelete() {
      const ms = {...medStaff[0]}
      const ma = {...medAdm[0]}
 
-    //handle submit
+    //handle submit function deletes user account from firestore collection
    const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");

@@ -6,9 +6,11 @@ import * as admin from "firebase-admin";
 
 export const StaffInput = (props) => {
 
+    //react hooks
     const [doctor, setDoctor] = useState([])
     const [user, setUser] = useState([])
 
+    //fetches data on render
     React.useEffect(()=>{
         const fetchData = async () =>{
            firestore.collection("Medical Doctors").limit(1)
@@ -32,17 +34,6 @@ export const StaffInput = (props) => {
 
      const doc = {...doctor[0]}
      const u = {...user[0]}
-
-    const onDelete = async (id1, id2) => {
-        await firestore.collection("Medical Staff").doc(props.medicalStaff.id).delete()
-        await firestore.collection("Medical Doctors").doc(id1).delete()
-        await firestore.collection("Users").doc(id2).delete()
-         .then(() => {
-            alert("User has been deleted Successfully!");
-            window.location.reload();
-         })
-    }
-
 
     return (<>
         <div>

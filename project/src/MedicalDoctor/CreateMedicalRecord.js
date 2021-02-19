@@ -7,11 +7,12 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import IdleTimerContainer from '../util/IdleTimerContainer';
 
 function CreateMedicalRecord() {
+    // react hooks
     const {state} = useLocation()
     const {md} = state
     const history = useHistory();
 
-    //useStates
+    //useStates 
     const [allergies, setAllergies] = useState("");
     const [demographics, setDemographics] = useState("");
     const [diagnoses, setDiagnoses] = useState("");

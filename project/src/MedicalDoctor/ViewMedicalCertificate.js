@@ -5,10 +5,13 @@ import { auth, firestore } from '../firebase';
 import moment from 'moment';
 
 function ViewMedicalCertificate() {
+    // react hooks
     const {state} = useLocation();
     const {appointment} = state;
     const [medDocs, setMedDocs] = useState([]);
     const [doc, setDoc] = useState([]);
+
+    // fetches data on render
     React.useEffect(()=>{
         const fetchData = async () =>{
             firestore.collection("Medical Documents")
@@ -28,6 +31,7 @@ function ViewMedicalCertificate() {
         };
         fetchData();
     },[])
+    
     const document = {...medDocs[0]};
     const doctor = {...doc[0]};
 

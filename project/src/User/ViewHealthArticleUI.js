@@ -16,11 +16,12 @@ class ViewHealthArticleUI extends Component{
         }
     }
 
+    // fetches data on render equivalent to react useeffect
     componentDidMount(){
         this.getMyArticles()
     }
 
-
+    //stores fetched data in array
     getMyArticles = () =>{
         firestore.collection("HealthArticles").get().then(docs =>{
             if(!docs.empty){
@@ -45,9 +46,11 @@ class ViewHealthArticleUI extends Component{
 
     render() {
         
+        // sorts articles by order of date created
         let sortedArticles = this.state.articles.sort((a, b) =>
             new Date(b.createDate.toDate()) - new Date(a.createDate.toDate())
         )
+        // filters sorted articles by search field text
         let filteredArticles = sortedArticles.filter(doc => {
             return doc.title.toLowerCase().includes(this.state.searchValue.toLowerCase())
         })

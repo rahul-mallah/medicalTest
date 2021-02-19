@@ -6,12 +6,14 @@ import {firestore } from '../firebase';
 import { useAuth } from "../util/Auth"
 
 function ViewPatientProfileUI() {
+    //react hooks
     const { currentUser } = useAuth();
     const [patients, setPatients] = useState([]); 
     const [PatientRecs, setPatientRecs] = useState([]);
     const [createSearchVal, setCreateSearchVal] = useState("");
     const [viewSearchVal, setViewSearchVal] = useState("");
 
+    // fetches data on render
     React.useEffect(()=>{
         const fetchData = async () =>{
            firestore.collection("Medical Documents")
@@ -35,6 +37,7 @@ function ViewPatientProfileUI() {
     const arr = []
     const obj = {}
 
+    // get unique patients
     for(const string of patients){
         if(!obj[string.PatientEmail]){
             arr.push(string)
@@ -42,10 +45,12 @@ function ViewPatientProfileUI() {
         }
     }
 
+    // filter patient based on serch field text
     let filteredArr = arr.filter(doc =>{
         return doc.Patient.toLowerCase().includes(createSearchVal)
     })
 
+    // filter patient rec based on search field text
     let filteredRec = PatientRecs.filter(doc =>{
         return doc.Patient.toLowerCase().includes(viewSearchVal)
     })

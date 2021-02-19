@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import { Route, Redirect } from "react-router-dom"
 import {useAuth} from "../util/Auth"
 
+// this route is for patient that has been already been authenticated
 function PatientRoute({ component: Component, role, ...rest }) {
 
     return (

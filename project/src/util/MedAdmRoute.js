@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import { Route, Redirect } from "react-router-dom"
 
+// this route is for medical admin that has already been authenticated
 function MedAdmRoute({ component: Component, role, ...rest }) {
     return (
         <div>

@@ -9,6 +9,7 @@ import IdleTimerContainer from '../util/IdleTimerContainer'
 
 function ViewAllStaffAccount() 
 {
+   //react hooks
    const [users, setUsers] = useState([])
    const [medicalDocUsers, setMedicalDocUsers] = useState([])
    const [medicalStaff, setMedicalStaff] = useState([])
@@ -17,9 +18,8 @@ function ViewAllStaffAccount()
    const [filteredUsers, setFilteredUsers] = useState([]);
    let history = useHistory();
    
-
+   // fetches data on render
    React.useEffect(() => {
-   
       const fetchData = async () => {
          const db = firestore
          const data = await db.collection('Medical Staff').get()

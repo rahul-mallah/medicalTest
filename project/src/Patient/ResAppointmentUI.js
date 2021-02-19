@@ -10,6 +10,7 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
 function ResAppointmentUI() {
+    //react hooks
     const {state} = useLocation();  //access doctor passed from link router
     const {Appointment} = state;         // save appointment data from state
     const [appointments, setAppointments] = useState([]);  // save Appointment data from firestore in this array 
@@ -20,7 +21,9 @@ function ResAppointmentUI() {
     const [doctor, setDoctor] = useState([]);               // store doctor data
     const { currentUser } = useAuth();
     const history = useHistory();
+    let URI = process.env.NODE_ENV === 'development' ? process.env.REACT_APP_DEV_URI : process.env.REACT_APP_PROD_URI;
 
+    // fetches data on render
     React.useEffect(()=>{
         const fetchData = async () =>{
            firestore.collection("Appointment")
@@ -49,6 +52,7 @@ function ResAppointmentUI() {
         fetchData();
      }, [])
 
+     //alert message
      const confirmReScheduleAlert = () => {
         confirmAlert({
           title: 'Congratulations!',
@@ -61,7 +65,8 @@ function ResAppointmentUI() {
         });
       };
 
-      //handle submit
+      //handle submit function reschedule appointment in firebase and sends email 
+      // notification to patient
    const handleSubmit = async (e) => {
       e.preventDefault();
       setError("");
@@ -88,7 +93,7 @@ function ResAppointmentUI() {
             email: currentUser.email,
             department: doct.Department
         };
-        let response = await fetch("http://localhost:5000/reschedule", {
+        let response = await fetch(URI+"/reschedule", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json;charset=utf-8"

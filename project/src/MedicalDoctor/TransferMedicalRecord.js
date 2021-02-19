@@ -6,6 +6,7 @@ import {firestore } from '../firebase';
 import { useAuth } from "../util/Auth"
 
 function TransferMedicalRecord() {
+    // react hooks
     const {state} = useLocation()
     const {md} = state
     const history = useHistory();
@@ -13,6 +14,7 @@ function TransferMedicalRecord() {
     const [doctors, setDoctors] = useState([]);
     const [searchDoc, setSearchDoc] = useState("");
 
+    // fetches data on render
     React.useEffect(()=>{
         const fetchData = async () =>{
             firestore.collection("Medical Doctors")
@@ -25,6 +27,7 @@ function TransferMedicalRecord() {
         fetchData();
      }, [])
 
+     // transfers records to selected doctor
      async function transferRecords(email){
         await firestore.collection("Medical Records").doc(md.id).update({
            AssignedDoc : email
@@ -35,6 +38,7 @@ function TransferMedicalRecord() {
          })
      }
 
+     // filters data based on search field text
      let filteredDoc = doctors.filter(doc =>{
          return doc.Name.toLowerCase().includes(searchDoc);
      })

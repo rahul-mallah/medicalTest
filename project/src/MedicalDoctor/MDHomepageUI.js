@@ -5,10 +5,11 @@ import { useAuth } from "../util/Auth"
 
 function MDHomepageUI() {
 
+    // react hooks
     const { currentUser } = useAuth();
-
     const [Doctors, setDoctors] = useState([]); 
 
+    // fetches data on render
     React.useEffect(()=>{
         const fetchData = async () =>{
            firestore.collection("Medical Doctors").limit(1)

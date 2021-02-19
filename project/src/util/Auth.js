@@ -1,6 +1,11 @@
 import React, { useContext, useState, useEffect } from "react"
 import { auth } from "../firebase"
 
+// authcontext helps to get current logged in user by firebase
+// it contains all the firebase functions like login, signup, reset password, logout,
+// delete account, update passowrd and email etc which can be exported and used in the rest of 
+// program
+
 const AuthContext = React.createContext()
 
 export function useAuth() {

@@ -16,6 +16,7 @@ class DoctorProfile extends Component {
         console.log(props)
     }
 
+    // fetches data on render equivalent to react useEffect
     componentDidMount(){
         if(typeof this.props.location.state !== 'undefined'){
             if(this.props.location.state.hasOwnProperty('doctor')){

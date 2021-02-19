@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import { Route, Redirect } from "react-router-dom"
 
+// this route is for logged in doctor that has been autheticated
 function DoctorRoute({ component: Component, role, ...rest }) {
     return (
         <div>

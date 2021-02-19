@@ -27,6 +27,7 @@ function PatientComment(props) {
         });
       };
 
+      //fetches data on render
     React.useEffect(()=>{
         const fetchData = async () =>{
            firestore.collection("Users").limit(1)
@@ -49,6 +50,7 @@ function PatientComment(props) {
      const user = {...users[0]}
      let array = []
            
+     // function adds user's comments to the database
     async function submitComment (e) {
         e.preventDefault()
         const obj = {
@@ -84,6 +86,7 @@ function PatientComment(props) {
         }); 
     }
 
+    // function deletes user comments from database
     async function DeleteComment (comment) {
         array = array.filter(i => i.id !== comment.id);
        await firestore.collection("comments").doc(comment.id).delete().then(()=>{

@@ -21,7 +21,8 @@ function ScheduleAppointmentUI() {
     const [docGP, setDocGP] = useState({...doctor});
     const { currentUser } = useAuth();
     const history = useHistory();
-
+    let URI = process.env.NODE_ENV === 'development' ? process.env.REACT_APP_DEV_URI : process.env.REACT_APP_PROD_URI;
+    
     React.useEffect(()=>{
         const fetchData = async () =>{
            firestore.collection("Appointment")
@@ -99,7 +100,7 @@ function ScheduleAppointmentUI() {
                 email: currentUser.email,
                 department: docGP.Department
             };
-            let response = await fetch("http://localhost:5000/book", {
+            let response = await fetch(URI+"/book", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json;charset=utf-8"

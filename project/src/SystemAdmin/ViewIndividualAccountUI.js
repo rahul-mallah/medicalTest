@@ -35,7 +35,7 @@ function ViewIndividualAccountUI() {
    const [specialist, setSpecialist] = useState(""); 
    const [information, setInformation] = useState(""); 
    const [education, setEducation] = useState(""); 
-   const [department, setDepartment] = useState("");
+   const [department, setDepartment] = useState({label : "", value: ""});
 
    const {path} = useRouteMatch();
 
@@ -95,7 +95,7 @@ function ViewIndividualAccountUI() {
       setInformation(doc.Information);
       setSpecialist(doc.Specialist);
       setEducation(doc.Education);
-      setDepartment(doc.Department);
+      setDepartment({label: doc.Department, value: doc.Department});
    }
 
    const submitUpdateAlert = () => {
@@ -125,7 +125,7 @@ function ViewIndividualAccountUI() {
                Specialist: specialist,
                Education: education,
                Information: information,
-               Department: department
+               Department: department.value
             })
             await firestore.collection('Medical Staff').doc(ms.id).update({
                FirstName: FirstName,
@@ -298,8 +298,8 @@ function ViewIndividualAccountUI() {
 
                      <Select options={departmentList}
                      isDisabled = {enableFields}
-                     defaultValue = {{label: doc.Department, value: doc.Department }}
-                     onChange = {(e)=> setDepartment(e.value)}
+                     value = {enableFields ? {label: doc.Department, value: doc.Department}:department}
+                     onChange = {(e)=> setDepartment({...e})}
                      />
                      </div>
 

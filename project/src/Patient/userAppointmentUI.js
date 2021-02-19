@@ -152,8 +152,7 @@ function UserAppointmentUI() {
             }}><Button variant="primary">Book Follow-Up</Button></Link>):(<Link to={{
               pathname: 'bookAppointment/', 
               state:{doctor: doctor}
-  }}><Button variant="primary">Book Again</Button></Link>)}
-                
+  }}><Button variant="primary">Book Again</Button></Link>)}    
             </Card.Body>
           </Card>
           )}

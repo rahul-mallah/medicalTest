@@ -5,11 +5,11 @@ import { useAuth } from "../util/Auth"
 
 function MAHomepageUI() {
 
+    // react hooks
     const { currentUser } = useAuth();
-
     const [medAdmin, setMedAdmin] = useState([]); 
+
     //upon logging in user data is fecthed in React.useEffect and displayed in return 
-    
     React.useEffect(()=>{
         const fetchData = async () =>{
            firestore.collection("Medical Administrator").limit(1)

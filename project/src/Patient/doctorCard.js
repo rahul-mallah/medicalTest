@@ -3,6 +3,7 @@ import {Form, Button, Card, Container, Alert, Row, Col} from 'react-bootstrap'
 import {Link,} from "react-router-dom";
 import TextTruncate from 'react-text-truncate';
 
+// individual doctor cards to be called in search doctor page
 const DoctorCard = (props) => {
     return(
             <Card className="" style={{ width: '18rem' }}>

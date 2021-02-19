@@ -97,6 +97,7 @@ function ViewDoctorScheduleUI()
    const [startDate, setStartDate] = useState(new Date());
    const [appointments, setAppointments] = useState([]);
    const [doctor, setDoctor] = useState([]);
+   let URI = process.env.NODE_ENV === 'development' ? process.env.REACT_APP_DEV_URI : process.env.REACT_APP_PROD_URI;
 
    // Effect ---------------------------------------
    useEffect(() => {
@@ -294,7 +295,7 @@ function ViewDoctorScheduleUI()
                         email: tempAppointment[b].PatientEmail,
                         department: doctor[a].Department
                      };
-                     let response = await fetch("http://localhost:5000/sendReminder", {
+                     let response = await fetch(URI+"/sendReminder", {
                            method: "POST",
                            headers: {
                               "Content-Type": "application/json;charset=utf-8"

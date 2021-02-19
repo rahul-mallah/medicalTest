@@ -10,6 +10,7 @@ import IdleTimerContainer from '../util/IdleTimerContainer'
 
 function ViewAllAccountUI() 
 {
+   //react hooks
    const [users, setUsers] = useState([])
    const [search, setSearch] = useState("")
    const [loading, setLoading] = useState(false)
@@ -17,8 +18,8 @@ function ViewAllAccountUI()
    const [radio, setRadio] = useState("All");
    let history = useHistory();
 
+   //fetches data on render
    React.useEffect(() => {
-   
       const fetchData = async () => {
          const db = firestore
          const data = await db.collection('Users').get()
@@ -27,7 +28,8 @@ function ViewAllAccountUI()
       fetchData()
    }, [])
 
-
+   //filter function filters search data based on text in search field 
+   //and based on dropdown value selected
    let filteredUser = users.filter(user => {
       if (DropDownn === "All" && DropDownn === "Select A User by...")
          return user
@@ -109,12 +111,6 @@ function ViewAllAccountUI()
                            <td>{users.Email}</td>
                            {users.Telephone ? (<td>{users.Telephone}</td>):(<td>-</td>)}
                            <td>{users.Role}</td>
-                           {/* <Link to = {{ */}
-                              {/* pathname: '/SysAdm/viewIndvAcc', */}
-                              {/* state: {user: users} */}
-                           {/* }}><Button type = "submit">Edit</Button></Link> */}
-                           {/* <button onClick={onDelete} class = "btn btn-danger">Delete</button> */}
-
                         <StaffInput medicalStaff = {users}/>
 
                            </tr>

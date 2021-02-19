@@ -21,6 +21,7 @@ class SearchDoctor extends Component{
         this.getMyDoctor()
     }
 
+    // get doctors data from firebase and stores it in array
     getMyDoctor = () => {
         firestore.collection("Medical Doctors")
         .get()
@@ -46,6 +47,7 @@ class SearchDoctor extends Component{
     }
 
     render(){
+        // filter doctor searches based on text in search field and department selected
         let filteredDoctors = this.state.doctor.filter(doc => {
             if(this.state.DropDown === "All")
                 return doc.Name.toLowerCase().includes(this.state.searchValue.toLowerCase())

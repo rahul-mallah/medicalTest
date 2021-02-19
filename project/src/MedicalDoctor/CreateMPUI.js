@@ -10,6 +10,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import IdleTimerContainer from '../util/IdleTimerContainer';
 
 function CreateMPUI() {
+    //react hooks
     const {state} = useLocation();
     const {appointment} = state;
     //usestates

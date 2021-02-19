@@ -30,9 +30,8 @@ function CreateAccountUI() {
    const LNameRef = useRef();
    const EmailRef = useRef();
 
- 
+   let URI = process.env.NODE_ENV === 'development' ? process.env.REACT_APP_DEV_URI : process.env.REACT_APP_PROD_URI;
    
-
    const onFileChange = async (e) => {
       const file = e.target.files[0];
       const sRef = storageRef
@@ -41,8 +40,6 @@ function CreateAccountUI() {
       setFileUrl(await fileRef.getDownloadURL());
     };
     
-
-
    const submitCreateAlert = () => {
       confirmAlert({
         title: 'Congratulations!',
@@ -113,7 +110,7 @@ function CreateAccountUI() {
             email: Email.toLowerCase(),
             user: FirstName + " " + LastName
          };
-         let response = await fetch("http://localhost:5000/createAcc", {
+         let response = await fetch(URI+"/createAcc", {
             method: "POST",
             headers: {
                "Content-Type": "application/json;charset=utf-8"
@@ -124,7 +121,6 @@ function CreateAccountUI() {
          console.log(result.status);
       } catch(error){
          return setError(error.message);
-         
       }
       setLoading(false);
       setDisabled(false);

@@ -29,15 +29,18 @@ const convertTime12to24 = (time12h) => {
 }
 
 function ViewAllocatedPatientUI() {
+  // react hooks
    const [toggleState, setToggleState] = useState(1);
    const [appointments, setAppointments] = useState([]);
    const [doctor, setDoctor] = useState([]);
    const {currentUser} = useAuth();
 
+   // toggle tab
    const toggleTab = (index) => {
       setToggleState(index);
     };
 
+    // fetches data on render
     React.useEffect(()=>{
       const fetchData = async () =>{
          firestore.collection("Appointment")
